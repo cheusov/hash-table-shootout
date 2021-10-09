@@ -1,3 +1,10 @@
+absl_btree_map
+absl_node_hash_map
+absl_flat_hash_map
+folly_f14_fast_map
+folly_f14_node_map
+folly_f14_value_map
+folly_f14_vector_map
 boost_unordered_map
 bplus_tree
 cuckoohash_map

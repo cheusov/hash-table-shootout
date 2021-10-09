@@ -34,3 +34,9 @@
 [submodule "klibs"]
 	path = klibs
 	url = https://github.com/attractivechaos/klib.git
+[submodule "abseil-cpp"]
+	path = abseil-cpp
+	url = https://github.com/abseil/abseil-cpp.git
+[submodule "folly"]
+	path = folly
+	url = https://github.com/facebook/folly.git

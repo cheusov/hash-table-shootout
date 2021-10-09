@@ -82,6 +82,25 @@ build/bplus_tree: ${OBJS_bplus_tree}
 ${OBJ_DIR}/%.o: bplus-tree/src/%.c
 	${CC} -std=c99 ${CFLAGS} ${CFLAGS_bplus_tree} -c -o $@ $<
 endif
+#ifeq ($(filter absl,${APPS}), absl)
+abseil.done:
+	mkdir -p build/abseil-cpp && cd build/abseil-cpp && pwd && cmake -DCMAKE_INSTALL_PREFIX=.. -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=14 ../../abseil-cpp && cmake --build . --target all && cmake --build . --target install
+	touch abseil.done folly/folly/folly-config.h
+CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
+LDFLAGS_absl_flat_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+CXXFLAGS_absl_btree_map ?= -Ibuild/include
+LDFLAGS_absl_btree_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+CXXFLAGS_absl_node_hash_map ?= -Ibuild/include
+LDFLAGS_absl_node_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+CXXFLAGS_folly_f14_fast_map ?= -Ifolly
+LDFLAGS_folly_f14_fast_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+CXXFLAGS_folly_f14_node_map ?= -Ifolly
+LDFLAGS_folly_f14_node_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+CXXFLAGS_folly_f14_value_map ?= -Ifolly
+LDFLAGS_folly_f14_value_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+CXXFLAGS_folly_f14_vector_map ?= -Ifolly
+LDFLAGS_folly_f14_vector_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+#endif
 
 LDFLAGS_judyL                           ?= -lJudy
 LDFLAGS_judyHS                          ?= ${LDFLAGS_judyL}
@@ -114,13 +133,13 @@ LDFLAGS_khash                           ?=
 
 EXECUTABLES = $(APPS:%=$(BUILD_DIR)/%)
 
-all: $(BUILD_DIR) $(OBJ_DIR) $(EXECUTABLES)
+all: $(BUILD_DIR) $(OBJ_DIR) $(EXECUTABLES) abseil.done
 
-$(OBJ_DIR) $(BUILD_DIR):
+$(OBJ_DIR) $(BUILD_DIR): abseil.done
 	mkdir -p $@
 
 clean:
-	rm -rf $(BUILD_DIR) $(OBJ_DIR)
+	rm -rf $(BUILD_DIR) $(OBJ_DIR) abseil.done
 
 $(BUILD_DIR)/% : src/%.cc ${OBJS_${notdir $@}} src/template.cc
 	$(CXX) $(CXXFLAGS) ${CXXFLAGS_${notdir $@}} -o $@ $< ${OBJS_${notdir $@}} ${LDFLAGS} ${LDFLAGS_${notdir $@}}
