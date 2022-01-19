@@ -5,6 +5,7 @@ folly_f14_fast_map
 folly_f14_node_map
 folly_f14_value_map
 folly_f14_vector_map
+boost_flat_map
 boost_unordered_map
 bplus_tree
 cuckoohash_map

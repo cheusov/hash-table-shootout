@@ -84,7 +84,10 @@ ${OBJ_DIR}/%.o: bplus-tree/src/%.c
 endif
 #ifeq ($(filter absl,${APPS}), absl)
 abseil.done:
-	mkdir -p build/abseil-cpp && cd build/abseil-cpp && pwd && cmake -DCMAKE_INSTALL_PREFIX=.. -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=14 ../../abseil-cpp && cmake --build . --target all && cmake --build . --target install
+	mkdir -p build/abseil-cpp && cd build/abseil-cpp && pwd && \
+    cmake -DCMAKE_INSTALL_PREFIX=.. -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=14 ../../abseil-cpp && \
+    cmake --build . --target all && \
+    cmake --build . --target install
 	touch abseil.done folly/folly/folly-config.h
 CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
 LDFLAGS_absl_flat_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
