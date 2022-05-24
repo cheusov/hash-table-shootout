@@ -9,6 +9,11 @@ from collections import OrderedDict
 # do them in the desired order to make the legend not overlap
 # the chart data too much
 program_slugs = [
+    'judyL',
+    'nata88',
+    'nataF8',
+    'judyHS',
+    'khash',
     'std_unordered_map',
     'google_dense_hash_map',
     'qt_qhash',
@@ -31,10 +36,6 @@ program_slugs = [
     'emilib_hash_map',
     'tsl_array_map',
     'tsl_array_map_mlf_1_0',
-    'judyL',
-    'judyHS',
-    'nata88',
-    'nataF8',
     'glib_tree',
     'glib_hash_table',
     'cuckoohash_map'
@@ -57,6 +58,7 @@ lines = [ line.strip() for line in sys.stdin if line.strip() ]
 
 by_benchtype = {}
 
+all_programs = set()
 for line in lines:
     if len(line) == 0:
         next
@@ -65,6 +67,7 @@ for line in lines:
     nbytes = float(nbytes) / nkeys # bytes per (key,value) pair
     runtime = float(runtime) * 1000000000 / nkeys # microseconds per operation
     load_factor = float(load_factor)
+    all_programs.add(program)
 
     if runtime > 0 and nbytes > 0:
         by_benchtype.setdefault("%s_runtime" % benchtype, {}).setdefault(program, []).append([nkeys, runtime, load_factor])
@@ -79,8 +82,8 @@ real_default_programs_show = set()
 
 for i, (benchtype, programs) in enumerate(by_benchtype.items()):
     chart_data[benchtype] = []
-    for j, program in enumerate(program_slugs):
-        if program not in programs:
+    for program in program_slugs:
+        if program not in all_programs:
             continue
 
         existing_programs[program] = program

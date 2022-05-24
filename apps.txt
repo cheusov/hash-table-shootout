@@ -33,5 +33,5 @@ kyotocabinet_hash
 leveldb
 rocksdb
 khash
-# nata88
-# nataF8
+nata88
+nataF8
