@@ -4,8 +4,7 @@
 
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
-#define SETUP_INT \
-	void *hash_int = NULL;
+#define SETUP_INT void *hash_int = NULL;
 #define RESERVE_INT(size)
 #define INSERT_INT(key, value) \
 	*nata88ins(&hash_int, key, NULL) = value;
@@ -26,13 +25,12 @@
 	if (nata88get(hash_int, key, NULL) != NULL) { \
 		count++; \
 	}
-#define CHECK_INT_ITERATOR_VALUE(iterator, value) \
-	std::cerr << "iteration for nata88 is not implemented yet\n"; \
-	exit(73);
-#define ITERATE_INT(key)
-
+#define CHECK_INT_ITERATOR_VALUE(iterator, value)
+#define ITERATE_INT(key) \
+	uint64_t key = 0; \
+	uint64_t *p_value = nata88first(hash_int, &key, NULL); \
+	for (; p_value != NULL; p_value = nata88next(hash_int, &key, NULL))
 #define LOAD_FACTOR_INT_HASH(hash) (0.0f)
-
 #define CLEAR_INT
 
 #include "template.cc"
