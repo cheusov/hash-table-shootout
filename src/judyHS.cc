@@ -5,7 +5,6 @@
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
 #define SETUP_STR void *str_hash = NULL;
-
 #define RESERVE_STR(size)
 #define INSERT_STR(key, value) \
 	*(Word_t *)JudyHSIns(&str_hash, __UNCONST(key.c_str()), key.size(), NULL) = value;
@@ -25,9 +24,7 @@
 	if (JudyHSGet(str_hash, __UNCONST(key.c_str()), key.size()) != NULL) { \
 		count++; \
 	}
-
 #define LOAD_FACTOR_STR_HASH(hash) (0.0f)
-
 #define CLEAR_STR
 
 #include "template.cc"
