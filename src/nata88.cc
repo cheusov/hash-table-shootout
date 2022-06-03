@@ -9,8 +9,7 @@
 #define INSERT_INT(key, value) \
 	*nata88ins(&hash_int, key, NULL) = value;
 #define DELETE_INT(key) \
-	std::cerr << "nata88del is not implemented yet"; \
-	exit(72); //nata88del(&hash_int, key, NULL);
+	nata88del(&hash_int, key, NULL);
 #define FIND_INT_EXISTING(key) \
 	if (nata88get(hash_int, key, NULL) == NULL) { \
 		std::cerr << "error\n"; \
