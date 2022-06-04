@@ -93,9 +93,14 @@ for nkeys in points:
 
             for attempt in range(best_out_of):
                 try:
-                    output = subprocess.check_output(['./build/' + program, str(nkeys), benchtype], text=True, stderr=subprocess.STDOUT)
+                    exec_name = './build/' + program
+                    if not os.path.isfile(exec_name):
+                        print("Ignoring absent executable '%s'" % exec_name, file=sys.stderr)
+                        continue
+
+                    output = subprocess.check_output([exec_name, str(nkeys), benchtype], text=True, stderr=subprocess.STDOUT)
                     words = output.strip().split()
-                    
+
                     runtime_seconds = float(words[0])
                     memory_usage_bytes = int(words[1])
                     load_factor = float(words[2])
