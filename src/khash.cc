@@ -1,14 +1,67 @@
 #include <khash.h>
+#include <stdint.h>
 
 #define __UNCONST(p) ((void *)((char*)NULL+((const char*)p-(const char*)NULL)))
 
-KHASH_MAP_INIT_INT64(kh64, int64_t)
-KHASH_MAP_INIT_STR(khstr, int64_t)
+static kh_inline khint_t murmur_hash2(const char *key);
 
-#define SETUP_INT \
-	khash_t(kh64) *hash = kh_init(kh64);
-#define SETUP_STR \
-	khash_t(khstr) *str_hash = kh_init(khstr);
+KHASH_MAP_INIT_INT64(kh64, int64_t)
+
+// A performance of default khash hash function is extreamly bad!
+// That's why we use murmur_hash2 implementation here
+// KHASH_MAP_INIT_STR(khstr, int64_t)
+KHASH_INIT(khstr, kh_cstr_t, int64_t, 1, murmur_hash2, kh_str_hash_equal)
+
+static kh_inline khint_t murmur_hash2(const char *key)
+{
+	const uint32_t m = 0x5bd1e995;
+	const uint32_t seed = 0;
+	const int r = 24;
+	size_t len = strlen(key);
+
+	uint32_t h = seed ^ len;
+
+	const unsigned char * data = (const unsigned char *)key;
+	uint32_t k;
+
+	while (len >= 4){
+		k  = data[0];
+		k |= data[1] << 8;
+		k |= data[2] << 16;
+		k |= data[3] << 24;
+
+		k *= m;
+		k ^= k >> r;
+		k *= m;
+
+		h *= m;
+		h ^= k;
+
+		data += 4;
+		len -= 4;
+	}
+
+	switch (len)
+	{
+		case 3:
+			h ^= data[2] << 16;
+		case 2:
+			h ^= data[1] << 8;
+		case 1:
+			h ^= data[0];
+			h *= m;
+	};
+
+	h ^= h >> 13;
+	h *= m;
+	h ^= h >> 15;
+
+	return h;
+}
+
+#define SETUP_INT khash_t(kh64) *hash = kh_init(kh64);
+#define SETUP_STR khash_t(khstr) *str_hash = kh_init(khstr);
+
 #define RESERVE_INT(n)
 #define RESERVE_STR(n)
 #define INSERT_INT(key, value)											\
