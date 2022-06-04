@@ -25,17 +25,16 @@ repls = (
     ('insert_small_string_reserve',    'RESERVE_SMALL_STRING'),
     ('read_small_string',              'READ_SMALL_STRING'),
     ('read_miss_small_string',         'READ_MISS_SMALL_STRING'),
-    ('read_small_string_after_delete', 'DELETE_SMALL_STRING'),
     ('delete_small_string',            'READ_AFTER_DEL_SMALL_STRING'),
-
+    ('read_small_string_after_delete', 'DELETE_SMALL_STRING'),
 
     ('insert_string',                  'INSERT_STRING'),
     ('reinsert_string',                'REINSERT__STRING'),
     ('insert_string_reserve',          'RESERVE_STRING'),
     ('read_string',                    'READ_STRING'),
     ('read_miss_string',               'READ_MISS_STRING'),
-    ('read_string_after_delete',       'DELETE_STRING'),
     ('delete_string',                  'READ_AFTER_DEL_STRING'),
+    ('read_string_after_delete',       'DELETE_STRING'),
 )
 
 for l in repls:
