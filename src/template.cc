@@ -27,9 +27,11 @@ static const std::array<char, 62> ALPHANUMERIC_CHARS = {
 /**
  * SMALL_STRING_SIZE should be small enough so that there is no heap allocation when a std::string is created.
  */
-static const std::size_t SMALL_STRING_MIN_SIZE = 10;
+static const std::size_t TINY_STRING_MIN_SIZE = 2;
+static const std::size_t TINY_STRING_MAX_SIZE = 10;
+static const std::size_t SMALL_STRING_MIN_SIZE = 11;
 static const std::size_t SMALL_STRING_MAX_SIZE = 20;
-static const std::size_t STRING_MIN_SIZE = 20;
+static const std::size_t STRING_MIN_SIZE = 21;
 static const std::size_t STRING_MAX_SIZE = 100;
 
 static const std::int64_t SEED = 0;
@@ -348,7 +350,20 @@ static bool process_strings()
 	 */
 	std::vector<std::string> keys;
 
-	if (test_type == "insert_small_string" ||
+	if (test_type == "insert_tiny_string" ||
+		test_type == "reinsert_tiny_string" ||
+		test_type == "insert_tiny_string_reserve" ||
+		test_type == "read_tiny_string" ||
+		test_type == "read_miss_tiny_string" ||
+		test_type == "read_tiny_string_after_delete" ||
+		test_type == "delete_tiny_string")
+	{
+		if (test_type == "read_miss_tiny_string"){
+			RESERVE_STR(num_keys);
+		}
+		keys = get_random_alphanum_strings(
+			num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
+	}else if (test_type == "insert_small_string" ||
 		test_type == "reinsert_small_string" ||
 		test_type == "insert_small_string_reserve" ||
 		test_type == "read_small_string" ||
@@ -376,8 +391,10 @@ static bool process_strings()
 			num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
 	}
 
-	if (test_type == "insert_small_string" ||
+	if (test_type == "insert_tiny_string" ||
+		test_type == "insert_small_string" ||
 		test_type == "insert_string" ||
+		test_type == "insert_tiny_string_reserve" ||
 		test_type == "insert_small_string_reserve" ||
 		test_type == "insert_string_reserve")
 	{
@@ -387,7 +404,10 @@ static bool process_strings()
 		}
 	}
 
-	else if (test_type == "reinsert_small_string" || test_type == "reinsert_string"){
+	else if (test_type == "reinsert_tiny_string" ||
+			 test_type == "reinsert_small_string" ||
+			 test_type == "reinsert_string")
+	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_STR(keys[i], value);
@@ -401,7 +421,10 @@ static bool process_strings()
 		}
 	}
 
-	else if (test_type == "read_small_string" || test_type == "read_string"){
+	else if (test_type == "read_tiny_string" ||
+			 test_type == "read_small_string" ||
+			 test_type == "read_string")
+	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_STR(keys[i], 1);
@@ -416,14 +439,21 @@ static bool process_strings()
 		}
 	}
 
-	else if (test_type == "read_miss_small_string" || test_type == "read_miss_string"){
+	else if (test_type == "read_miss_tiny_string" ||
+			 test_type == "read_miss_small_string" ||
+			 test_type == "read_miss_string")
+	{
 		std::vector<std::string> keys_read;
-		if (test_type == "read_miss_string")
+		if (test_type == "read_miss_tiny_string")
+			keys_read = get_random_alphanum_strings(
+				num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
+		else if (test_type == "read_miss_string")
 			keys_read = get_random_alphanum_strings(
 				num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
 		else if (test_type == "read_miss_small_string")
 			keys_read = get_random_alphanum_strings(
 				num_keys, SMALL_STRING_MIN_SIZE, SMALL_STRING_MAX_SIZE);
+
 
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
@@ -438,7 +468,8 @@ static bool process_strings()
 		}
 	}
 
-	else if (test_type == "read_small_string_after_delete" ||
+	else if (test_type == "read_tiny_string_after_delete" ||
+			 test_type == "read_small_string_after_delete" ||
 			 test_type == "read_string_after_delete")
 	{
 		measurements m;
@@ -466,7 +497,8 @@ static bool process_strings()
 		}
 	}
 
-	else if (test_type == "delete_small_string" ||
+	else if (test_type == "delete_tiny_string" ||
+			 test_type == "delete_small_string" ||
 			 test_type == "delete_string")
 	{
 		measurements m;

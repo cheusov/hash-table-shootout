@@ -5,7 +5,7 @@ import sys, os, subprocess, re
 # samples of use:
 #  ./bench.py
 #  ./bench.py insert_random_full insert_random_full_reserve
-#  APPS='judyHS ska_bytell_hash_map' ./bench.py small_string string
+#  APPS='judyHS ska_bytell_hash_map' ./bench.py tiny_string small_string string
 
 ######################################################################
 ### Fill free to change the following defaults
@@ -40,6 +40,13 @@ short_names = {
         'delete_random_full', 'read_random_full_after_delete',
         'iteration_random_full'
     ],
+    'tiny_string': [
+        'insert_tiny_string', 'reinsert_tiny_string',
+        'insert_tiny_string_reserve',
+        'read_tiny_string', 'read_miss_tiny_string',
+        'delete_tiny_string',
+        'read_tiny_string_after_delete'
+    ],
     'small_string': [
         'insert_small_string', 'reinsert_small_string',
         'insert_small_string_reserve',
@@ -67,7 +74,7 @@ if len(sys.argv) > 1:
         benchtypes.extend(short_names.get(x, [x]))
 else:
     benchtypes = short_names['random_shuffle_range'] + short_names['random_full'] \
-        + short_names['small_string'] + short_names['string']
+        + short_names['tiny_string'] + short_names['small_string'] + short_names['string']
 
 if "interval" in dir():
     points = range(minkeys, maxkeys + 1, interval)

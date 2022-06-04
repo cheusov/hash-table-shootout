@@ -194,6 +194,33 @@
 
 
 	
+        plot_chart(chart_data['insert_tiny_string_runtime'], '#insert_tiny_string_runtime', '#insert_tiny_string_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['insert_tiny_string_bopsnsec'], '#insert_tiny_string_bopsnsec', '#insert_tiny_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['reinsert_tiny_string_runtime'], '#reinsert_tiny_string_runtime', '#reinsert_tiny_string_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['reinsert_tiny_string_bopsnsec'], '#reinsert_tiny_string_bopsnsec', '#reinsert_tiny_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['insert_tiny_string_reserve_runtime'], '#insert_tiny_string_reserve_runtime', '#insert_tiny_string_reserve_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['insert_tiny_string_reserve_bopsnsec'], '#insert_tiny_string_reserve_bopsnsec', '#insert_tiny_string_reserve_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['read_tiny_string_runtime'], '#read_tiny_string_runtime', '#read_tiny_string_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['read_tiny_string_bopsnsec'], '#read_tiny_string_bopsnsec', '#read_tiny_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['read_miss_tiny_string_runtime'], '#read_miss_tiny_string_runtime', '#read_miss_tiny_string_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['read_miss_tiny_string_bopsnsec'], '#read_miss_tiny_string_bopsnsec', '#read_miss_tiny_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['read_tiny_string_after_delete_runtime'], '#read_tiny_string_after_delete_runtime', '#read_tiny_string_after_delete_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['read_tiny_string_after_delete_bopsnsec'], '#read_tiny_string_after_delete_bopsnsec', '#read_tiny_string_after_delete_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['delete_tiny_string_runtime'], '#delete_tiny_string_runtime', '#delete_tiny_string_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['delete_tiny_string_bopsnsec'], '#delete_tiny_string_bopsnsec', '#delete_tiny_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['insert_tiny_string_memory'], '#insert_tiny_string_memory', '#insert_tiny_string_memory_choices', memory_settings, redraw_only);
+
+        plot_chart(chart_data['insert_tiny_string_reserve_memory'], '#insert_tiny_string_reserve_memory', '#insert_tiny_string_reserve_memory_choices', memory_settings, redraw_only);
+
+
+
         plot_chart(chart_data['insert_small_string_runtime'], '#insert_small_string_runtime', '#insert_small_string_runtime_choices', runtime_settings, redraw_only);
         plot_chart(chart_data['insert_small_string_bopsnsec'], '#insert_small_string_bopsnsec', '#insert_small_string_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
@@ -342,6 +369,8 @@
       </li>
 <!-- END2_INTEGERS_RANGE -->
 
+
+
 <!-- REAL2_BEGIN_INTEGERS_RANDOM_FULL -->
       <li><a href="#integers_random_full">Random integers
 	  <ul>
@@ -373,6 +402,40 @@
 	  </ul>
       </li>
 <!-- END2_INTEGERS_RANDOM_FULL -->
+
+
+
+<!-- REAL2_BEGIN_TINY_STRINGS -->
+      <li><a href="#tiny_strings">Tiny Strings
+	  <ul>
+<!-- BEGIN2_TINY_STRINGS -->
+<!-- BEGIN2_INSERT_TINY_STRING -->
+	    <li><a href="#insert_tiny_string">insert_tiny_string</a></li>
+<!-- END2_INSERT_TINY_STRING -->
+<!-- BEGIN2_REINSERT_TINY_STRING -->
+	    <li><a href="#reinsert_tiny_string">reinsert_tiny_string</a></li>
+<!-- END2_REINSERT_TINY_STRING -->
+<!-- BEGIN2_INSERT_TINY_STRING_RESERVE -->
+	    <li><a href="#insert_tiny_string_reserve">insert_tiny_string_reserve</a></li>
+<!-- END2_INSERT_TINY_STRING_RESERVE -->
+<!-- BEGIN2_READ_TINY_STRING -->
+	    <li><a href="#read_tiny_string">read_tiny_string</a></li>
+<!-- END2_READ_TINY_STRING -->
+<!-- BEGIN2_READ_MISS_TINY_STRING -->
+	    <li><a href="#read_miss_tiny_string">read_miss_tiny_string</a></li>
+<!-- END2_READ_MISS_TINY_STRING -->
+<!-- BEGIN2_DELETE_TINY_STRING -->
+	    <li><a href="#delete_tiny_string">delete_tiny_string</a></li>
+<!-- END2_DELETE_TINY_STRING -->
+<!-- BEGIN2_READ_TINY_STRING_AFTER_DELETE -->
+	    <li><a href="#read_tiny_string_after_delete">read_tiny_string_after_delete</a></li>
+<!-- END2_READ_TINY_STRING_AFTER_DELETE -->
+	  </ul>
+      </li>
+<!-- END2_TINY_STRINGS -->
+
+
+
 <!-- REAL2_BEGIN_SMALL_STRINGS -->
       <li><a href="#small_strings">Small Strings
 	  <ul>
@@ -401,6 +464,9 @@
 	  </ul>
       </li>
 <!-- END2_SMALL_STRINGS -->
+
+
+
 <!-- REAL2_BEGIN_STRINGS -->
       <li><a href="#strings">Strings
 	  <ul>
@@ -652,11 +718,143 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 
 
 
+<!-- BEGIN_TINY_STRINGS -->
+<h2><a name="tiny_strings">Tiny strings</h2>
+<p>For the tiny string tests, we use hash maps with std::string as key and int64_t as value.</p>
+
+<p>Each string is a random generated string of 2-10 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3".<p>
+
+<!-- BEGIN_INSERT_TINY_STRING -->
+<h3><a name="insert_tiny_string">Inserts: memory footprint and execution time (tiny strings)</h3>
+
+<p>For each entry in the range [0, nb_entries), we generate a string as key and insert it with the value 1.</p>
+
+<div class="chart" id="insert_tiny_string_memory"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_memory_choices"></ul>
+
+<div class="chart" id="insert_tiny_string_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_runtime_choices"></ul>
+
+<div class="chart" id="insert_tiny_string_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_bopsnsec_choices"></ul>
+<!-- END_INSERT_TINY_STRING -->
+
+
+<!-- BEGIN_REINSERT_TINY_STRING -->
+<h3><a name="reinsert_tiny_string">Inserts of existing keys: execution time (tiny strings)</h3>
+
+<p>Before the test for each entry in the range [0, nb_entries), we
+  generate a string as key and insert it with the value 1.  Then, we
+  shuffle the vector of keys and insert them again</p>
+
+<div class="chart" id="reinsert_tiny_string_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="reinsert_tiny_string_runtime_choices"></ul>
+
+<div class="chart" id="reinsert_tiny_string_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="reinsert_tiny_string_bopsnsec_choices"></ul>
+<!-- END_REINSERT_TINY_STRING -->
+
+
+<!-- BEGIN_INSERT_TINY_STRING_RESERVE -->
+<h3><a name="insert_tiny_string_reserve">
+    Inserts with reserve: memory footprint and execution time (tiny strings)</h3>
+
+<p>Same as the inserts test but the reserve method of the hash map is called beforehand to avoid any rehash during the insertion. 
+It provides a fair comparison even if the growth factor of each hash map is different.</p>
+
+<div class="chart" id="insert_tiny_string_reserve_memory"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_reserve_memory_choices"></ul>
+
+<div class="chart" id="insert_tiny_string_reserve_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_reserve_runtime_choices"></ul>
+
+<div class="chart" id="insert_tiny_string_reserve_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="insert_tiny_string_reserve_bopsnsec_choices"></ul>
+<!-- END_INSERT_TINY_STRING_RESERVE -->
+
+
+<!-- BEGIN_READ_TINY_STRING -->
+<h3><a name="read_tiny_string">Reads: execution time (tiny strings)</h3>
+
+<p>Before the test, we insert nb_entries elements in the hash map as in the inserts test. 
+We then read each key-value pair in a different and random order than the one they were inserted.</p>
+
+<div class="chart" id="read_tiny_string_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_tiny_string_runtime_choices"></ul>
+
+<div class="chart" id="read_tiny_string_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_tiny_string_bopsnsec_choices"></ul>
+<!-- END_READ_TINY_STRING -->
+
+
+<!-- BEGIN_READ_MISS_TINY_STRING -->
+<h3><a name="read_miss_tiny_string">Reads misses: execution time (tiny strings)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the inserts test. 
+We then generate nb_entries strings different from the inserted elements and 
+we try to search for these unknown elements in the hash map.</p>
+
+<div class="chart" id="read_miss_tiny_string_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_miss_tiny_string_runtime_choices"></ul>
+
+<div class="chart" id="read_miss_tiny_string_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_miss_tiny_string_bopsnsec_choices"></ul>
+<!-- END_READ_MISS_TINY_STRING -->
+
+
+<!-- BEGIN_DELETE_TINY_STRING -->
+<h3><a name="delete_tiny_string">Deletes: execution time (tiny strings)</h3>
+
+<p>Before the test, we insert nb_entries elements in the hash map as in the inserts test. 
+We then delete each key one by one in a different and random order than the one they were inserted.</p>
+
+<div class="chart" id="delete_tiny_string_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="delete_tiny_string_runtime_choices"></ul>
+
+<div class="chart" id="delete_tiny_string_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="delete_tiny_string_bopsnsec_choices"></ul>
+<!-- END_DELETE_TINY_STRING -->
+
+<!-- BEGIN_READ_TINY_STRING_AFTER_DELETE -->
+<h3><a name="read_tiny_string_after_delete">Reads after deleting half: execution time (tiny strings)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the inserts test before 
+deleting half of these values randomly. We then try to read all the original values in a 
+different order which will lead to 50% hits and 50% misses.</p>
+
+<div class="chart" id="read_tiny_string_after_delete_runtime"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_tiny_string_after_delete_runtime_choices"></ul>
+
+<div class="chart" id="read_tiny_string_after_delete_bopsnsec"></div>
+<div class="xaxis-title">number of entries in hash table</div>
+<ul class="choices" id="read_tiny_string_after_delete_bopsnsec_choices"></ul>
+<!-- END_READ_TINY_STRING_AFTER_DELETE -->
+
+<!-- END_TINY_STRINGS -->
+
+
+
+
 <!-- BEGIN_SMALL_STRINGS -->
 <h2><a name="small_strings">Small strings</h2>
 <p>For the small string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
-<p>Each string is a random generated string of 10-20 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3LdJxL".<p>
+<p>Each string is a random generated string of 11-20 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3LdJxL".<p>
 
 <!-- BEGIN_INSERT_SMALL_STRING -->
 <h3><a name="insert_small_string">Inserts: memory footprint and execution time (small strings)</h3>

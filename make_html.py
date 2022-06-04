@@ -20,6 +20,14 @@ repls = (
     'read_random_full_after_delete',
     'iteration_random_full',
 
+    'insert_tiny_string',
+    'reinsert_tiny_string',
+    'insert_tiny_string_reserve',
+    'read_tiny_string',
+    'read_miss_tiny_string',
+    'delete_tiny_string',
+    'read_tiny_string_after_delete',
+
     'insert_small_string',
     'reinsert_small_string',
     'insert_small_string_reserve',
@@ -46,7 +54,8 @@ for l in repls:
 
 html_template = re.sub('<!-- *-->', '', html_template)
 
-for s in ['INTEGERS_RANGE', 'INTEGERS_RANDOM_FULL', 'SMALL_STRINGS', 'STRINGS', 'INTEGERS']:
+for s in ['INTEGERS_RANGE', 'INTEGERS_RANDOM_FULL', 'TINY_STRINGS',
+          'SMALL_STRINGS', 'STRINGS', 'INTEGERS']:
     html_template = re.sub('<!-- REAL_BEGIN_' + s + '(.|\\n)*BEGIN_' + s
                            + ' -->(\\s|\\n)*<!-- END_' + s + " -->", '', html_template)
     html_template = re.sub('<!-- REAL2_BEGIN_' + s + '.*BEGIN2_' + s
