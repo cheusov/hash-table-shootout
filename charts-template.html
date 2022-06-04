@@ -325,59 +325,126 @@
 <div class="infobox">
   <p><b>Jump to:</b>
     <ul>
+<!-- REAL2_BEGIN_INTEGERS_RANGE -->
       <li><a href="#integers_range">Range of integers
 	  <ul>
+<!-- BEGIN2_INTEGERS_RANGE -->
+<!-- BEGIN2_INSERT_RANDOM_SHUFFLE_RANGE -->
 	    <li><a href="#insert_random_shuffle_range">insert_random_shuffle_range</a></li>
+<!-- END2_INSERT_RANDOM_SHUFFLE_RANGE -->
+<!-- BEGIN2_REINSERT_RANDOM_SHUFFLE_RANGE -->
 	    <li><a href="#reinsert_random_shuffle_range">reinsert_random_shuffle_range</a></li>
+<!-- END2_REINSERT_RANDOM_SHUFFLE_RANGE -->
+<!-- BEGIN2_READ_RANDOM_SHUFFLE_RANGE -->
 	    <li><a href="#read_random_shuffle_range">read_random_shuffle_range</a></li>
+<!-- END2_READ_RANDOM_SHUFFLE_RANGE -->
 	  </ul>
       </li>
+<!-- END2_INTEGERS_RANGE -->
+
+<!-- REAL2_BEGIN_INTEGERS_RANDOM_FULL -->
       <li><a href="#integers_random_full">Random integers
 	  <ul>
+<!-- BEGIN2_INTEGERS_RANDOM_FULL -->
+<!-- BEGIN2_INSERT_RANDOM_FULL -->
 	    <li><a href="#insert_random_full">insert_random_full</a></li>
+<!-- END2_INSERT_RANDOM_FULL -->
+<!-- BEGIN2_REINSERT_RANDOM_FULL -->
 	    <li><a href="#reinsert_random_full">reinsert_random_full</a></li>
+<!-- END2_REINSERT_RANDOM_FULL -->
+<!-- BEGIN2_INSERT_RANDOM_FULL_RESERVE -->
 	    <li><a href="#insert_random_full_reserve">insert_random_full_reserve</a></li>
+<!-- END2_INSERT_RANDOM_FULL_RESERVE -->
+<!-- BEGIN2_READ_RANDOM_FULL -->
 	    <li><a href="#read_random_full">read_random_full</a></li>
+<!-- END2_READ_RANDOM_FULL -->
+<!-- BEGIN2_READ_MISS_RANDOM_FULL -->
 	    <li><a href="#read_miss_random_full">read_miss_random_full</a></li>
+<!-- END2_READ_MISS_RANDOM_FULL -->
+<!-- BEGIN2_DELETE_RANDOM_FULL -->
 	    <li><a href="#delete_random_full">delete_random_full</a></li>
+<!-- END2_DELETE_RANDOM_FULL -->
+<!-- BEGIN2_READ_RANDOM_FULL_AFTER_DELETE -->
 	    <li><a href="#read_random_full_after_delete">read_random_full_after_delete</a></li>
+<!-- END2_READ_RANDOM_FULL_AFTER_DELETE -->
+<!-- BEGIN2_ITERATION_RANDOM_FULL -->
 	    <li><a href="#iteration_random_full">iteration_random_full</a></li>
+<!-- END2_ITERATION_RANDOM_FULL -->
 	  </ul>
       </li>
+<!-- END2_INTEGERS_RANDOM_FULL -->
+<!-- REAL2_BEGIN_SMALL_STRINGS -->
       <li><a href="#small_strings">Small Strings
 	  <ul>
+<!-- BEGIN2_SMALL_STRINGS -->
+<!-- BEGIN2_INSERT_SMALL_STRING -->
 	    <li><a href="#insert_small_string">insert_small_string</a></li>
+<!-- END2_INSERT_SMALL_STRING -->
+<!-- BEGIN2_REINSERT_SMALL_STRING -->
 	    <li><a href="#reinsert_small_string">reinsert_small_string</a></li>
+<!-- END2_REINSERT_SMALL_STRING -->
+<!-- BEGIN2_INSERT_SMALL_STRING_RESERVE -->
 	    <li><a href="#insert_small_string_reserve">insert_small_string_reserve</a></li>
+<!-- END2_INSERT_SMALL_STRING_RESERVE -->
+<!-- BEGIN2_READ_SMALL_STRING -->
 	    <li><a href="#read_small_string">read_small_string</a></li>
+<!-- END2_READ_SMALL_STRING -->
+<!-- BEGIN2_READ_MISS_SMALL_STRING -->
 	    <li><a href="#read_miss_small_string">read_miss_small_string</a></li>
+<!-- END2_READ_MISS_SMALL_STRING -->
+<!-- BEGIN2_DELETE_SMALL_STRING -->
 	    <li><a href="#delete_small_string">delete_small_string</a></li>
+<!-- END2_DELETE_SMALL_STRING -->
+<!-- BEGIN2_READ_SMALL_STRING_AFTER_DELETE -->
 	    <li><a href="#read_small_string_after_delete">read_small_string_after_delete</a></li>
+<!-- END2_READ_SMALL_STRING_AFTER_DELETE -->
 	  </ul>
       </li>
+<!-- END2_SMALL_STRINGS -->
+<!-- REAL2_BEGIN_STRINGS -->
       <li><a href="#strings">Strings
 	  <ul>
+<!-- BEGIN2_STRINGS -->
+<!-- BEGIN2_INSERT_STRING -->
 	    <li><a href="#insert_string">insert_string</a></li>
+<!-- END2_INSERT_STRING -->
+<!-- BEGIN2_REINSERT_STRING -->
 	    <li><a href="#reinsert_string">reinsert_string</a></li>
+<!-- END2_REINSERT_STRING -->
+<!-- BEGIN2_INSERT_STRING_RESERVE -->
 	    <li><a href="#insert_string_reserve">insert_string_reserve</a></li>
+<!-- END2_INSERT_STRING_RESERVE -->
+<!-- BEGIN2_READ_STRING -->
 	    <li><a href="#read_string">read_string</a></li>
+<!-- END2_READ_STRING -->
+<!-- BEGIN2_READ_MISS_STRING -->
 	    <li><a href="#read_miss_string">read_miss_string</a></li>
+<!-- END2_READ_MISS_STRING -->
+<!-- BEGIN2_DELETE_STRING -->
 	    <li><a href="#delete_string">delete_string</a></li>
+<!-- END2_DELETE_STRING -->
+<!-- BEGIN2_READ_STRING_AFTER_DELETE -->
 	    <li><a href="#read_string_after_delete">read_string_after_delete</a></li>
+<!-- END2_READ_STRING_AFTER_DELETE -->
 	  </ul>
       </li>
+<!-- END2_STRINGS -->
     </ul>
   </p>
 </div>
+
 <!-- REAL_BEGIN_INTEGERS -->
 <h2>Integers</h2>
 
 <p>For the integers tests, we use hash maps with int64_t as key and int64_t as value.</p>
 
-
 <!-- BEGIN_INTEGERS -->
 
+<!-- REAL_BEGIN_INTEGERS_RANGE -->
+
 <h2><a name="integers_range">Range of integers</h2>
+
+<!-- BEGIN_INTEGERS_RANGE -->
 
 <!-- BEGIN_INSERT_RANDOM_SHUFFLE_RANGE -->
 <h3><a name="insert_random_shuffle_range">Random shuffle inserts: memory footprint and execution time (integers)</h3>
@@ -399,7 +466,7 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <!-- END_INSERT_RANDOM_SHUFFLE_RANGE -->
 
 
-<!-- BEGIN_REINSERT_RND_SHUFFLE_RANGE -->
+<!-- BEGIN_REINSERT_RANDOM_SHUFFLE_RANGE -->
 <h3><a name="reinsert_random_shuffle_range">Random shuffle inserts of existing keys: execution time (integers)</h3>
 
 <p>Before the test, we generate a vector with the values [0,
@@ -413,7 +480,7 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <div class="chart" id="reinsert_random_shuffle_range_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="reinsert_random_shuffle_range_bopsnsec_choices"></ul>
-<!-- END_REINSERT_RND_SHUFFLE_RANGE -->
+<!-- END_REINSERT_RANDOM_SHUFFLE_RANGE -->
 
 
 <!-- BEGIN_READ_RANDOM_SHUFFLE_RANGE -->
@@ -431,7 +498,13 @@ We then read each key-value pair in a different and random order than the one th
 <ul class="choices" id="read_random_shuffle_range_bopsnsec_choices"></ul>
 <!-- END_READ_RANDOM_SHUFFLE_RANGE -->
 
+<!-- END_INTEGERS_RANGE -->
+
+<!-- REAL_BEGIN_INTEGERS_RANDOM_FULL -->
+
 <h2><a name="integers_random_full">Random integers</h2>
+
+<!-- BEGIN_INTEGERS_RANDOM_FULL -->
 
 <!-- BEGIN_INSERT_RANDOM_FULL -->
 <h3><a name="insert_random_full">Random full inserts: memory footprint and execution time (integers)</h3>
@@ -453,7 +526,7 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <!-- END_INSERT_RANDOM_FULL -->
 
 
-<!-- BEGIN_REINSERT_RND_FULL -->
+<!-- BEGIN_REINSERT_RANDOM_FULL -->
 <h3><a name="reinsert_random_full">Random full inserts of existing keys: execution time (integers)</h3>
 
 <p>Before the test, we generate a vector of nb_entries size where each
@@ -469,10 +542,10 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <div class="chart" id="reinsert_random_full_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="reinsert_random_full_bopsnsec_choices"></ul>
-<!-- END_REINSERT_RND_FULL -->
+<!-- END_REINSERT_RANDOM_FULL -->
 
 
-<!-- BEGIN_INSERT_RANDOM_F_RESERVE -->
+<!-- BEGIN_INSERT_RANDOM_FULL_RESERVE -->
 <h3><a name="insert_random_full_reserve">Random full inserts with reserve: execution time (integers)</h3>
 
 <p>Same as the random full inserts test but the reserve method of the hash map is called beforehand to avoid any rehash during the insertion. 
@@ -489,7 +562,7 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 <div class="chart" id="insert_random_full_reserve_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="insert_random_full_reserve_bopsnsec_choices"></ul>
-<!-- END_INSERT_RANDOM_F_RESERVE -->
+<!-- END_INSERT_RANDOM_FULL_RESERVE -->
 
 <!-- BEGIN_READ_RANDOM_FULL -->
 <h3><a name="read_random_full">Random full reads: execution time (integers)</h3>
@@ -537,7 +610,7 @@ We then delete each key one by one in a different and random order than the one 
 <ul class="choices" id="delete_random_full_bopsnsec_choices"></ul>
 <!-- END_DELETE_RANDOM_FULL -->
 
-<!-- BEGIN_READ_RANDOM_F_AFTER_DELETE -->
+<!-- BEGIN_READ_RANDOM_FULL_AFTER_DELETE -->
 <h3><a name="read_random_full_after_delete">Random full reads after deleting half: execution time (integers)</h3>
 
 <p>Before the test, we insert nb_entries elements in the same way as in the random full inserts test 
@@ -551,7 +624,7 @@ different order which will lead to 50% hits and 50% misses.</p>
 <div class="chart" id="read_random_full_after_delete_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="read_random_full_after_delete_bopsnsec_choices"></ul>
-<!-- END_READ_RANDOM_F_AFTER_DELETE -->
+<!-- END_READ_RANDOM_FULL_AFTER_DELETE -->
 
 <!-- BEGIN_ITERATION_RANDOM_FULL -->
 <h3><a name="iteration_random_full">Random full iteration: execution time (integers)</h3>
@@ -568,6 +641,8 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 <ul class="choices" id="iteration_random_full_bopsnsec_choices"></ul>
 <!-- END_ITERATION_RANDOM_FULL -->
 
+<!-- END_INTEGERS_RANDOM_FULL -->
+
 <!-- END_INTEGERS -->
 
 
@@ -577,15 +652,11 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 
 
 
-
-
-<!-- REAL_BEGIN_SMALL_STRINGS -->
+<!-- BEGIN_SMALL_STRINGS -->
 <h2><a name="small_strings">Small strings</h2>
 <p>For the small string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 10-20 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3LdJxL".<p>
-
-<!-- BEGIN_SMALL_STRINGS -->
 
 <!-- BEGIN_INSERT_SMALL_STRING -->
 <h3><a name="insert_small_string">Inserts: memory footprint and execution time (small strings)</h3>
@@ -606,7 +677,7 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 <!-- END_INSERT_SMALL_STRING -->
 
 
-<!-- BEGIN_REINSERT__SMALL__STRING -->
+<!-- BEGIN_REINSERT_SMALL_STRING -->
 <h3><a name="reinsert_small_string">Inserts of existing keys: execution time (small strings)</h3>
 
 <p>Before the test for each entry in the range [0, nb_entries), we
@@ -620,10 +691,10 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 <div class="chart" id="reinsert_small_string_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="reinsert_small_string_bopsnsec_choices"></ul>
-<!-- END_REINSERT__SMALL__STRING -->
+<!-- END_REINSERT_SMALL_STRING -->
 
 
-<!-- BEGIN_RESERVE_SMALL_STRING -->
+<!-- BEGIN_INSERT_SMALL_STRING_RESERVE -->
 <h3><a name="insert_small_string_reserve">
     Inserts with reserve: memory footprint and execution time (small strings)</h3>
 
@@ -641,7 +712,7 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 <div class="chart" id="insert_small_string_reserve_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="insert_small_string_reserve_bopsnsec_choices"></ul>
-<!-- END_RESERVE_SMALL_STRING -->
+<!-- END_INSERT_SMALL_STRING_RESERVE -->
 
 
 <!-- BEGIN_READ_SMALL_STRING -->
@@ -692,7 +763,7 @@ We then delete each key one by one in a different and random order than the one 
 <ul class="choices" id="delete_small_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_SMALL_STRING -->
 
-<!-- BEGIN_READ_AFTER_DEL_SMALL_STRING -->
+<!-- BEGIN_READ_SMALL_STRING_AFTER_DELETE -->
 <h3><a name="read_small_string_after_delete">Reads after deleting half: execution time (small strings)</h3>
 
 <p>Before the test, we insert nb_entries elements in the same way as in the inserts test before 
@@ -706,20 +777,18 @@ different order which will lead to 50% hits and 50% misses.</p>
 <div class="chart" id="read_small_string_after_delete_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="read_small_string_after_delete_bopsnsec_choices"></ul>
-<!-- END_READ_AFTER_DEL_SMALL_STRING -->
+<!-- END_READ_SMALL_STRING_AFTER_DELETE -->
 
 <!-- END_SMALL_STRINGS -->
 
 
 
-<!-- REAL_BEGIN_STRINGS -->
+<!-- BEGIN_STRINGS -->
 
 <h2><a name="strings">Strings</h2>
 <p>For the string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 20-100 alphanumeric characters (+1 for the null terminator). A generated key may look like "nv46iTRp7ur6UMbdgEkCHpoq7Qx7UU9Ta0u1ETdAvUb4LG6Xu6".<p>
-
-<!-- BEGIN_STRINGS -->
 
 <!-- BEGIN_INSERT_STRING -->
 <h3><a name="insert_string">Inserts: memory footprint and execution time (strings)</h3>
@@ -740,7 +809,7 @@ different order which will lead to 50% hits and 50% misses.</p>
 <!-- END_INSERT_STRING -->
 
 
-<!-- BEGIN_REINSERT__STRING -->
+<!-- BEGIN_REINSERT_STRING -->
 <h3><a name="reinsert_string">Inserts of existing keys: execution time (strings)</h3>
 
 <p>Before the test for each entry in the range [0, nb_entries), we
@@ -754,10 +823,10 @@ different order which will lead to 50% hits and 50% misses.</p>
 <div class="chart" id="reinsert_string_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="reinsert_string_bopsnsec_choices"></ul>
-<!-- END_REINSERT__STRING -->
+<!-- END_REINSERT_STRING -->
 
 
-<!-- BEGIN_RESERVE_STRING -->
+<!-- BEGIN_INSERT_STRING_RESERVE -->
 <h3><a name="insert_string_reserve">Inserts with reserve: execution time (strings)</h3>
 
 <p>Same as the inserts test but the reserve method of the hash map is called beforehand to avoid any rehash during the insertion. 
@@ -774,7 +843,7 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 <div class="chart" id="insert_string_reserve_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="insert_string_reserve_bopsnsec_choices"></ul>
-<!-- END_RESERVE_STRING -->
+<!-- END_INSERT_STRING_RESERVE -->
 
 
 <!-- BEGIN_READ_STRING -->
@@ -824,7 +893,7 @@ We then delete each key one by one in a different and random order than the one 
 <ul class="choices" id="delete_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_STRING -->
 
-<!-- BEGIN_READ_AFTER_DEL_STRING -->
+<!-- BEGIN_READ_STRING_AFTER_DELETE -->
 <h3><a name="read_string_after_delete">Reads after deleting half: execution time (strings)</h3>
 
 <p>Before the test, we insert nb_entries elements in the same way as in the inserts test before deleting half of these values randomly. 
@@ -837,7 +906,7 @@ We then try to read all the original values in a different order which will lead
 <div class="chart" id="read_string_after_delete_bopsnsec"></div>
 <div class="xaxis-title">number of entries in hash table</div>
 <ul class="choices" id="read_string_after_delete_bopsnsec_choices"></ul>
-<!-- END_READ_AFTER_DEL_STRING -->
+<!-- END_READ_STRING_AFTER_DELETE -->
 
 <!-- END_STRINGS -->
 
