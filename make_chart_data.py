@@ -83,7 +83,7 @@ real_default_programs_show = set()
 for i, (benchtype, programs) in enumerate(by_benchtype.items()):
     chart_data[benchtype] = []
     for program in program_slugs:
-        if program not in all_programs:
+        if (program not in all_programs) or (program not in programs):
             continue
 
         existing_programs[program] = program
