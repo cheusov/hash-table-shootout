@@ -130,3 +130,4 @@ for nkeys in points:
         if fastest_attempt != 1000000:
             print(file=outfile)
             print()
+            sys.stdout.flush()
