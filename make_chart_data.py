@@ -77,10 +77,12 @@ for line in lines:
                          'insert_tiny_string',
                          'insert_small_string',
                          'insert_string',
+                         'insert_huge_string',
                          'insert_random_full_reserve',
                          'insert_tiny_string_reserve',
                          'insert_small_string_reserve',
-                         'insert_string_reserve'):
+                         'insert_string_reserve',
+                         'insert_huge_string_reserve'):
             by_benchtype.setdefault("%s_memory"  % benchtype, {}).setdefault(program, []).append([nkeys, nbytes, load_factor])
 
 chart_data = {}

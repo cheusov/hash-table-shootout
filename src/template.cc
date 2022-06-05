@@ -34,7 +34,7 @@ static const std::size_t SMALL_STRING_MAX_SIZE = 20;
 static const std::size_t STRING_MIN_SIZE = 21;
 static const std::size_t STRING_MAX_SIZE = 100;
 static const std::size_t HUGE_STRING_MIN_SIZE = 101;
-static const std::size_t HUGE_STRING_MAX_SIZE = 500;
+static const std::size_t HUGE_STRING_MAX_SIZE = 200;
 
 static const std::int64_t SEED = 0;
 static std::mt19937_64 generator(SEED);
