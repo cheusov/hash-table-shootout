@@ -60,6 +60,13 @@ short_names = {
         'read_string', 'read_miss_string',
         'delete_string',
         'read_string_after_delete'
+    ],
+    'huge_string': [
+        'insert_huge_string', 'reinsert_huge_string',
+        'insert_huge_string_reserve',
+        'read_huge_string', 'read_miss_huge_string',
+        'delete_huge_string',
+        'read_huge_string_after_delete'
     ]
 }
 
@@ -74,7 +81,8 @@ if len(sys.argv) > 1:
         benchtypes.extend(short_names.get(x, [x]))
 else:
     benchtypes = short_names['random_shuffle_range'] + short_names['random_full'] \
-        + short_names['tiny_string'] + short_names['small_string'] + short_names['string']
+        + short_names['tiny_string'] + short_names['small_string'] + short_names['string'] \
+        + short_names['huge_string']
 
 if "interval" in dir():
     points = range(minkeys, maxkeys + 1, interval)
