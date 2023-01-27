@@ -29,7 +29,7 @@
 	uint64_t key = 0; \
 	uint64_t *p_value = nata88first(hash_int, &key); \
 	for (; p_value != NULL; p_value = nata88next(hash_int, &key))
-#define LOAD_FACTOR_INT_HASH(hash) (0.0f)
-#define CLEAR_INT
+#define LOAD_FACTOR_INT_HASH(hash_int) (0.0f)
+#define CLEAR_INT nata88free(&hash_int)
 
 #include "template.cc"
