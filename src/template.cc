@@ -169,9 +169,6 @@ static bool process_integers()
 		test_type == "iteration_random_shuffle_range" ||
 		test_type == "delete_random_shuffle_range")
 	{
-		if (test_type == "insert_random_shuffle_range_reserve"){
-			RESERVE_INT(num_keys);
-		}
 		keys = get_random_shuffle_range_ints(num_keys);
 	}else if (test_type == "insert_random_full" ||
 			  test_type == "reinsert_random_full" ||
@@ -182,9 +179,6 @@ static bool process_integers()
 			  test_type == "iteration_random_full" ||
 			  test_type == "delete_random_full")
 	{
-		if (test_type == "insert_random_full_reserve"){
-			RESERVE_INT(num_keys);
-		}
 		keys = get_random_full_ints(num_keys);
 	}
 
@@ -201,6 +195,7 @@ static bool process_integers()
 			 test_type == "insert_random_full_reserve")
 	{
 		measurements m;
+		RESERVE_INT(num_keys);
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_INT(keys[i], value);
 		}
