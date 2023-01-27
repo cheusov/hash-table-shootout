@@ -130,7 +130,7 @@ class measurements {
 	~measurements() {
 		const auto chrono_end = std::chrono::high_resolution_clock::now();
 		const std::size_t memory_usage_bytes_end = get_memory_usage_bytes();
-		
+
 		const double nb_seconds = std::chrono::duration<double>(chrono_end - m_chrono_start).count();
 		// On reads or delete the used bytes could be less than initially.
 		const std::size_t used_memory_bytes = (memory_usage_bytes_end > m_memory_usage_bytes_start)?
@@ -224,9 +224,9 @@ static bool process_integers()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_INT(keys[i], value);
 		}
-		
+
 		std::shuffle(keys.begin(), keys.end(), generator);
-		
+
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			FIND_INT_EXISTING(keys[i]);
@@ -279,7 +279,7 @@ static bool process_integers()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			FIND_INT_EXISTING_COUNT(keys[i], nb_found);
 		}
-		
+
 		if(nb_found != num_keys / 2) {
 			std::cerr << "error, duplicates\n";
 			std::exit(6);
@@ -293,14 +293,14 @@ static bool process_integers()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_INT(keys[i], value);
 		}
-		
-		
+
+
 		m.set_chrono_start();
 		ITERATE_INT(it) {
 			CHECK_INT_ITERATOR_VALUE(it, value);
 		}
 	}
-	
+
 	else if (test_type == "delete_random_shuffle_range" ||
 			 test_type == "delete_random_full")
 	{
@@ -308,10 +308,10 @@ static bool process_integers()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_INT(keys[i], value);
 		}
-		
+
 		std::shuffle(keys.begin(), keys.end(), generator);
-		
-		
+
+
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			DELETE_INT(keys[i]);
@@ -477,8 +477,8 @@ static bool process_strings()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_STR(keys[i], value);
 		}
-		
-		
+
+
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
@@ -495,21 +495,21 @@ static bool process_strings()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_STR(keys[i], value);
 		}
-		
+
 		SHUFFLE_STR_ARRAY(keys);
 		for(std::int64_t i = 0; i < num_keys / 2; i++) {
 			DELETE_STR(keys[i]);
 		}
 		SHUFFLE_STR_ARRAY(keys);
 
-		
+
 		std::int64_t nb_found = 0;
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			FIND_STR_EXISTING_COUNT(keys[i], nb_found);
 		}
-		
+
 		if(nb_found != num_keys / 2) {
 			std::cerr << "error, duplicates\n";
 			std::exit(6);
@@ -525,10 +525,10 @@ static bool process_strings()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			INSERT_STR(keys[i], value);
 		}
-		
+
 		SHUFFLE_STR_ARRAY(keys);
-		
-		
+
+
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			DELETE_STR(keys[i]);
