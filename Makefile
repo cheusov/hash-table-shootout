@@ -54,6 +54,7 @@ CXXFLAGS_tsl_array_map_mlf_1_0          ?= ${CXXFLAGS_tsl_array_map}
 CXXFLAGS_judyL                          ?=
 CXXFLAGS_judyHS                         ?=
 CXXFLAGS_nata88                         ?=
+CXXFLAGS_nina48                         ?= ${CXXFLAGS_nata88}
 CXXFLAGS_nataF8                         ?= ${CXXFLAGS_nata88}
 CXXFLAGS_cuckoohash_map                 ?= -Ilibcuckoo -pthread
 CXXFLAGS_leveldb                        ?=
@@ -78,6 +79,7 @@ endif
 LDFLAGS_judyL                           ?= -lJudy
 LDFLAGS_judyHS                          ?= ${LDFLAGS_judyL}
 LDFLAGS_nata88                          ?= -lnata
+LDFLAGS_nina48                          ?= ${LDFLAGS_nata88}
 LDFLAGS_nataF8                          ?= ${LDFLAGS_nata88}
 LDFLAGS_cuckoohash_map                  ?= -pthread
 ifeq ($(filter kyotocabinet_stash,${APPS}), kyotocabinet_stash)

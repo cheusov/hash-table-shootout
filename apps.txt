@@ -34,4 +34,5 @@ leveldb
 rocksdb
 khash
 nata88
+nina48
 nataF8
