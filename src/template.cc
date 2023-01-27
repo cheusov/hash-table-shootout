@@ -53,6 +53,7 @@ std::size_t get_memory_usage_bytes() {
 	std::size_t memory;
 	file >> memory; // Ignore first
 	file >> memory;
+	file.close();
 	
 	return memory * getpagesize();
 }
