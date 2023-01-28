@@ -54,7 +54,7 @@ repls = (
 )
 
 for l in repls:
-    if charts_data.find(l) < 0:
+    if charts_data.find(l + "_runtime") < 0:
         html_template = re.sub('BEGIN2_' + l.upper() + " (.|\\n)*END2_" + l.upper() + " ", '',
                                html_template)
         html_template = re.sub('BEGIN_' + l.upper() + " (.|\\n)*END_" + l.upper() + " ", '',
