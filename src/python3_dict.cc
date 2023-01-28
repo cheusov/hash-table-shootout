@@ -4,20 +4,20 @@ typedef PyObject * hash_t;
 
 #define SETUP_INT									\
 	Py_Initialize();								\
-	hash_t hash = PyDict_New();						\
+	hash_t int_hash = PyDict_New();				\
 	PyObject * py_int_value = PyLong_FromLong(0);
 #define RESERVE_INT(size)
 #define INSERT_INT(key, value)						\
 	PyObject * py_int_key = PyLong_FromLong(key);	\
-	PyDict_SetItem(hash, py_int_key, py_int_value); \
+	PyDict_SetItem(int_hash, py_int_key, py_int_value); \
 	Py_DECREF(py_int_key)
-#define DELETE_INT(key)								\
+#define DELETE_INT(key)							\
 	PyObject * py_int_key = PyLong_FromLong(key);	\
-	PyDict_DelItem(hash, py_int_key);				\
+	PyDict_DelItem(int_hash, py_int_key);			\
 	Py_DECREF (py_int_key);
 #define FIND_INT_EXISTING(key) \
 	PyObject * py_int_key = PyLong_FromLong(key);				\
-	volatile PyObject *v = PyDict_GetItem(hash, py_int_key);	\
+	volatile PyObject *v = PyDict_GetItem(int_hash, py_int_key);	\
 	Py_DECREF (py_int_key);										\
 	if (v == NULL) {											\
 		std::cerr << "error 1\n";								\
@@ -25,7 +25,7 @@ typedef PyObject * hash_t;
 	}
 #define FIND_INT_MISSING(key) \
 	PyObject * py_int_key = PyLong_FromLong(key);				\
-	volatile PyObject *v = PyDict_GetItem(hash, py_int_key);	\
+	volatile PyObject *v = PyDict_GetItem(int_hash, py_int_key);	\
 	Py_DECREF (py_int_key);										\
 	if (v != NULL) {											\
 		std::cerr << "error 1\n";								\
@@ -33,7 +33,7 @@ typedef PyObject * hash_t;
 	}
 #define FIND_INT_EXISTING_COUNT(key, count)						\
 	PyObject * py_int_key = PyLong_FromLong(key);				\
-	volatile PyObject *v = PyDict_GetItem(hash, py_int_key);	\
+	volatile PyObject *v = PyDict_GetItem(int_hash, py_int_key);	\
 	Py_DECREF (py_int_key);										\
 	if (v == NULL) {											\
 		count++;												\
@@ -43,9 +43,9 @@ typedef PyObject * hash_t;
 #define ITERATE_INT(it)									  \
 	PyObject *key, *value;								  \
 	Py_ssize_t it = 0;									  \
-	while (PyDict_Next(hash, &it, &key, &value))
+	while (PyDict_Next(int_hash, &it, &key, &value))
 
-#define LOAD_FACTOR_INT_HASH(hash) (0.0f)
+#define LOAD_FACTOR_INT_HASH(h) (0.0f)
 
 #define CLEAR_INT
 

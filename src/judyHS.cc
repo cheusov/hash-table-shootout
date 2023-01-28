@@ -24,7 +24,7 @@
 	if (JudyHSGet(str_hash, __UNCONST(key.c_str()), key.size()) != NULL) { \
 		count++; \
 	}
-#define LOAD_FACTOR_STR_HASH(hash) (0.0f)
+#define LOAD_FACTOR_STR_HASH(h) (0.0f)
 #define CLEAR_STR
 
 #include "template.cc"

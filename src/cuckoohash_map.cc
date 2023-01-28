@@ -15,12 +15,12 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 
 #undef SETUP_INT
 #define SETUP_INT \
-  hash_t mt_hash; \
-  hash_t::locked_table hash = mt_hash.lock_table()
+  hash_t mt_int_hash; \
+  hash_t::locked_table int_hash = mt_int_hash.lock_table()
 
 #undef INSERT_INT
 #define INSERT_INT(key, value) \
-  hash.insert(key, value);
+  int_hash.insert(key, value);
 
 #undef CHECK_INT_ITERATOR_VALUE
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)

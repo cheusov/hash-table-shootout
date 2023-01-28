@@ -9,15 +9,23 @@ typedef google::dense_hash_map<std::string, int64_t, std::hash<std::string>> str
 #include "hash_map_str_base.h"
 
 #undef SETUP_INT
-#define SETUP_INT hash_t hash; hash.max_load_factor(0.9f); hash.set_empty_key(-1); hash.set_deleted_key(-2);
+#define SETUP_INT \
+	hash_t int_hash; \
+	hash.max_load_factor(0.9f); \
+	hash.set_empty_key(-1); \
+	hash.set_deleted_key(-2);
 
 #undef RESERVE_INT
 #define RESERVE_INT(size) hash.resize(size)
 
 #undef SETUP_STR
-#define SETUP_STR str_hash_t str_hash; str_hash.max_load_factor(0.9f); str_hash.set_empty_key(""); str_hash.set_deleted_key("d");
+#define SETUP_STR \
+	str_hash_t str_hash; \
+	str_hash.max_load_factor(0.9f); \
+	str_hash.set_empty_key(""); \
+	str_hash.set_deleted_key("d");
 
 #undef RESERVE_STR
-#define RESERVE_STR(size) str_hash.resize(size) 
+#define RESERVE_STR(size) str_hash.resize(size)
 
 #include "template.cc"

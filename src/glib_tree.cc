@@ -18,30 +18,30 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 	return 0;
 }
 
-#define SETUP_INT GTree * hash = g_tree_new(&intcmp);
+#define SETUP_INT GTree * int_hash = g_tree_new(&intcmp);
 #define RESERVE_INT(size)
 #define INSERT_INT(key, value) \
-	g_tree_insert(hash, GINT_TO_POINTER(key), __UNCONST(&value))
+	g_tree_insert(int_hash, GINT_TO_POINTER(key), __UNCONST(&value))
 #define FIND_INT_EXISTING(key) \
-	if (g_tree_lookup(hash, GINT_TO_POINTER(key)) == NULL) { \
+	if (g_tree_lookup(int_hash, GINT_TO_POINTER(key)) == NULL) { \
 		std::cerr << "error\n"; \
 		exit(1); \
 	}
 #define FIND_INT_MISSING(key) \
-	if (g_tree_lookup(hash, GINT_TO_POINTER(key)) != NULL) { \
+	if (g_tree_lookup(int_hash, GINT_TO_POINTER(key)) != NULL) { \
 		std::cerr << "error\n";								 \
 		exit(1);											 \
 	}
 #define FIND_INT_EXISTING_COUNT(key, count) \
-	if (g_tree_lookup(hash, GINT_TO_POINTER(key)) != NULL) { \
+	if (g_tree_lookup(int_hash, GINT_TO_POINTER(key)) != NULL) { \
 		count++; \
 	}
 #define DELETE_INT(key) \
-	g_tree_remove(hash, GINT_TO_POINTER(key))
+	g_tree_remove(int_hash, GINT_TO_POINTER(key))
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
 #define ITERATE_INT(key) \
-	g_tree_foreach(hash, gtraversefunc, NULL);
-#define LOAD_FACTOR_INT_HASH(hash) (0.0f)
+	g_tree_foreach(int_hash, gtraversefunc, NULL);
+#define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define CLEAR_INT
 
 #define SETUP_STR GTree* str_hash = g_tree_new(&gstrcmp);
@@ -65,7 +65,7 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 	}
 #define DELETE_STR(key) \
 	g_tree_remove(str_hash, __UNCONST(key.c_str()));
-#define LOAD_FACTOR_STR_HASH(hash) (0.0f)
+#define LOAD_FACTOR_STR_HASH(int_hash) (0.0f)
 #define CLEAR_STR
 
 #include "template.cc"

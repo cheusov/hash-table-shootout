@@ -14,11 +14,11 @@ typedef QHash<std::string, int64_t> str_hash_t;
 #include "hash_map_str_base.h"
 
 #undef LOAD_FACTOR_INT_HASH
-#define LOAD_FACTOR_INT_HASH(hash) 0.0f
+#define LOAD_FACTOR_INT_HASH(int_hash) 0.0f
 #undef INSERT_INT
-#define INSERT_INT(key, value) hash.insert(key, value)
+#define INSERT_INT(key, value) int_hash.insert(key, value)
 #undef DELETE_INT
-#define DELETE_INT(key) hash.remove(key)
+#define DELETE_INT(key) int_hash.remove(key)
 #undef CHECK_INT_ITERATOR_VALUE
 #define CHECK_INT_ITERATOR_VALUE(iterator, val) \
 	if(iterator != val) { \
@@ -26,7 +26,7 @@ typedef QHash<std::string, int64_t> str_hash_t;
 		exit(3); \
 	}
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(int_hash) 0.0f
 #undef INSERT_STR
 #define INSERT_STR(key, value) str_hash.insert(key, value)
 #undef DELETE_STR

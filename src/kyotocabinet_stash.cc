@@ -11,9 +11,9 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 
 #undef SETUP_INT
 #define SETUP_INT														\
-	hash_t hash;														\
+	hash_t int_hash;													\
 	system(rem_kyotodb_stash_cmd.c_str());								\
-	if (!hash.open(dbpath, hash_t::OWRITER | hash_t::OCREATE)){			\
+	if (!int_hash.open(dbpath, hash_t::OWRITER | hash_t::OCREATE)){	\
 		std::cerr << "error 5\n";										\
 		exit(1);														\
 	}
@@ -34,13 +34,14 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 #define RESERVE_STR(size)
 
 #undef INSERT_INT
-#define INSERT_INT(key, value) hash.set(std::to_string(key), std::to_string(value))
+#define INSERT_INT(key, value) \
+	int_hash.set(std::to_string(key), std::to_string(value))
 
 #undef INSERT_STR
 #define INSERT_STR(key, value) str_hash.set(key, std::to_string(value))
 
 #undef DELETE_INT
-#define DELETE_INT(key) hash.remove(std::to_string(key))
+#define DELETE_INT(key) int_hash.remove(std::to_string(key))
 
 #undef DELETE_STR
 #define DELETE_STR(key) str_hash.remove(key)
@@ -49,7 +50,7 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 #define FIND_INT_EXISTING(key)						 \
 	{												 \
 		std::string s_val;							 \
-		if(!hash.get(std::to_string(key), &s_val)) { \
+		if(!int_hash.get(std::to_string(key), &s_val)) { \
 			printf("error\n");						 \
 			exit(1);								 \
 		}											 \
@@ -69,7 +70,7 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 #define FIND_INT_MISSING(key)						\
 	{												\
 		std::string s_val;							\
-		if(hash.get(std::to_string(key), &s_val)) { \
+		if(int_hash.get(std::to_string(key), &s_val)) { \
 			printf("error\n");						\
 			exit(1);								\
 		}											\
@@ -77,14 +78,14 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 
 #undef FIND_STR_MISSING
 #define FIND_STR_MISSING(key)						\
-	if(str_hash.get(key, &s_val)) {					\
+	if(str_hash.get(key, &s_val)) {				\
 		printf("error\n");							\
 		exit(1);									\
 	}
 
 #undef FIND_INT_EXISTING_COUNT
-#define FIND_INT_EXISTING_COUNT(key, count)			\
-	if(hash.get(std::to_string(key), &s_val)) {		\
+#define FIND_INT_EXISTING_COUNT(key, count)		\
+	if(int_hash.get(std::to_string(key), &s_val)) { \
 		count++;									\
 	}
 
@@ -101,13 +102,13 @@ static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 #define CHECK_INT_ITERATOR_VALUE(it, value)
 
 #undef LOAD_FACTOR_INT_HASH
-#define LOAD_FACTOR_INT_HASH(hash) 0.0f
+#define LOAD_FACTOR_INT_HASH(h) 0.0f
 
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(h) 0.0f
 
 #undef CLEAR_INT
-#define CLEAR_INT hash.close(); system(rem_kyotodb_stash_cmd.c_str());
+#define CLEAR_INT int_hash.close(); system(rem_kyotodb_stash_cmd.c_str());
 
 #undef CLEAR_STR
 #define CLEAR_STR str_hash.close(); system(rem_kyotodb_stash_cmd.c_str());

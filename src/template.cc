@@ -40,7 +40,7 @@ static const std::int64_t SEED = 0;
 static std::mt19937_64 generator(SEED);
 
 #ifndef ITERATE_INT
-#define ITERATE_INT(it) for(const auto& it : hash)
+#define ITERATE_INT(it) for(const auto& it : int_hash)
 #endif
 
 #ifndef SHUFFLE_STR_ARRAY
@@ -325,7 +325,7 @@ static bool process_integers()
 
 	if (ret) {
 		float load_factor_int = 0;
-		load_factor_int = LOAD_FACTOR_INT_HASH(hash);
+		load_factor_int = LOAD_FACTOR_INT_HASH(int_hash);
 		std::cout << load_factor_int << std::endl;
 	}
 

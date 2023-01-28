@@ -29,7 +29,7 @@
 	Word_t key = 0; \
 	Word_t *p_value = (Word_t *)JudyLFirst(hash_int, &key, NULL); \
 	for (; p_value != NULL; p_value = (Word_t *)JudyLNext(hash_int, &key, NULL))
-#define LOAD_FACTOR_INT_HASH(hash) (0.0f)
+#define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define CLEAR_INT
 
 #include "template.cc"

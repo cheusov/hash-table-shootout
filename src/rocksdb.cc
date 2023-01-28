@@ -70,7 +70,7 @@ static std::string kDBPath = "/tmp/str_rocksdb";
 #define ITERATE_INT(it)
 
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(h) 0.0f
 
 #undef CLEAR_STR
 #define CLEAR_STR delete str_db; system(rem_rocksdb_cmd.c_str());

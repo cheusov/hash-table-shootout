@@ -15,9 +15,9 @@ typedef std::map<std::string, int64_t> str_hash_t;
 #define RESERVE_STR(size)
 
 #undef LOAD_FACTOR_INT_HASH
-#define LOAD_FACTOR_INT_HASH(hash) 0.0f
+#define LOAD_FACTOR_INT_HASH(h) 0.0f
 
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(h) 0.0f
 
 #include "template.cc"
