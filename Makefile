@@ -72,6 +72,7 @@ OBJS_bplus_tree = ${OBJ_DIR}/bplus_foreach.o ${OBJ_DIR}/bplus_insert.o \
    ${OBJ_DIR}/bplus_iterator.o ${OBJ_DIR}/bplus_leaf.o ${OBJ_DIR}/bplus_node.o \
    ${OBJ_DIR}/bplus_rebalance.o ${OBJ_DIR}/bplus_remove.o \
    ${OBJ_DIR}/bplus_search.o ${OBJ_DIR}/bplus_tree.o
+build/bplus_tree: ${OBJS_bplus_tree}
 ${OBJ_DIR}/%.o: bplus-tree/src/%.c
 	${CC} -std=c99 ${CFLAGS} ${CFLAGS_bplus_tree} -c -o $@ $<
 endif
