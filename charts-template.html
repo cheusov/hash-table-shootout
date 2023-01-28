@@ -779,12 +779,13 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 
 
 
-<!-- BEGIN_TINY_STRINGS -->
+<!-- REAL_BEGIN_TINY_STRINGS -->
 <h2><a name="tiny_strings">Tiny strings</h2>
 <p>For the tiny string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 2-10 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3".<p>
 
+<!-- BEGIN_TINY_STRINGS -->
 <!-- BEGIN_INSERT_TINY_STRING -->
 <h3><a name="insert_tiny_string">Inserts: memory footprint and execution time (tiny strings)</h3>
 
@@ -911,12 +912,13 @@ different order which will lead to 50% hits and 50% misses.</p>
 
 
 
-<!-- BEGIN_SMALL_STRINGS -->
+<!-- REAL_BEGIN_SMALL_STRINGS -->
 <h2><a name="small_strings">Small strings</h2>
 <p>For the small string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 11-20 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3LdJxL".<p>
 
+<!-- BEGIN_SMALL_STRINGS -->
 <!-- BEGIN_INSERT_SMALL_STRING -->
 <h3><a name="insert_small_string">Inserts: memory footprint and execution time (small strings)</h3>
 
@@ -1042,13 +1044,14 @@ different order which will lead to 50% hits and 50% misses.</p>
 
 
 
-<!-- BEGIN_STRINGS -->
+<!-- REAL_BEGIN_STRINGS -->
 
 <h2><a name="strings">Strings</h2>
 <p>For the string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 20-100 alphanumeric characters (+1 for the null terminator). A generated key may look like "nv46iTRp7ur6UMbdgEkCHpoq7Qx7UU9Ta0u1ETdAvUb4LG6Xu6".<p>
 
+<!-- BEGIN_STRINGS -->
 <!-- BEGIN_INSERT_STRING -->
 <h3><a name="insert_string">Inserts: memory footprint and execution time (strings)</h3>
 
@@ -1170,12 +1173,13 @@ We then try to read all the original values in a different order which will lead
 <!-- END_STRINGS -->
 
 
-<!-- BEGIN_HUGE_STRINGS -->
+<!-- REAL_BEGIN_HUGE_STRINGS -->
 <h2><a name="huge_strings">Huge strings</h2>
 <p>For the huge string tests, we use hash maps with std::string as key and int64_t as value.</p>
 
 <p>Each string is a random generated string of 101-200 alphanumeric characters (+1 for the null terminator). A generated key may look like "ju1AOoeWT3LdJxL".<p>
 
+<!-- BEGIN_HUGE_STRINGS -->
 <!-- BEGIN_INSERT_HUGE_STRING -->
 <h3><a name="insert_huge_string">Inserts: memory footprint and execution time (huge strings)</h3>
 
