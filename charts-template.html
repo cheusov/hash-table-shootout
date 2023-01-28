@@ -20,6 +20,8 @@
                                     opacity: 0.80
                                   }).appendTo("body");
                 
+    __CHART_DATA_GOES_HERE__
+
     series_settings = {
         lines: { show: true },
         points: { show: true }
@@ -36,7 +38,8 @@
                                return parseInt(num/1000) + 'k'; 
                            }
         },
-        transform: function(v) { return Math.log(v+0.000001)/Math.log(11); }
+        transform: function(v) { return Math.log(v+0.000001)/Math.log(11); },
+	ticks: ticks
     };
 
     yaxis_runtime_settings = {
@@ -82,8 +85,6 @@
         yaxis: yaxis_bopsnsec_settings,
         legend: legend_settings
     };
-
-    __CHART_DATA_GOES_HERE__
 
     function plot_chart(dataset, chart_container, choices_container, chart_settings, redraw_only = false) {
         if(!redraw_only) {

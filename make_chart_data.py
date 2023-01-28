@@ -89,6 +89,7 @@ for line in lines:
 chart_data = {}
 existing_programs = {}
 real_default_programs_show = set()
+nkeys_set = set()
 
 for i, (benchtype, programs) in enumerate(by_benchtype.items()):
     chart_data[benchtype] = []
@@ -108,9 +109,26 @@ for i, (benchtype, programs) in enumerate(by_benchtype.items()):
 
         for k, (nkeys, value, load_factor) in enumerate(data):
             chart_data[benchtype][-1]['data'].append([nkeys, value, load_factor])
+            nkeys_set.add(nkeys)
 
+def get_ticks(keys):
+    keys = sorted(keys)
+    ticks = []
+    last = keys[-1]
+    keys = keys[0:-1]
+    step = len(keys) / 10
+    index = 0
+    while index < len(keys):
+        ticks.append(keys[int(index + 0.5)])
+        index += step
+    ticks.append(last)
+    return ticks
+
+ticks = get_ticks(list(nkeys_set))
+print(ticks, file=sys.stderr)
 json_text = json.dumps(chart_data)
 json_text = json_text.replace("}], ", "}], \n")
 print('chart_data = ' + json_text + ';')
 print('\nprograms = ' + json.dumps(existing_programs, indent=1) + ';')
 print('\ndefault_programs_show = ' + str(list(real_default_programs_show)) + ';')
+print('\nticks = ' + str(ticks) + ';')
