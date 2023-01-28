@@ -11,6 +11,7 @@ from collections import OrderedDict
 program_slugs = [
     'judyL',
     'nata88',
+    'nina48',
     'nataF8',
     'judyHS',
     'khash',
