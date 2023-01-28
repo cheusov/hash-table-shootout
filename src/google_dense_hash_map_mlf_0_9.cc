@@ -11,12 +11,12 @@ typedef google::dense_hash_map<std::string, int64_t, std::hash<std::string>> str
 #undef SETUP_INT
 #define SETUP_INT \
 	hash_t int_hash; \
-	hash.max_load_factor(0.9f); \
-	hash.set_empty_key(-1); \
-	hash.set_deleted_key(-2);
+	int_hash.max_load_factor(0.9f); \
+	int_hash.set_empty_key(-1); \
+	int_hash.set_deleted_key(-2);
 
 #undef RESERVE_INT
-#define RESERVE_INT(size) hash.resize(size)
+#define RESERVE_INT(size) int_hash.resize(size)
 
 #undef SETUP_STR
 #define SETUP_STR \
