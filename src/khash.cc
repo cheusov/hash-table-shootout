@@ -134,8 +134,10 @@ static kh_inline khint_t murmur_hash2(const char *key)
 	}
 #define CHECK_INT_ITERATOR_VALUE(it, value)
 
-#define LOAD_FACTOR_INT_HASH(h) 0.0f
-#define LOAD_FACTOR_STR_HASH(h) 0.0f
+#define LOAD_FACTOR_INT_HASH(h) \
+	(float)(h)->n_occupied / (h)->n_buckets
+#define LOAD_FACTOR_STR_HASH(h) \
+	(float)(h)->n_occupied / (h)->n_buckets
 #define CLEAR_INT
 #define CLEAR_STR
 
