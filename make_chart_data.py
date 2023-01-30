@@ -6,42 +6,6 @@ from collections import OrderedDict
 ######################################################################
 ### Fill free to change the following defaults
 
-# do them in the desired order to make the legend not overlap
-# the chart data too much
-program_slugs = [
-    'judyL',
-    'nata88',
-    'nina48',
-    'nataF8',
-    'judyHS',
-    'khash',
-    'std_unordered_map',
-    'google_dense_hash_map',
-    'qt_qhash',
-    'tsl_sparse_map',
-    'tsl_hopscotch_map',
-    'tsl_robin_map',
-    'tsl_hopscotch_map_store_hash',
-    'tsl_robin_map_store_hash',
-    'tsl_hopscotch_map_mlf_0_5',
-    'tsl_robin_map_mlf_0_9',
-    'tsl_ordered_map',
-    'tsl_robin_pg_map',
-    'ska_flat_hash_map',
-    'ska_bytell_hash_map',
-    'google_dense_hash_map_mlf_0_9',
-    'ska_flat_hash_map_power_of_two',
-    'google_sparse_hash_map',
-    'boost_unordered_map',
-    'spp_sparse_hash_map',
-    'emilib_hash_map',
-    'tsl_array_map',
-    'tsl_array_map_mlf_1_0',
-    'glib_tree',
-    'glib_hash_table',
-    'cuckoohash_map'
-]
-
 # hashmap which will be shown (checkbox checked),
 # by default all hashmaps are enabled.
 #default_programs_show = [
@@ -93,7 +57,7 @@ nkeys_set = set()
 
 for i, (benchtype, programs) in enumerate(by_benchtype.items()):
     chart_data[benchtype] = []
-    for program in program_slugs:
+    for program in all_programs:
         if (program not in all_programs) or (program not in programs):
             continue
 
@@ -125,7 +89,6 @@ def get_ticks(keys):
     return ticks
 
 ticks = get_ticks(list(nkeys_set))
-print(ticks, file=sys.stderr)
 json_text = json.dumps(chart_data)
 json_text = json_text.replace("}], ", "}], \n")
 print('chart_data = ' + json_text + ';')
