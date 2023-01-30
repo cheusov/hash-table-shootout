@@ -267,7 +267,7 @@ static bool process_integers()
 		}
 
 		std::shuffle(keys.begin(), keys.end(), generator);
-		for(std::int64_t i = 0; i < num_keys / 2; i++) {
+		for(std::int64_t i = 0; i < (num_keys + 1) / 2; i++) {
 			DELETE_INT(keys[i]);
 		}
 
