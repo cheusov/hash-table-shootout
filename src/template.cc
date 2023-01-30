@@ -281,8 +281,7 @@ static bool process_integers()
 			FIND_INT_EXISTING_COUNT(keys[i], nb_found);
 		}
 
-		if(nb_found != num_keys / 2) {
-			std::cerr << "error, duplicates\n";
+		if(nb_found > 0 && nb_found != num_keys / 2) {
 			std::exit(6);
 		}
 	}

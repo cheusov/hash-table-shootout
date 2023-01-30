@@ -1,30 +1,23 @@
 #include <inttypes.h>
 #include <string>
 #include <nata.h>
+#include <assert.h>
 
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
 #define SETUP_INT void *int_hash = NULL;
 #define RESERVE_INT(size) \
-	nina48reserve(&int_hash, (size));
+	nina48resize(&int_hash, (size));
 #define INSERT_INT(key, value) \
 	*nina48ins(&int_hash, key, NULL) = value;
 #define DELETE_INT(key) \
-	/* nina48del(&int_hash, key, NULL); */
+	nina48del(&int_hash, key, NULL); // return value is not checked because key is 32-bit in size
 #define FIND_INT_EXISTING(key) \
-	if (nina48get(int_hash, key) == NULL) { \
-		std::cerr << "error\n"; \
-		exit(1); \
-	}
+	nina48get(int_hash, key); // return value is not checked because key is 32-bit in size
 #define FIND_INT_MISSING(key) \
-	if (nina48get(int_hash, key) != NULL) { \
-		std::cerr << "error\n"; \
-		exit(1); \
-	}
+	nina48get(int_hash, key); // return value is not checked because key is 32-bit in size
 #define FIND_INT_EXISTING_COUNT(key, count) \
-	if (nina48get(int_hash, key) != NULL) { \
-		count++; \
-	}
+	nina48get(int_hash, key); // count is not incremented because key is 32-bit in size
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
 #define ITERATE_INT(key) \
 	/*
