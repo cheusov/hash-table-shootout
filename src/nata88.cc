@@ -9,16 +9,19 @@
 #define INSERT_INT(key, value) \
 	*nata88ins(&int_hash, key, NULL) = value;
 #define DELETE_INT(key) \
-	nata88del(&int_hash, key, NULL);
+	if (!nata88del(&int_hash, key, NULL)){ \
+		std::cerr << "error\n"; \
+		exit(1); \
+	}
 #define FIND_INT_EXISTING(key) \
 	if (nata88get(int_hash, key) == NULL) { \
 		std::cerr << "error\n"; \
-		exit(1); \
+		exit(2); \
 	}
 #define FIND_INT_MISSING(key) \
 	if (nata88get(int_hash, key) != NULL) { \
 		std::cerr << "error\n"; \
-		exit(1); \
+		exit(3); \
 	}
 #define FIND_INT_EXISTING_COUNT(key, count) \
 	if (nata88get(int_hash, key) != NULL) { \
