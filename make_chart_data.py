@@ -82,7 +82,7 @@ def get_ticks(keys):
     keys = keys[0:-1]
     step = len(keys) / 10
     index = 0
-    while index < len(keys):
+    while index < len(keys) - 0.5:
         ticks.append(keys[int(index + 0.5)])
         index += step
     ticks.append(last)
