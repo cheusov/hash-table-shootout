@@ -90,11 +90,11 @@ abseil.done:
     cmake --build . --target install
 	touch abseil.done folly/folly/folly-config.h
 CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
-LDFLAGS_absl_flat_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+LDFLAGS_absl_flat_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_btree_map ?= -Ibuild/include
-LDFLAGS_absl_btree_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+LDFLAGS_absl_btree_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_node_hash_map ?= -Ibuild/include
-LDFLAGS_absl_node_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set
+LDFLAGS_absl_node_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
 CXXFLAGS_folly_f14_fast_map ?= -Ifolly
 LDFLAGS_folly_f14_fast_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
 CXXFLAGS_folly_f14_node_map ?= -Ifolly
