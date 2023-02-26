@@ -1,5 +1,6 @@
 #include <inttypes.h>
 #include <string>
+#include <limits>
 #include <bytell_hash_map.hpp>
 
 typedef ska::bytell_hash_map<int64_t, int64_t, std::hash<int64_t>> hash_t;
