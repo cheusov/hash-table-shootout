@@ -31,6 +31,7 @@
 [submodule "bplus-tree"]
 	path = bplus-tree
 	url = https://github.com/berenm/bplus-tree.git
+	branch = version/2.0.0
 [submodule "klibs"]
 	path = klibs
 	url = https://github.com/attractivechaos/klib.git
@@ -40,3 +41,5 @@
 [submodule "folly"]
 	path = folly
 	url = https://github.com/facebook/folly.git
+	branch = main
+
