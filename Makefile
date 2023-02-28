@@ -38,6 +38,9 @@ ifeq ($(filter qt_qhash,${APPS}), qt_qhash)
 CXXFLAGS_qt_qhash ?= $(shell pkg-config --cflags Qt5Core) -fPIC
 LDFLAGS_qt_qhash ?= $(shell pkg-config --libs Qt5Core)
 endif
+CXXFLAGS_ankerl_unordered_dense_map     ?= -Iankerl/include
+CXXFLAGS_emhash7                        ?= -Iemhash
+CXXFLAGS_emhash8                        ?= -Iemhash
 CXXFLAGS_spp_sparse_hash_map            ?= -Isparsepp
 CXXFLAGS_emilib_hash_map                ?= -Iemilib
 CXXFLAGS_ska_flat_hash_map              ?= -Iflat_hash_map

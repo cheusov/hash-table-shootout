@@ -43,3 +43,10 @@
 	url = https://github.com/facebook/folly.git
 	branch = main
 
+[submodule "emhash"]
+	path = emhash
+	url = https://github.com/ktprime/emhash.git
+[submodule "ankerl"]
+	path = ankerl
+	url = https://github.com/martinus/unordered_dense.git
+	branch = main
