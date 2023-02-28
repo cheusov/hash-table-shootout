@@ -47,3 +47,6 @@ tsl_robin_map
 tsl_robin_map_store_hash
 tsl_robin_pg_map
 tsl_sparse_map
+ankerl_unordered_dense_map
+emhash7
+emhash8
