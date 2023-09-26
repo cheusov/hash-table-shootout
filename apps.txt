@@ -1,13 +1,13 @@
-python3_dict
+## python3_dict
 std_unordered_map
 std_map
 boost_unordered_map
-# google_sparse_hash_map # disabled due to extremly bad performace in some cases
+## google_sparse_hash_map # disabled due to extremly bad performace in some cases
 google_dense_hash_map
-# google_dense_hash_map_mlf_0_9 # disabled due to extremly bad performace in some cases
+## google_dense_hash_map_mlf_0_9 # disabled due to extremly bad performace in some cases
 qt_qhash
 spp_sparse_hash_map
-# emilib_hash_map # disabled due to extremly bad performace in some cases
+## emilib_hash_map # disabled due to extremly bad performace in some cases
 ska_flat_hash_map
 ska_flat_hash_map_power_of_two
 ska_bytell_hash_map
@@ -16,22 +16,22 @@ tsl_hopscotch_map
 tsl_hopscotch_map_mlf_0_5
 tsl_hopscotch_map_store_hash
 tsl_robin_map
-# tsl_robin_map_mlf_0_9 # disabled due to extremly bad performace in some cases
+## tsl_robin_map_mlf_0_9 # disabled due to extremly bad performace in some cases
 tsl_robin_map_store_hash
 tsl_robin_pg_map
-# tsl_ordered_map # disabled due to extremly bad performace in some cases
+## tsl_ordered_map # disabled due to extremly bad performace in some cases
 tsl_array_map
-tsl_array_map_mlf_1_0
+## tsl_array_map_mlf_1_0
 judyL
 judyHS
 bplus_tree
 cuckoohash_map
-glib_tree
+## glib_tree
 glib_hash_table
-kyotocabinet_stash
-kyotocabinet_hash
-leveldb
-rocksdb
+## kyotocabinet_stash
+## kyotocabinet_hash
+## leveldb
+## rocksdb
 khash
 nata88
 nina48
