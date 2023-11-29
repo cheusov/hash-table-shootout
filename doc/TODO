@@ -1,3 +1,5 @@
+* use gerusage(2) for memory and time measuring
+  instead of Linux-specific tricks
 * google btree_map morzhovets@
 * instead of "error when unsupported"
   just ifdef! appropriate section in code
