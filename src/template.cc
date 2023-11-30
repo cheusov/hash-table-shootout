@@ -1,6 +1,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <time.h>
+#include <sys/resource.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -47,15 +48,19 @@ static std::mt19937_64 generator(SEED);
 #define SHUFFLE_STR_ARRAY(keys) std::shuffle(keys.begin(), keys.end(), generator)
 #endif
 
-std::size_t get_memory_usage_bytes() {
-	std::ifstream file("/proc/self/statm");
-	
-	std::size_t memory;
-	file >> memory; // Ignore first
-	file >> memory;
-	file.close();
-	
-	return memory * getpagesize();
+std::size_t get_memory_usage_bytes(void)
+{
+	struct rusage r_usage;
+	int ret = getrusage(RUSAGE_SELF, &r_usage);
+	if (ret) {
+		perror("getrusage(2) failed");
+		exit(1);
+	}
+#ifdef __APPLE__
+	return r_usage.ru_maxrss;
+#else
+	return r_usage.ru_maxrss * 1024;
+#endif
 }
 
 std::string get_random_alphanum_string(
