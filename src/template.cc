@@ -12,7 +12,6 @@
 #include <random>
 #include <fstream>
 #include <iostream>
-#include <chrono>
 #include <array>
 
 // TODO When generating random values to insert in the map there is no check
@@ -48,7 +47,7 @@ static std::mt19937_64 generator(SEED);
 #define SHUFFLE_STR_ARRAY(keys) std::shuffle(keys.begin(), keys.end(), generator)
 #endif
 
-std::size_t get_memory_usage_bytes(void)
+static std::size_t get_memory_usage_bytes(void)
 {
 	struct rusage r_usage;
 	int ret = getrusage(RUSAGE_SELF, &r_usage);
@@ -61,6 +60,18 @@ std::size_t get_memory_usage_bytes(void)
 #else
 	return r_usage.ru_maxrss * 1024;
 #endif
+}
+
+// user time in microseconds
+static uint64_t get_user_time(void)
+{
+	struct rusage r_usage;
+	int ret = getrusage(RUSAGE_SELF, &r_usage);
+	if (ret) {
+		perror("getrusage(2) failed");
+		exit(1);
+	}
+	return r_usage.ru_utime.tv_sec * 1000000 + r_usage.ru_utime.tv_usec;
 }
 
 std::string get_random_alphanum_string(
@@ -121,33 +132,32 @@ std::vector<std::string> get_random_alphanum_strings(
 }
 
 class measurements {
- public:	
+ public:
  measurements(): m_memory_usage_bytes_start(get_memory_usage_bytes()),
-		m_chrono_start(std::chrono::high_resolution_clock::now())
-					
+		m_chrono_start(get_user_time())
 	{
 	}
 
 	void set_chrono_start()
 	{
-		m_chrono_start = std::chrono::high_resolution_clock::now();
+		m_chrono_start = get_user_time();
 	}
 
 	~measurements() {
-		const auto chrono_end = std::chrono::high_resolution_clock::now();
+		const auto chrono_end = get_user_time();
 		const std::size_t memory_usage_bytes_end = get_memory_usage_bytes();
 
-		const double nb_seconds = std::chrono::duration<double>(chrono_end - m_chrono_start).count();
+		const float nb_seconds = (chrono_end - m_chrono_start) / 1000000.0f;
 		// On reads or delete the used bytes could be less than initially.
 		const std::size_t used_memory_bytes = (memory_usage_bytes_end > m_memory_usage_bytes_start)?
 			memory_usage_bytes_end - m_memory_usage_bytes_start:0;
 
 		std::cout << nb_seconds << " " << used_memory_bytes << " ";
 	}
-	
- private:	
+
+ private:
 	std::size_t m_memory_usage_bytes_start;
-	std::chrono::time_point<std::chrono::high_resolution_clock> m_chrono_start;
+	std::uint64_t m_chrono_start = get_user_time();
 };
 
 static std::int64_t num_keys;
