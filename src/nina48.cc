@@ -1,6 +1,6 @@
 #include <inttypes.h>
 #include <string>
-#include <nata.h>
+#include <nina.h>
 #include <assert.h>
 
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
@@ -24,7 +24,7 @@
 	uint64_t key = 0; \
 	uint64_t *p_value = nina48first(int_hash, &key); \
 	for (; p_value != NULL; p_value = nina48next(int_hash, &key)) */
-#define LOAD_FACTOR_INT_HASH(int_hash) nina48lf(int_hash)
+#define LOAD_FACTOR_INT_HASH(int_hash) (float)nina48lf(int_hash) / 0x100000
 #define CLEAR_INT nina48free(&int_hash)
 
 #include "template.cc"
