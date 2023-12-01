@@ -93,7 +93,7 @@ std::string get_random_alphanum_string(
 /**
  * Generate a vector [0, nb_ints) and shuffle it
  */
-std::vector<std::int64_t> get_random_shuffle_range_ints(std::size_t nb_ints) {
+static std::vector<std::int64_t> get_random_shuffle_range_ints(std::size_t nb_ints) {
 	std::vector<std::int64_t> random_shuffle_ints(nb_ints);
 	std::iota(random_shuffle_ints.begin(), random_shuffle_ints.end(), 0);
 	std::shuffle(random_shuffle_ints.begin(), random_shuffle_ints.end(), generator);
@@ -104,7 +104,7 @@ std::vector<std::int64_t> get_random_shuffle_range_ints(std::size_t nb_ints) {
 /**
  * Generate random vector of random ints between min and max.
  */
-std::vector<std::int64_t> get_random_full_ints(
+static std::vector<std::int64_t> get_random_full_ints(
 	std::size_t nb_ints, 
 	std::int64_t min = 0, 
 	std::int64_t max = std::numeric_limits<std::int64_t>::max()) 
@@ -120,7 +120,7 @@ std::vector<std::int64_t> get_random_full_ints(
 }
 
 
-std::vector<std::string> get_random_alphanum_strings(
+static std::vector<std::string> get_random_alphanum_strings(
 	std::size_t nb_strings, std::size_t min_size, std::size_t max_size)
 {
 	std::vector<std::string> random_strings(nb_strings);
