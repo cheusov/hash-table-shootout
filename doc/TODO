@@ -1,3 +1,4 @@
+* add -h option to build/ utils
 * google btree_map morzhovets@
 * instead of "error when unsupported"
   just ifdef! appropriate section in code
