@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 #include <array>
+#include <getopt.h>
 
 // TODO When generating random values to insert in the map there is no check
 // to see if duplicate random values are generated. Could improve that (but the probability is so so
@@ -568,14 +569,56 @@ static bool process_strings()
 	return ret;
 }
 
-int main(int argc, char ** argv) {
-	if(argc != 3) {
-		std::cerr << argv[0] << " num_keys test_type\n";
-		return 1;
+static void usage(void)
+{
+	std::cerr << "\
+usage: progname [OPTIONS] number_of_keys OPERATION\n\
+\n\
+where OPERATION is either of the following:\n\
+\n\
+  insert_random_{shuffle_range,full}\n\
+  reinsert_random_{shuffle_range,full}\n\
+  read_random_{shuffle_range,full}\n\
+  read_miss_random_{shuffle_range,full}\n\
+  insert_random_{shuffle_range,full}_reserve\n\
+  read_random_{shuffle_range,full}_after_delete\n\
+  iteration_random_{shuffle_range,full}\n\
+  delete_random_{shuffle_range,full}\n\
+\n\
+  insert_{tiny,small,,huge}_string\n\
+  reinsert_{tiny,small,,huge}_string\n\
+  insert_{tiny,small,,huge}_string_reserve\n\
+  read_{tiny,small,,huge}_string\n\
+  read_miss_{tiny,small,,huge}_string\n\
+  delete_{tiny,small,,huge}_string\n\
+  read_{tiny,small,,huge}_string_after_delete\n\
+";
+}
+
+int main(int argc, char ** argv)
+{
+	int opt;
+	while ((opt = getopt(argc, argv, "h")) != -1) {
+		switch (opt) {
+			case 'h':
+				usage();
+				return 0;
+			default:
+				usage();
+				return EXIT_FAILURE;
+		}
 	}
 
-	num_keys = std::stoll(argv[1]);
-	test_type = argv[2];
+	argc -= optind;
+	argv += optind;
+
+	if (argc != 2) {
+		usage();
+		return EXIT_FAILURE;
+	}
+
+	num_keys = std::stoll(argv[0]);
+	test_type = argv[1];
 	value = 1;
 
 	if (!process_integers() && !process_strings()){
