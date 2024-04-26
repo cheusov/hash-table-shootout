@@ -19,10 +19,14 @@
 #define FIND_INT_EXISTING_COUNT(key, count) \
 	nina88get(int_hash, key);
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
-#define ITERATE_INT(key) \
-/*	uint64_t key = 0; \
-	uint64_t *p_value = nina88first(int_hash, &key); \
-	for (; p_value != NULL; p_value = nina88next(int_hash, &key))*/
+#define ITERATE_INT(it) \
+	nina_iterator_t it; \
+	uint64_t *p_value; \
+	uint64_t key; \
+	nina88iterator_init(int_hash, &it); \
+	while (p_value = nina88iterate(&it, &key), p_value) { \
+		*p_value = 1; \
+	}
 #define LOAD_FACTOR_INT_HASH(int_hash) (float)nina88lf(int_hash) / 0x100000
 #define CLEAR_INT nina88free(&int_hash)
 

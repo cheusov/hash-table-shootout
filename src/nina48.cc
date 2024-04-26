@@ -19,11 +19,14 @@
 #define FIND_INT_EXISTING_COUNT(key, count) \
 	nina48get(int_hash, key); // count is not incremented because key is 32-bit in size
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
-#define ITERATE_INT(key) \
-	/*
-	uint64_t key = 0; \
-	uint64_t *p_value = nina48first(int_hash, &key); \
-	for (; p_value != NULL; p_value = nina48next(int_hash, &key)) */
+#define ITERATE_INT(it) \
+	nina_iterator_t it; \
+	uint64_t *p_value; \
+	uint32_t key; \
+	nina48iterator_init(int_hash, &it); \
+	while (p_value = nina48iterate(&it, &key), p_value) { \
+		*p_value = 1; \
+	}
 #define LOAD_FACTOR_INT_HASH(int_hash) (float)nina48lf(int_hash) / 0x100000
 #define CLEAR_INT nina48free(&int_hash)
 
