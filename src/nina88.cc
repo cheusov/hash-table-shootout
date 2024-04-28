@@ -5,7 +5,8 @@
 
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
-#define SETUP_INT(int_hash) void *int_hash = NULL;
+#define HASH_TYPE_INT void *
+#define CREATE_INT(int_hash) NULL
 #define RESERVE_INT(int_hash, size) \
 	nina88resize(&int_hash, (size));
 #define INSERT_INT(int_hash, key, value) \

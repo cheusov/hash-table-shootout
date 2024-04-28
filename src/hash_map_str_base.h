@@ -1,5 +1,4 @@
-#define SETUP_STR(str_hash)								\
-	str_hash_t str_hash;
+#define CREATE_STR(str_hash)
 #define RESERVE_STR(str_hash, size) \
 	str_hash.reserve(size);
 #define LOAD_FACTOR_STR_HASH(str_hash) \

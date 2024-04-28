@@ -9,18 +9,26 @@ typedef kyotocabinet::StashDB str_hash_t;
 static std::string dbpath = "/tmp/str_kyotocabinet_stash.dat";
 static std::string rem_kyotodb_stash_cmd = std::string("rm -rf ") + dbpath;
 
-#undef SETUP_INT
-#define SETUP_INT(int_hash)											\
-	hash_t int_hash;													\
+#undef HASH_TYPE_INT
+#define HASH_TYPE_INT hash_t
+
+#undef CREATE_INT
+#define CREATE_INT(int_hash)
+
+#define PREPARE_INT(int_hash)											\
 	system(rem_kyotodb_stash_cmd.c_str());								\
 	if (!int_hash.open(dbpath, hash_t::OWRITER | hash_t::OCREATE)){	\
 		std::cerr << "error 5\n";										\
 		exit(1);														\
 	}
 
-#undef SETUP_STR
-#define SETUP_STR(str_hash)											\
-	str_hash_t str_hash;												\
+#undef HASH_TYPE_STR
+#define HASH_TYPE_STR str_hash_t
+
+#undef CREATE_STR
+#define CREATE_STR(str_hash)
+
+#define PREPARE_STR(str_hash)											\
 	system(rem_kyotodb_stash_cmd.c_str());								\
 	if (!str_hash.open(dbpath, str_hash_t::OWRITER | str_hash_t::OCREATE)){	\
 		std::cerr << "error 6\n";										\

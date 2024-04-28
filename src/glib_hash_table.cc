@@ -7,7 +7,8 @@ static void ghrfunc(gpointer key, gpointer value, gpointer user_data)
 //	printf("%p %p\n", key, *(int64_t*)value);
 }
 
-#define SETUP_INT(int_hash) GHashTable* int_hash = g_hash_table_new(g_direct_hash, g_direct_equal);
+#define HASH_TYPE_INT GHashTable*
+#define CREATE_INT(int_hash) g_hash_table_new(g_direct_hash, g_direct_equal)
 #define RESERVE_INT(int_hash, size)
 #define INSERT_INT(int_hash, key, value) \
 	g_hash_table_insert(int_hash, GINT_TO_POINTER(key), __UNCONST(&value))
@@ -33,7 +34,8 @@ static void ghrfunc(gpointer key, gpointer value, gpointer user_data)
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define CLEAR_INT(int_hash)
 
-#define SETUP_STR(str_hash) GHashTable* str_hash = g_hash_table_new(g_str_hash, g_str_equal);
+#define HASH_TYPE_STR GHashTable*
+#define CREATE_STR(str_hash) g_hash_table_new(g_str_hash, g_str_equal)
 #define RESERVE_STR(str_hash, size)
 #define SHUFFLE_STR_ARRAY(keys)
 #define INSERT_STR(str_hash, key, value)								\

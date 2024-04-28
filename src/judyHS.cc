@@ -4,7 +4,9 @@
 
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
-#define SETUP_STR(str_hash) void *str_hash = NULL;
+
+#define HASH_TYPE_STR void *
+#define CREATE_STR(str_hash) NULL
 #define RESERVE_STR(str_hash, size)
 #define INSERT_STR(str_hash, key, value) \
 	*(Word_t *)JudyHSIns(&str_hash, __UNCONST(key.c_str()), key.size(), NULL) = value;

@@ -168,8 +168,12 @@ static bool process_integers()
 {
 	bool ret = true;
 
-#ifdef SETUP_INT
-	SETUP_INT(hash_int);
+#ifdef HASH_TYPE_INT
+	HASH_TYPE_INT hash_int { CREATE_INT(hash_int) };
+
+#ifdef PREPARE_INT
+	PREPARE_INT(hash_int);
+#endif
 
 	/**
 	 * Integers
@@ -354,8 +358,12 @@ static bool process_integers()
 static bool process_strings()
 {
 	bool ret = true;
-#ifdef SETUP_STR
-	SETUP_STR(hash_str);
+#ifdef HASH_TYPE_STR
+	HASH_TYPE_STR hash_str { CREATE_STR(hash_str) };
+
+#ifdef PREPARE_STR
+	PREPARE_STR(hash_str);
+#endif
 
 	/**
 	 * Small strings
