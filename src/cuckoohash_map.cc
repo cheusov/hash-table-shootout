@@ -9,7 +9,7 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #include "hash_map_str_base.h"
 
 #undef SETUP_STR
-#define SETUP_STR \
+#define SETUP_STR(str_hash)			\
 	str_hash_t mt_str_hash; \
 	str_hash_t::locked_table str_hash = mt_str_hash.lock_table();
 
@@ -26,7 +26,7 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #define CHECK_INT_ITERATOR_VALUE(int_hash, iterator, value)
 
 #undef INSERT_STR
-#define INSERT_STR(key, value) \
+#define INSERT_STR(str_hash, key, value) \
   str_hash.insert(key, value);
 
 #include "template.cc"

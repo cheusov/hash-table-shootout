@@ -44,28 +44,28 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define CLEAR_INT(int_hash)
 
-#define SETUP_STR GTree* str_hash = g_tree_new(&gstrcmp);
-#define RESERVE_STR(size)
+#define SETUP_STR(str_hash) GTree* str_hash = g_tree_new(&gstrcmp);
+#define RESERVE_STR(str_hash, size)
 #define SHUFFLE_STR_ARRAY(keys)
-#define INSERT_STR(key, value) \
+#define INSERT_STR(str_hash, key, value) \
 	g_tree_insert(str_hash, __UNCONST(key.c_str()), (char*)0 + value)
-#define FIND_STR_EXISTING(key)									   \
+#define FIND_STR_EXISTING(str_hash, key)						   \
 	if (g_tree_lookup(str_hash, __UNCONST(key.c_str())) == NULL) { \
-		std::cerr << "error\n";									   \
+		std::cerr << "error\n";								   \
 		exit(1);												   \
 	}
-#define FIND_STR_MISSING(key)									   \
+#define FIND_STR_MISSING(str_hash, key)						   \
 	if (g_tree_lookup(str_hash, __UNCONST(key.c_str())) != NULL) { \
-		std::cerr << "error\n";									   \
+		std::cerr << "error\n";								   \
 		exit(1);												   \
 	}
-#define FIND_STR_EXISTING_COUNT(key, count) \
+#define FIND_STR_EXISTING_COUNT(str_hash, key, count) \
 	if (g_tree_lookup(str_hash, __UNCONST(key.c_str())) != NULL) { \
 		count++; \
 	}
-#define DELETE_STR(key) \
+#define DELETE_STR(str_hash, key) \
 	g_tree_remove(str_hash, __UNCONST(key.c_str()));
-#define LOAD_FACTOR_STR_HASH(int_hash) (0.0f)
-#define CLEAR_STR
+#define LOAD_FACTOR_STR_HASH(str_hash) (0.0f)
+#define CLEAR_STR(str_hash)
 
 #include "template.cc"

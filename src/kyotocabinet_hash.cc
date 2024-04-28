@@ -19,7 +19,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 	}
 
 #undef SETUP_STR
-#define SETUP_STR														\
+#define SETUP_STR(str_hash)											\
 	str_hash_t str_hash;												\
 	system(rem_kyotodb_hash_cmd.c_str());								\
 	if (!str_hash.open(dbpath, str_hash_t::OWRITER | str_hash_t::OCREATE)){	\
@@ -31,14 +31,14 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 #define RESERVE_INT(int_hash, size)
 
 #undef RESERVE_STR
-#define RESERVE_STR(size)
+#define RESERVE_STR(str_hash, size)
 
 #undef INSERT_INT
 #define INSERT_INT(int_hash, key, value) \
 	int_hash.set(std::to_string(key), std::to_string(value))
 
 #undef INSERT_STR
-#define INSERT_STR(key, value) \
+#define INSERT_STR(str_hash, key, value) \
 	str_hash.set(key, std::to_string(value))
 
 #undef DELETE_INT
@@ -46,7 +46,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 	int_hash.remove(std::to_string(key))
 
 #undef DELETE_STR
-#define DELETE_STR(key) str_hash.remove(key)
+#define DELETE_STR(str_hash, key) str_hash.remove(key)
 
 #undef FIND_INT_EXISTING
 #define FIND_INT_EXISTING(int_hash, key)			 \
@@ -59,7 +59,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 	}
 
 #undef FIND_STR_EXISTING
-#define FIND_STR_EXISTING(key)						\
+#define FIND_STR_EXISTING(str_hash, key)			\
 	{												\
 		std::string s_val;							\
 		if(!str_hash.get(key, &s_val)) {			\
@@ -79,7 +79,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 	}
 
 #undef FIND_STR_MISSING
-#define FIND_STR_MISSING(key)			\
+#define FIND_STR_MISSING(str_hash, key)			\
 	if(str_hash.get(key, &s_val)) {				\
 		std::cerr << "error 4\n";					\
 		exit(4);									\
@@ -92,7 +92,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 	}
 
 #undef FIND_STR_EXISTING_COUNT
-#define FIND_STR_EXISTING_COUNT(key, count)			\
+#define FIND_STR_EXISTING_COUNT(str_hash, key, count)	\
 	if(str_hash.get(key, &s_val)) {					\
 		count++;									\
 	}
@@ -107,12 +107,12 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 #define LOAD_FACTOR_INT_HASH(int_hash) 0.0f
 
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(int_hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(str_hash) 0.0f
 
 #undef CLEAR_INT
 #define CLEAR_INT(int_hash) int_hash.close(); system(rem_kyotodb_hash_cmd.c_str())
 
 #undef CLEAR_STR
-#define CLEAR_STR str_hash.close(); system(rem_kyotodb_hash_cmd.c_str())
+#define CLEAR_STR(str_hash) str_hash.close(); system(rem_kyotodb_hash_cmd.c_str())
 
 #include "template.cc"

@@ -15,9 +15,9 @@ typedef google::sparse_hash_map<std::string, int64_t, std::hash<std::string>> st
 #define RESERVE_INT(int_hash, size) int_hash.resize(size)
 
 #undef SETUP_STR
-#define SETUP_STR str_hash_t str_hash; str_hash.set_deleted_key("");
+#define SETUP_STR(str_hash) str_hash_t str_hash; str_hash.set_deleted_key("");
 
 #undef RESERVE_STR
-#define RESERVE_STR(size) str_hash.resize(size)
+#define RESERVE_STR(str_hash, size) str_hash.resize(size)
 
 #include "template.cc"

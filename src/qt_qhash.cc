@@ -26,10 +26,10 @@ typedef QHash<std::string, int64_t> str_hash_t;
 		exit(3); \
 	}
 #undef LOAD_FACTOR_STR_HASH
-#define LOAD_FACTOR_STR_HASH(int_hash) 0.0f
+#define LOAD_FACTOR_STR_HASH(str_hash) 0.0f
 #undef INSERT_STR
-#define INSERT_STR(key, value) str_hash.insert(key, value)
+#define INSERT_STR(str_hash, key, value) str_hash.insert(key, value)
 #undef DELETE_STR
-#define DELETE_STR(key) str_hash.remove(key);
+#define DELETE_STR(str_hash, key) str_hash.remove(key);
 
 #include "template.cc"

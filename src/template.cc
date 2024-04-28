@@ -355,7 +355,7 @@ static bool process_strings()
 {
 	bool ret = true;
 #ifdef SETUP_STR
-	SETUP_STR;
+	SETUP_STR(hash_str);
 
 	/**
 	 * Small strings
@@ -371,7 +371,7 @@ static bool process_strings()
 		test_type == "delete_tiny_string")
 	{
 		if (test_type == "read_miss_tiny_string"){
-			RESERVE_STR(num_keys);
+			RESERVE_STR(hash_str, num_keys);
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
@@ -384,7 +384,7 @@ static bool process_strings()
 		test_type == "delete_small_string")
 	{
 		if (test_type == "read_miss_small_string"){
-			RESERVE_STR(num_keys);
+			RESERVE_STR(hash_str, num_keys);
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, SMALL_STRING_MIN_SIZE, SMALL_STRING_MAX_SIZE);
@@ -397,7 +397,7 @@ static bool process_strings()
 			  test_type == "delete_string")
 	{
 		if (test_type == "read_miss_string"){
-			RESERVE_STR(num_keys);
+			RESERVE_STR(hash_str, num_keys);
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
@@ -410,7 +410,7 @@ static bool process_strings()
 		test_type == "delete_huge_string")
 	{
 		if (test_type == "read_miss_huge_string"){
-			RESERVE_STR(num_keys);
+			RESERVE_STR(hash_str, num_keys);
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, HUGE_STRING_MIN_SIZE, HUGE_STRING_MAX_SIZE);
@@ -427,7 +427,7 @@ static bool process_strings()
 	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 	}
 
@@ -438,14 +438,14 @@ static bool process_strings()
 	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 		SHUFFLE_STR_ARRAY(keys);
 
 
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 	}
 
@@ -456,7 +456,7 @@ static bool process_strings()
 	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], 1);
+			INSERT_STR(hash_str, keys[i], 1);
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
@@ -464,7 +464,7 @@ static bool process_strings()
 		std::string s_val; // for leveldb
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_EXISTING(keys[i]);
+			FIND_STR_EXISTING(hash_str, keys[i]);
 		}
 	}
 
@@ -490,14 +490,14 @@ static bool process_strings()
 
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 
 
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_MISSING(keys_read[i]);
+			FIND_STR_MISSING(hash_str, keys_read[i]);
 		}
 	}
 
@@ -508,12 +508,12 @@ static bool process_strings()
 	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
 		for(std::int64_t i = 0; i < num_keys / 2; i++) {
-			DELETE_STR(keys[i]);
+			DELETE_STR(hash_str, keys[i]);
 		}
 		SHUFFLE_STR_ARRAY(keys);
 
@@ -522,7 +522,7 @@ static bool process_strings()
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_EXISTING_COUNT(keys[i], nb_found);
+			FIND_STR_EXISTING_COUNT(hash_str, keys[i], nb_found);
 		}
 
 		if(nb_found != num_keys / 2) {
@@ -538,15 +538,14 @@ static bool process_strings()
 	{
 		measurements m;
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(keys[i], value);
+			INSERT_STR(hash_str, keys[i], value);
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
 
-
 		m.set_chrono_start();
 		for(std::int64_t i = 0; i < num_keys; i++) {
-			DELETE_STR(keys[i]);
+			DELETE_STR(hash_str, keys[i]);
 		}
 	}
 
@@ -556,11 +555,11 @@ static bool process_strings()
 
 	if (ret) {
 		float load_factor_str = 0;
-		load_factor_str = LOAD_FACTOR_STR_HASH(str_hash);
+		load_factor_str = LOAD_FACTOR_STR_HASH(hash_str);
 		std::cout << load_factor_str << std::endl;
 	}
 
-	CLEAR_STR;
+	CLEAR_STR(hash_str);
 #else
 	ret = false;
 #endif
