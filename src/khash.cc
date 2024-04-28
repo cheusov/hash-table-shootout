@@ -125,7 +125,7 @@ static kh_inline khint_t murmur_hash2(const char *key)
 	if (k == kh_end(str_hash)) {										\
 		++count;														\
 	}
-#define ITERATE_INT(key)												\
+#define ITERATE_INT(it)												\
 	khiter_t it;														\
 	for (it = kh_begin(int_hash); it != kh_end(int_hash); ++it){		\
 		if (kh_exist(int_hash, it)){									\

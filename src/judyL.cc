@@ -25,7 +25,7 @@
 		count++; \
 	}
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
-#define ITERATE_INT(key) \
+#define ITERATE_INT(it) \
 	Word_t key = 0; \
 	Word_t *p_value = (Word_t *)JudyLFirst(hash_int, &key, NULL); \
 	for (; p_value != NULL; p_value = (Word_t *)JudyLNext(hash_int, &key, NULL))

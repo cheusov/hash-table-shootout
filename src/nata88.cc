@@ -28,7 +28,7 @@
 		count++; \
 	}
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
-#define ITERATE_INT(key) \
+#define ITERATE_INT(it) \
 	uint64_t key = 0; \
 	uint64_t *p_value = nata88first(int_hash, &key); \
 	for (; p_value != NULL; p_value = nata88next(int_hash, &key))

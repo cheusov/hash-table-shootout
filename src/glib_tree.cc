@@ -39,7 +39,7 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 #define DELETE_INT(key) \
 	g_tree_remove(int_hash, GINT_TO_POINTER(key))
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
-#define ITERATE_INT(key) \
+#define ITERATE_INT(it) \
 	g_tree_foreach(int_hash, gtraversefunc, NULL);
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define CLEAR_INT
