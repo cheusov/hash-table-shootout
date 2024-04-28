@@ -1,3 +1,4 @@
+#define HASH_TYPE_STR str_hash_t
 #define CREATE_STR(str_hash)
 #define RESERVE_STR(str_hash, size) \
 	str_hash.reserve(size);
