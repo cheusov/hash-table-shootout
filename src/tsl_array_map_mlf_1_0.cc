@@ -6,9 +6,9 @@
 #include <experimental/string_view>
 template<class CharT>
 struct str_hash {
-    std::size_t operator()(const CharT* key, std::size_t key_size) const {
-        return std::hash<std::experimental::string_view>()(std::experimental::string_view(key, key_size));
-    }
+	std::size_t operator()(const CharT* key, std::size_t key_size) const {
+		return std::hash<std::experimental::string_view>()(std::experimental::string_view(key, key_size));
+	}
 };
 
 typedef std::unordered_map<int64_t, int64_t> hash_t;
