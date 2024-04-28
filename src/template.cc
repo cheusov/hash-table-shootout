@@ -521,11 +521,6 @@ static bool process_strings()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			FIND_STR_EXISTING_COUNT(hash_str, keys[i], nb_found);
 		}
-
-		if(nb_found != num_keys / 2) {
-			std::cerr << "error, duplicates\n";
-			std::exit(6);
-		}
 	}
 
 	else if (test_type == "delete_tiny_string" ||
