@@ -62,8 +62,11 @@ static kh_inline khint_t murmur_hash2(const char *key)
 #define HASH_TYPE_INT khash_t(kh64) *
 #define HASH_TYPE_STR khash_t(khstr) *
 
-#define CREATE_INT(int_hash) kh_init(kh64)
-#define CREATE_STR(str_hash) kh_init(khstr)
+#define CREATE_INT(int_hash) NULL
+#define CREATE_STR(str_hash) NULL
+
+#define PREPARE_INT(int_hash) int_hash = kh_init(kh64)
+#define PREPARE_STR(str_hash) str_hash = kh_init(khstr)
 
 #define RESERVE_INT(int_hash, n) \
 	kh_resize(kh64, int_hash, (khint_t)(n / __ac_HASH_UPPER + 1));

@@ -19,7 +19,8 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 }
 
 #define HASH_TYPE_INT GTree *
-#define CREATE_INT(int_hash) g_tree_new(&intcmp)
+#define CREATE_INT(int_hash) NULL
+#define PREPARE_INT(int_hash) int_hash = g_tree_new(&intcmp)
 #define RESERVE_INT(int_hash, size)
 #define INSERT_INT(int_hash, key, value) \
 	g_tree_insert(int_hash, GINT_TO_POINTER(key), __UNCONST(&value))
@@ -46,7 +47,8 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 #define CLEAR_INT(int_hash)
 
 #define HASH_TYPE_STR GTree *
-#define CREATE_STR(str_hash) g_tree_new(&gstrcmp)
+#define CREATE_STR(str_hash) NULL
+#define PREPARE_STR(str_hash) str_hash = g_tree_new(&gstrcmp)
 #define RESERVE_STR(str_hash, size)
 #define SHUFFLE_STR_ARRAY(keys)
 #define INSERT_STR(str_hash, key, value) \

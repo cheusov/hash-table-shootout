@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 #include <array>
+#include <cassert>
 #include <getopt.h>
 
 // TODO When generating random values to insert in the map there is no check
@@ -41,12 +42,15 @@ static const std::int64_t SEED = 0;
 static std::mt19937_64 generator(SEED);
 
 #ifndef ITERATE_INT
-#define ITERATE_INT(int_hash, it) for(const auto& it : int_hash)
+#define ITERATE_INT(int_hash, it) for (const auto& it : int_hash)
 #endif
 
 #ifndef SHUFFLE_STR_ARRAY
 #define SHUFFLE_STR_ARRAY(keys) std::shuffle(keys.begin(), keys.end(), generator)
 #endif
+
+static std::size_t tests_count;
+static std::size_t num_keys;
 
 static std::size_t get_memory_usage_bytes(void)
 {
@@ -84,7 +88,7 @@ std::string get_random_alphanum_string(
 	std::uniform_int_distribution<std::size_t> rd_uniform(0, ALPHANUMERIC_CHARS.size() - 1);
 
 	std::string str(size, '\0');
-	for(std::size_t i = 0; i < size; i++) {
+	for (std::size_t i = 0; i < size; i++) {
 		str[i] = ALPHANUMERIC_CHARS[rd_uniform(generator)];
 	}
 
@@ -113,7 +117,7 @@ static std::vector<std::int64_t> get_random_full_ints(
 	std::uniform_int_distribution<std::int64_t> rd_uniform(min, max);
 
 	std::vector<std::int64_t> random_ints(nb_ints);
-	for(std::size_t i = 0; i < random_ints.size(); i++) {
+	for (std::size_t i = 0; i < random_ints.size(); i++) {
 		random_ints[i] = rd_uniform(generator);
 	}
 
@@ -124,7 +128,7 @@ static std::vector<std::string> get_random_alphanum_strings(
 	std::size_t nb_strings, std::size_t min_size, std::size_t max_size)
 {
 	std::vector<std::string> random_strings(nb_strings);
-	for(std::size_t i = 0; i < random_strings.size(); i++) {
+	for (std::size_t i = 0; i < random_strings.size(); i++) {
 		random_strings[i] = get_random_alphanum_string(min_size, max_size);
 	}
 
@@ -147,12 +151,13 @@ class measurements {
 		const auto chrono_end = get_user_time();
 		const std::size_t memory_usage_bytes_end = get_memory_usage_bytes();
 
-		const float nb_seconds = (chrono_end - m_chrono_start) / 1000000.0f;
+		const float nb_seconds = (chrono_end - m_chrono_start);
 		// On reads or delete the used bytes could be less than initially.
 		const std::size_t used_memory_bytes = (memory_usage_bytes_end > m_memory_usage_bytes_start)?
 			memory_usage_bytes_end - m_memory_usage_bytes_start:0;
 
-		std::cout << nb_seconds << " " << used_memory_bytes << " ";
+		std::cout << nb_seconds   / num_keys / tests_count << " " <<
+			used_memory_bytes  / num_keys / tests_count << " ";
 	}
 
 private:
@@ -160,7 +165,6 @@ private:
 	std::uint64_t m_chrono_start = get_user_time();
 };
 
-static std::int64_t num_keys;
 static std::string test_type;
 static std::int64_t value;
 
@@ -169,10 +173,12 @@ static bool process_integers()
 	bool ret = true;
 
 #ifdef HASH_TYPE_INT
-	HASH_TYPE_INT hash_int { CREATE_INT(hash_int) };
+	std::vector<HASH_TYPE_INT> int_hashes { tests_count, CREATE_INT(0) };
 
 #ifdef PREPARE_INT
-	PREPARE_INT(hash_int);
+	for (auto& int_hash: int_hashes) {
+		PREPARE_INT(int_hash);
+	}
 #endif
 
 	/**
@@ -206,8 +212,10 @@ static bool process_integers()
 		test_type == "insert_random_full")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 	}
 
@@ -215,9 +223,13 @@ static bool process_integers()
 			 test_type == "insert_random_full_reserve")
 	{
 		measurements m;
-		RESERVE_INT(hash_int, num_keys);
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			RESERVE_INT(hash_int, num_keys);
+		}
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 	}
 
@@ -225,15 +237,19 @@ static bool process_integers()
 			 test_type == "reinsert_random_full")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 		std::shuffle(keys.begin(), keys.end(), generator);
 
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 	}
 
@@ -241,15 +257,19 @@ static bool process_integers()
 			 test_type == "read_random_full")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 
 		std::shuffle(keys.begin(), keys.end(), generator);
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_INT_EXISTING(hash_int, keys[i]);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_INT_EXISTING(hash_int, keys[i]);
+			}
 		}
 	}
 
@@ -266,14 +286,18 @@ static bool process_integers()
 		}
 
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_INT_MISSING(hash_int, keys_read[i]);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_INT_MISSING(hash_int, keys_read[i]);
+			}
 		}
 	}
 
@@ -281,13 +305,17 @@ static bool process_integers()
 			 test_type == "read_random_full_after_delete")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 
 		std::shuffle(keys.begin(), keys.end(), generator);
-		for(std::int64_t i = 0; i < (num_keys + 1) / 2; i++) {
-			DELETE_INT(hash_int, keys[i]);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < (num_keys + 1) / 2; i++) {
+				DELETE_INT(hash_int, keys[i]);
+			}
 		}
 
 		std::shuffle(keys.begin(), keys.end(), generator);
@@ -296,8 +324,10 @@ static bool process_integers()
 		std::int64_t nb_found = 0;
 		m.set_chrono_start();
 		std::string s_val; // for kyotocabinet_stash
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_INT_EXISTING_COUNT(hash_int, keys[i], nb_found);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_INT_EXISTING_COUNT(hash_int, keys[i], nb_found);
+			}
 		}
 	}
 
@@ -305,14 +335,18 @@ static bool process_integers()
 			 test_type == "iteration_random_full")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 
 
 		m.set_chrono_start();
-		ITERATE_INT(hash_int, it) {
-			CHECK_INT_ITERATOR_VALUE(hash_int, it, value);
+		for (auto& hash_int: int_hashes) {
+			ITERATE_INT(hash_int, it) {
+				CHECK_INT_ITERATOR_VALUE(hash_int, it, value);
+			}
 		}
 	}
 
@@ -320,16 +354,20 @@ static bool process_integers()
 			 test_type == "delete_random_full")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_INT(hash_int, keys[i], value);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_INT(hash_int, keys[i], value);
+			}
 		}
 
 		std::shuffle(keys.begin(), keys.end(), generator);
 
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			DELETE_INT(hash_int, keys[i]);
+		for (auto& hash_int: int_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				DELETE_INT(hash_int, keys[i]);
+			}
 		}
 	}
 
@@ -339,11 +377,13 @@ static bool process_integers()
 
 	if (ret) {
 		float load_factor_int = 0;
-		load_factor_int = LOAD_FACTOR_INT_HASH(hash_int);
+		load_factor_int = LOAD_FACTOR_INT_HASH(int_hashes[0]);
 		std::cout << load_factor_int << std::endl;
 	}
 
-	CLEAR_INT(hash_int);
+	for (auto& hash_int: int_hashes) {
+		CLEAR_INT(hash_int);
+	}
 #else
 	ret = false;
 #endif
@@ -354,11 +394,14 @@ static bool process_integers()
 static bool process_strings()
 {
 	bool ret = true;
+
 #ifdef HASH_TYPE_STR
-	HASH_TYPE_STR hash_str { CREATE_STR(hash_str) };
+	std::vector<HASH_TYPE_STR> str_hashes { tests_count, CREATE_STR(hash_str) };
 
 #ifdef PREPARE_STR
-	PREPARE_STR(hash_str);
+	for (auto& str_hash: str_hashes) {
+		PREPARE_STR(str_hash);
+	}
 #endif
 
 	/**
@@ -375,7 +418,9 @@ static bool process_strings()
 		test_type == "delete_tiny_string")
 	{
 		if (test_type == "read_miss_tiny_string"){
-			RESERVE_STR(hash_str, num_keys);
+			for (auto& str_hash: str_hashes) {
+				RESERVE_STR(str_hash, num_keys);
+			}
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
@@ -388,7 +433,9 @@ static bool process_strings()
 		test_type == "delete_small_string")
 	{
 		if (test_type == "read_miss_small_string"){
-			RESERVE_STR(hash_str, num_keys);
+			for (auto& str_hash: str_hashes) {
+				RESERVE_STR(str_hash, num_keys);
+			}
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, SMALL_STRING_MIN_SIZE, SMALL_STRING_MAX_SIZE);
@@ -401,7 +448,9 @@ static bool process_strings()
 			  test_type == "delete_string")
 	{
 		if (test_type == "read_miss_string"){
-			RESERVE_STR(hash_str, num_keys);
+			for (auto& str_hash: str_hashes) {
+				RESERVE_STR(str_hash, num_keys);
+			}
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
@@ -414,7 +463,9 @@ static bool process_strings()
 		test_type == "delete_huge_string")
 	{
 		if (test_type == "read_miss_huge_string"){
-			RESERVE_STR(hash_str, num_keys);
+			for (auto& str_hash: str_hashes) {
+				RESERVE_STR(str_hash, num_keys);
+			}
 		}
 		keys = get_random_alphanum_strings(
 			num_keys, HUGE_STRING_MIN_SIZE, HUGE_STRING_MAX_SIZE);
@@ -430,8 +481,10 @@ static bool process_strings()
 		test_type == "insert_huge_string_reserve")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 	}
 
@@ -441,15 +494,19 @@ static bool process_strings()
 			 test_type == "reinsert_huge_string")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 		SHUFFLE_STR_ARRAY(keys);
 
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 	}
 
@@ -459,16 +516,20 @@ static bool process_strings()
 			 test_type == "read_huge_string")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], 1);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], 1);
+			}
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
 
 		std::string s_val; // for leveldb
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_EXISTING(hash_str, keys[i]);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_STR_EXISTING(str_hash, keys[i]);
+			}
 		}
 	}
 
@@ -482,15 +543,19 @@ static bool process_strings()
 				num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
 
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 
 
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_MISSING(hash_str, keys_read[i]);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_STR_MISSING(str_hash, keys_read[i]);
+			}
 		}
 	}
 
@@ -500,13 +565,17 @@ static bool process_strings()
 			 test_type == "read_huge_string_after_delete")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
-		for(std::int64_t i = 0; i < num_keys / 2; i++) {
-			DELETE_STR(hash_str, keys[i]);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys / 2; i++) {
+				DELETE_STR(str_hash, keys[i]);
+			}
 		}
 		SHUFFLE_STR_ARRAY(keys);
 
@@ -514,8 +583,10 @@ static bool process_strings()
 		std::int64_t nb_found = 0;
 		std::string s_val; // for kyotocabinet_stash
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			FIND_STR_EXISTING_COUNT(hash_str, keys[i], nb_found);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				FIND_STR_EXISTING_COUNT(str_hash, keys[i], nb_found);
+			}
 		}
 	}
 
@@ -525,15 +596,19 @@ static bool process_strings()
 			 test_type == "delete_huge_string")
 	{
 		measurements m;
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			INSERT_STR(hash_str, keys[i], value);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				INSERT_STR(str_hash, keys[i], value);
+			}
 		}
 
 		SHUFFLE_STR_ARRAY(keys);
 
 		m.set_chrono_start();
-		for(std::int64_t i = 0; i < num_keys; i++) {
-			DELETE_STR(hash_str, keys[i]);
+		for (auto& str_hash: str_hashes) {
+			for (std::int64_t i = 0; i < num_keys; i++) {
+				DELETE_STR(str_hash, keys[i]);
+			}
 		}
 	}
 
@@ -542,12 +617,12 @@ static bool process_strings()
 	}
 
 	if (ret) {
-		float load_factor_str = 0;
-		load_factor_str = LOAD_FACTOR_STR_HASH(hash_str);
-		std::cout << load_factor_str << std::endl;
+		assert(str_hashes.size() > 0);
+		std::cout << LOAD_FACTOR_STR_HASH(str_hashes[0]) << std::endl;
 	}
 
-	CLEAR_STR(hash_str);
+	for (auto& str_hash: str_hashes)
+		CLEAR_STR(str_hash);
 #else
 	ret = false;
 #endif
@@ -604,6 +679,7 @@ int main(int argc, char ** argv)
 	}
 
 	num_keys = std::stoll(argv[0]);
+	tests_count = std::max(1uL, 1000000uL / num_keys);
 	test_type = argv[1];
 	value = 1;
 
