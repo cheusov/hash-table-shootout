@@ -1,3 +1,4 @@
+* add support for https://github.com/greg7mdp/parallel-hashmap
 * add -h option to build/ utils
 * google btree_map morzhovets@
 * instead of "error when unsupported"
