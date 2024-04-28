@@ -16,11 +16,11 @@ typedef QHash<std::string, int64_t> str_hash_t;
 #undef LOAD_FACTOR_INT_HASH
 #define LOAD_FACTOR_INT_HASH(int_hash) 0.0f
 #undef INSERT_INT
-#define INSERT_INT(key, value) int_hash.insert(key, value)
+#define INSERT_INT(int_hash, key, value) int_hash.insert(key, value)
 #undef DELETE_INT
-#define DELETE_INT(key) int_hash.remove(key)
+#define DELETE_INT(int_hash, key) int_hash.remove(key)
 #undef CHECK_INT_ITERATOR_VALUE
-#define CHECK_INT_ITERATOR_VALUE(iterator, val) \
+#define CHECK_INT_ITERATOR_VALUE(int_hash, iterator, val)	\
 	if(iterator != val) { \
 		printf("error\n"); \
 		exit(3); \

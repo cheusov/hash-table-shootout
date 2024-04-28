@@ -59,14 +59,14 @@ static kh_inline khint_t murmur_hash2(const char *key)
 	return h;
 }
 
-#define SETUP_INT khash_t(kh64) *int_hash = kh_init(kh64);
+#define SETUP_INT(int_hash) khash_t(kh64) *int_hash = kh_init(kh64);
 #define SETUP_STR khash_t(khstr) *str_hash = kh_init(khstr);
 
-#define RESERVE_INT(n) \
+#define RESERVE_INT(int_hash, n) \
 	kh_resize(kh64, int_hash, (khint_t)(n / __ac_HASH_UPPER + 1));
 #define RESERVE_STR(n) \
 	kh_resize(khstr, str_hash, (khint_t)(n / __ac_HASH_UPPER + 1));
-#define INSERT_INT(key, value)											\
+#define INSERT_INT(int_hash, key, value)								\
 	int r;																\
 	khint_t k = kh_put(kh64, int_hash, key, &r);						\
 	if (r > 0) {														\
@@ -80,30 +80,30 @@ static kh_inline khint_t murmur_hash2(const char *key)
 		kh_value(str_hash, k) = value;									\
 	} else																\
 		free(istr);
-#define DELETE_INT(key)							\
+#define DELETE_INT(int_hash, key)							\
 	khint_t k = kh_get(kh64, int_hash, key);		\
 	if (k != kh_end(int_hash))						\
 		kh_del(kh64, int_hash, k);
-#define DELETE_STR(key)													\
+#define DELETE_STR(key)												\
 	khint_t k = kh_get(khstr, str_hash, key.c_str());					\
 	if (k != kh_end(str_hash)) {										\
 		char *istr = (char *) kh_key(str_hash, k);						\
-		kh_del(khstr, str_hash, k);										\
-		free(istr);														\
+		kh_del(khstr, str_hash, k);									\
+		free(istr);													\
 	}
-#define FIND_INT_EXISTING(key)											\
+#define FIND_INT_EXISTING(int_hash, key)								\
 	khint_t k = kh_get(kh64, int_hash, (key));							\
 	if (k == kh_end(int_hash)) {										\
 		std::cerr << "error 1\n";										\
 		exit(1);														\
 	}
 #define FIND_STR_EXISTING(key)											\
-	khint_t k = kh_get(khstr, str_hash, (key.c_str()));					\
+	khint_t k = kh_get(khstr, str_hash, (key.c_str()));				\
 	if (k == kh_end(str_hash)) {										\
 		std::cerr << "error 2\n";										\
 		exit(1);														\
 	}
-#define FIND_INT_MISSING(key)											\
+#define FIND_INT_MISSING(int_hash, key)								\
 	khint_t k = kh_get(kh64, int_hash, key);							\
 	if (k != kh_end(int_hash)) {										\
 		std::cerr << "error 3\n";										\
@@ -115,30 +115,30 @@ static kh_inline khint_t murmur_hash2(const char *key)
 		std::cerr << "error 4\n";										\
 		exit(1);														\
 	}
-#define FIND_INT_EXISTING_COUNT(key, count)								\
+#define FIND_INT_EXISTING_COUNT(int_hash, key, count)					\
 	khint_t k = kh_get(kh64, int_hash, key);							\
 	if (k == kh_end(int_hash)) {										\
 		++count;														\
 	}
-#define FIND_STR_EXISTING_COUNT(key, count)								\
+#define FIND_STR_EXISTING_COUNT(key, count)							\
 	khint_t k = kh_get(khstr, str_hash, key.c_str());					\
 	if (k == kh_end(str_hash)) {										\
 		++count;														\
 	}
-#define ITERATE_INT(it)												\
+#define ITERATE_INT(int_hash, it)										\
 	khiter_t it;														\
 	for (it = kh_begin(int_hash); it != kh_end(int_hash); ++it){		\
 		if (kh_exist(int_hash, it)){									\
 			kh_value(int_hash, it) = 1;								\
 		}																\
 	}
-#define CHECK_INT_ITERATOR_VALUE(it, value)
+#define CHECK_INT_ITERATOR_VALUE(int_hash, it, value)
 
 #define LOAD_FACTOR_INT_HASH(h) \
 	(float)(h)->n_occupied / (h)->n_buckets
 #define LOAD_FACTOR_STR_HASH(h) \
 	(float)(h)->n_occupied / (h)->n_buckets
-#define CLEAR_INT
+#define CLEAR_INT(int_hash)
 #define CLEAR_STR
 
 #include "template.cc"

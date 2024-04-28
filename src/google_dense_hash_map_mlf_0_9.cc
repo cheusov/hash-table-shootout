@@ -9,14 +9,14 @@ typedef google::dense_hash_map<std::string, int64_t, std::hash<std::string>> str
 #include "hash_map_str_base.h"
 
 #undef SETUP_INT
-#define SETUP_INT \
+#define SETUP_INT(int_hash)		\
 	hash_t int_hash; \
 	int_hash.max_load_factor(0.9f); \
 	int_hash.set_empty_key(-1); \
 	int_hash.set_deleted_key(-2);
 
 #undef RESERVE_INT
-#define RESERVE_INT(size) int_hash.resize(size)
+#define RESERVE_INT(int_hash, size) int_hash.resize(size)
 
 #undef SETUP_STR
 #define SETUP_STR \

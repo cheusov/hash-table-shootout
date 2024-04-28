@@ -67,7 +67,7 @@ static std::string kDBPath = "/tmp/str_rocksdb";
 	}
 
 #undef ITERATE_INT
-#define ITERATE_INT(it)
+#define ITERATE_INT(int_hash, it)
 
 #undef LOAD_FACTOR_STR_HASH
 #define LOAD_FACTOR_STR_HASH(h) 0.0f

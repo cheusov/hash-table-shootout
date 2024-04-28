@@ -2,7 +2,7 @@
 
 typedef PyObject * hash_t;
 
-#define SETUP_INT									\
+#define SETUP_INT(int_hash)						\
 	Py_Initialize();								\
 	hash_t int_hash = PyDict_New();				\
 	PyObject * py_int_value = PyLong_FromLong(0);
@@ -40,14 +40,14 @@ typedef PyObject * hash_t;
 	}
 #define CHECK_INT_ITERATOR_VALUE(iterator, value)
 
-#define ITERATE_INT(it)									  \
+#define ITERATE_INT(int_hash, it)						  \
 	PyObject *key, *value;								  \
 	Py_ssize_t it = 0;									  \
 	while (PyDict_Next(int_hash, &it, &key, &value))
 
 #define LOAD_FACTOR_INT_HASH(h) (0.0f)
 
-#define CLEAR_INT
+#define CLEAR_INT(int_hash)
 
 ////
 
