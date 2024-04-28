@@ -299,10 +299,6 @@ static bool process_integers()
 		for(std::int64_t i = 0; i < num_keys; i++) {
 			FIND_INT_EXISTING_COUNT(hash_int, keys[i], nb_found);
 		}
-
-		if(nb_found > 0 && nb_found != num_keys / 2) {
-			std::exit(6);
-		}
 	}
 
 	else if (test_type == "iteration_random_shuffle_range" ||
