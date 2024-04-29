@@ -31,6 +31,6 @@
 	Word_t *p_value = (Word_t *)JudyLFirst(int_hash, &key, NULL); \
 	for (; p_value != NULL; p_value = (Word_t *)JudyLNext(int_hash, &key, NULL))
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
-#define CLEAR_INT
+#define CLEAR_INT(int_hash) JudyLFreeArray(&int_hash, NULL);
 
 #include "template.cc"
