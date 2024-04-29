@@ -44,7 +44,7 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 #define ITERATE_INT(int_hash, it)					\
 	g_tree_foreach(int_hash, gtraversefunc, NULL);
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
-#define CLEAR_INT(int_hash)
+#define CLEAR_INT(int_hash) g_tree_destroy(int_hash)
 
 #define HASH_TYPE_STR GTree *
 #define CREATE_STR NULL
@@ -70,6 +70,6 @@ static gboolean gtraversefunc(gpointer key, gpointer value, gpointer data)
 #define DELETE_STR(str_hash, key) \
 	g_tree_remove(str_hash, __UNCONST(key.c_str()));
 #define LOAD_FACTOR_STR_HASH(str_hash) (0.0f)
-#define CLEAR_STR(str_hash)
+#define CLEAR_STR(str_hash) g_tree_destroy(str_hash)
 
 #include "template.cc"
