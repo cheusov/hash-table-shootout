@@ -168,6 +168,33 @@ private:
 static std::string test_type;
 static std::int64_t value;
 
+static std::vector<std::int64_t> generate_integer_keys()
+{
+	if (test_type == "insert_random_shuffle_range" ||
+		test_type == "reinsert_random_shuffle_range" ||
+		test_type == "read_random_shuffle_range" ||
+		test_type == "read_miss_random_shuffle_range" ||
+		test_type == "insert_random_shuffle_range_reserve" ||
+		test_type == "read_random_shuffle_range_after_delete" ||
+		test_type == "iteration_random_shuffle_range" ||
+		test_type == "delete_random_shuffle_range")
+	{
+		return get_random_shuffle_range_ints(num_keys);
+	} else if (test_type == "insert_random_full" ||
+			  test_type == "reinsert_random_full" ||
+			  test_type == "read_random_full" ||
+			  test_type == "read_miss_random_full" ||
+			  test_type == "insert_random_full_reserve" ||
+			  test_type == "read_random_full_after_delete" ||
+			  test_type == "iteration_random_full" ||
+			  test_type == "delete_random_full")
+	{
+		return get_random_full_ints(num_keys);
+	} else {
+		return std::vector<std::int64_t>();
+	}
+}
+
 static bool process_integers()
 {
 	bool ret = true;
@@ -181,32 +208,9 @@ static bool process_integers()
 	}
 #endif
 
-	/**
-	 * Integers
-	 */
-	std::vector<std::int64_t> keys;
-
-	if (test_type == "insert_random_shuffle_range" ||
-		test_type == "reinsert_random_shuffle_range" ||
-		test_type == "read_random_shuffle_range" ||
-		test_type == "read_miss_random_shuffle_range" ||
-		test_type == "insert_random_shuffle_range_reserve" ||
-		test_type == "read_random_shuffle_range_after_delete" ||
-		test_type == "iteration_random_shuffle_range" ||
-		test_type == "delete_random_shuffle_range")
-	{
-		keys = get_random_shuffle_range_ints(num_keys);
-	}else if (test_type == "insert_random_full" ||
-			  test_type == "reinsert_random_full" ||
-			  test_type == "read_random_full" ||
-			  test_type == "read_miss_random_full" ||
-			  test_type == "insert_random_full_reserve" ||
-			  test_type == "read_random_full_after_delete" ||
-			  test_type == "iteration_random_full" ||
-			  test_type == "delete_random_full")
-	{
-		keys = get_random_full_ints(num_keys);
-	}
+	std::vector<std::int64_t> keys = generate_integer_keys();
+	if (keys.empty())
+		ret = true;
 
 	if (test_type == "insert_random_shuffle_range" ||
 		test_type == "insert_random_full")
@@ -243,7 +247,6 @@ static bool process_integers()
 			}
 		}
 		std::shuffle(keys.begin(), keys.end(), generator);
-
 
 		m.set_chrono_start();
 		for (auto& hash_int: int_hashes) {
@@ -391,6 +394,53 @@ static bool process_integers()
 	return ret;
 }
 
+static std::vector<std::string> generate_string_keys()
+{
+	if (test_type == "insert_tiny_string" ||
+		test_type == "reinsert_tiny_string" ||
+		test_type == "insert_tiny_string_reserve" ||
+		test_type == "read_tiny_string" ||
+		test_type == "read_miss_tiny_string" ||
+		test_type == "read_tiny_string_after_delete" ||
+		test_type == "delete_tiny_string")
+	{
+		return get_random_alphanum_strings(
+			num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
+	} else if (test_type == "insert_small_string" ||
+		test_type == "reinsert_small_string" ||
+		test_type == "insert_small_string_reserve" ||
+		test_type == "read_small_string" ||
+		test_type == "read_miss_small_string" ||
+		test_type == "read_small_string_after_delete" ||
+		test_type == "delete_small_string")
+	{
+		return get_random_alphanum_strings(
+			num_keys, SMALL_STRING_MIN_SIZE, SMALL_STRING_MAX_SIZE);
+	} else if (test_type == "insert_string" ||
+			  test_type == "reinsert_string" ||
+			  test_type == "insert_string_reserve" ||
+			  test_type == "read_string" ||
+			  test_type == "read_miss_string" ||
+			  test_type == "read_string_after_delete" ||
+			  test_type == "delete_string")
+	{
+		return get_random_alphanum_strings(
+			num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
+	} else if (test_type == "insert_huge_string" ||
+		test_type == "reinsert_huge_string" ||
+		test_type == "insert_huge_string_reserve" ||
+		test_type == "read_huge_string" ||
+		test_type == "read_miss_huge_string" ||
+		test_type == "read_huge_string_after_delete" ||
+		test_type == "delete_huge_string")
+	{
+		return get_random_alphanum_strings(
+			num_keys, HUGE_STRING_MIN_SIZE, HUGE_STRING_MAX_SIZE);
+	} else {
+		return std::vector<std::string>();
+	}
+}
+
 static bool process_strings()
 {
 	bool ret = true;
@@ -404,71 +454,18 @@ static bool process_strings()
 	}
 #endif
 
-	/**
-	 * Small strings
-	 */
-	std::vector<std::string> keys;
+	std::vector<std::string> keys = generate_string_keys();
+	if (keys.empty())
+		ret = true;
 
-	if (test_type == "insert_tiny_string" ||
-		test_type == "reinsert_tiny_string" ||
-		test_type == "insert_tiny_string_reserve" ||
-		test_type == "read_tiny_string" ||
-		test_type == "read_miss_tiny_string" ||
-		test_type == "read_tiny_string_after_delete" ||
-		test_type == "delete_tiny_string")
-	{
-		if (test_type == "read_miss_tiny_string"){
-			for (auto& str_hash: str_hashes) {
-				RESERVE_STR(str_hash, num_keys);
-			}
-		}
-		keys = get_random_alphanum_strings(
-			num_keys, TINY_STRING_MIN_SIZE, TINY_STRING_MAX_SIZE);
-	}else if (test_type == "insert_small_string" ||
-		test_type == "reinsert_small_string" ||
-		test_type == "insert_small_string_reserve" ||
-		test_type == "read_small_string" ||
+	if (test_type == "read_miss_tiny_string" ||
 		test_type == "read_miss_small_string" ||
-		test_type == "read_small_string_after_delete" ||
-		test_type == "delete_small_string")
+		test_type == "read_miss_string" ||
+		test_type == "read_miss_huge_string")
 	{
-		if (test_type == "read_miss_small_string"){
-			for (auto& str_hash: str_hashes) {
-				RESERVE_STR(str_hash, num_keys);
-			}
+		for (auto& str_hash: str_hashes) {
+			RESERVE_STR(str_hash, num_keys);
 		}
-		keys = get_random_alphanum_strings(
-			num_keys, SMALL_STRING_MIN_SIZE, SMALL_STRING_MAX_SIZE);
-	}else if (test_type == "insert_string" ||
-			  test_type == "reinsert_string" ||
-			  test_type == "insert_string_reserve" ||
-			  test_type == "read_string" ||
-			  test_type == "read_miss_string" ||
-			  test_type == "read_string_after_delete" ||
-			  test_type == "delete_string")
-	{
-		if (test_type == "read_miss_string"){
-			for (auto& str_hash: str_hashes) {
-				RESERVE_STR(str_hash, num_keys);
-			}
-		}
-		keys = get_random_alphanum_strings(
-			num_keys, STRING_MIN_SIZE, STRING_MAX_SIZE);
-	}else if (test_type == "insert_huge_string" ||
-		test_type == "reinsert_huge_string" ||
-		test_type == "insert_huge_string_reserve" ||
-		test_type == "read_huge_string" ||
-		test_type == "read_miss_huge_string" ||
-		test_type == "read_huge_string_after_delete" ||
-		test_type == "delete_huge_string")
-	{
-		if (test_type == "read_miss_huge_string"){
-			for (auto& str_hash: str_hashes) {
-				RESERVE_STR(str_hash, num_keys);
-			}
-		}
-		keys = get_random_alphanum_strings(
-			num_keys, HUGE_STRING_MIN_SIZE, HUGE_STRING_MAX_SIZE);
 	}
 
 	if (test_type == "insert_tiny_string" ||
