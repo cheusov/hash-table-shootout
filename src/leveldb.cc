@@ -1,4 +1,3 @@
-#include <inttypes.h>
 #include <string>
 #include <iostream>
 #include <leveldb/db.h>
