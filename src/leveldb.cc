@@ -19,17 +19,17 @@ private:
 public:
 	str_hash_t() {
 		kDBPath = kDBPathPrefix + std::to_string(instance_number++);
-		rem_leveldb_cmd = std::string("rm -rf ") + kDBPath;		\
-		options.create_if_missing = true;				\
+		rem_leveldb_cmd = std::string("rm -rf ") + kDBPath;
+		options.create_if_missing = true;
 		db = NULL;
 	}
 
 	void initdb() {
-		system(rem_leveldb_cmd.c_str());										\
-		leveldb::Status status = leveldb::DB::Open(options, kDBPath, &db);	\
-		if (!status.ok()) {													\
-			std::cerr << "Open() failed\n";									\
-			exit(1);															\
+		system(rem_leveldb_cmd.c_str());
+		leveldb::Status status = leveldb::DB::Open(options, kDBPath, &db);
+		if (!status.ok()) {
+			std::cerr << "Open() failed\n";
+			exit(1);
 		}
 	}
 
@@ -73,9 +73,9 @@ int str_hash_t::instance_number = 0;
 		exit(4);													\
 	}
 
-#define FIND_STR_EXISTING_COUNT(str_hash, key, count)				   \
-	if (str_hash.db->Get(leveldb::ReadOptions(), key, &s_val).ok()){	   \
-		count++;												   \
+#define FIND_STR_EXISTING_COUNT(str_hash, key, count)				\
+	if (str_hash.db->Get(leveldb::ReadOptions(), key, &s_val).ok()){\
+		count++;													\
 	}
 
 #define LOAD_FACTOR_STR_HASH(str_hash) 0.0f
