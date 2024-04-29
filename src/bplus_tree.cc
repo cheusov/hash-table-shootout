@@ -30,6 +30,6 @@
 #define LOAD_FACTOR_INT_HASH(int_hash) (0.0f)
 #define ITERATE_INT(int_hash, it)
 #define CHECK_INT_ITERATOR_VALUE(int_hash, it, value)
-#define CLEAR_INT
+#define CLEAR_INT(int_hash) bplus_tree_destroy(int_hash)
 
 #include "template.cc"
