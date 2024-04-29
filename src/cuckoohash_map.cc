@@ -14,13 +14,13 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #define HASH_TYPE_STR str_hash_t
 
 #undef FIND_STR_EXISTING
-#define FIND_STR_EXISTING(str_hash, key) if(!str_hash.find(key)) { printf("error"); exit(1); }
+#define FIND_STR_EXISTING(str_hash, key) if (!str_hash.find(key, i64_val)) { printf("error"); exit(1); }
 
 #undef FIND_STR_MISSING
-#define FIND_STR_MISSING(str_hash, key) if(str_hash.find(key)) { printf("error"); exit(1); }
+#define FIND_STR_MISSING(str_hash, key) if (str_hash.find(key, i64_val)) { printf("error"); exit(1); }
 
 #undef FIND_STR_EXISTING_COUNT
-#define FIND_STR_EXISTING_COUNT(str_hash, key, count) if(str_hash.find(key)) { count++; }
+#define FIND_STR_EXISTING_COUNT(str_hash, key, count) if(str_hash.find(key, i64_val)) { count++; }
 
 #undef CREATE_STR
 #define CREATE_STR
@@ -39,13 +39,13 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #define HASH_TYPE_INT hash_t
 
 #undef FIND_INT_EXISTING
-#define FIND_INT_EXISTING(int_hash, key) if(!int_hash.find(key)) { printf("error"); exit(1); }
+#define FIND_INT_EXISTING(int_hash, key) if (!int_hash.find(key, i64_val)) { printf("error"); exit(1); }
 
 #undef FIND_INT_MISSING
-#define FIND_INT_MISSING(int_hash, key) if(int_hash.find(key)) { printf("error"); exit(1); }
+#define FIND_INT_MISSING(int_hash, key) if (int_hash.find(key, i64_val)) { printf("error"); exit(1); }
 
 #undef FIND_INT_EXISTING_COUNT
-#define FIND_INT_EXISTING_COUNT(int_hash, key, count) if(int_hash.find(key)) { count++; }
+#define FIND_INT_EXISTING_COUNT(int_hash, key, count) if (int_hash.find(key, i64_val)) { count++; }
 
 #undef CREATE_INT
 #define CREATE_INT

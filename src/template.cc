@@ -269,6 +269,7 @@ static bool process_integers()
 		std::shuffle(keys.begin(), keys.end(), generator);
 
 		m.set_chrono_start();
+		std::int64_t i64_val; // for cuckoohash_map
 		for (auto& hash_int: int_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
 				FIND_INT_EXISTING(hash_int, keys[i]);
@@ -297,6 +298,7 @@ static bool process_integers()
 
 
 		m.set_chrono_start();
+		std::int64_t i64_val; // for cuckoohash_map
 		for (auto& hash_int: int_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
 				FIND_INT_MISSING(hash_int, keys_read[i]);
@@ -327,6 +329,7 @@ static bool process_integers()
 		std::int64_t nb_found = 0;
 		m.set_chrono_start();
 		std::string s_val; // for kyotocabinet_stash
+		std::int64_t i64_val; // for cuckoohash_map
 		for (auto& hash_int: int_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
 				FIND_INT_EXISTING_COUNT(hash_int, keys[i], nb_found);
@@ -522,6 +525,7 @@ static bool process_strings()
 		SHUFFLE_STR_ARRAY(keys);
 
 		std::string s_val; // for leveldb
+		std::int64_t i64_val; // for cuckoohash_map
 		m.set_chrono_start();
 		for (auto& str_hash: str_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
@@ -548,6 +552,7 @@ static bool process_strings()
 
 
 		std::string s_val; // for kyotocabinet_stash
+		std::int64_t i64_val; // for cuckoohash_map
 		m.set_chrono_start();
 		for (auto& str_hash: str_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
@@ -579,6 +584,7 @@ static bool process_strings()
 
 		std::int64_t nb_found = 0;
 		std::string s_val; // for kyotocabinet_stash
+		std::int64_t i64_val; // for cuckoohash_map
 		m.set_chrono_start();
 		for (auto& str_hash: str_hashes) {
 			for (std::int64_t i = 0; i < num_keys; i++) {
