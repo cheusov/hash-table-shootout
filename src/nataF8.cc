@@ -26,6 +26,6 @@
 		count++; \
 	}
 #define LOAD_FACTOR_STR_HASH(str_hash) (0.0f)
-#define CLEAR_STR(str_hash)
+#define CLEAR_STR(str_hash) nataF8free(&str_hash)
 
 #include "template.cc"
