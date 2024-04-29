@@ -144,7 +144,7 @@ static kh_inline khint_t murmur_hash2(const char *key)
 	(float)(h)->n_occupied / (h)->n_buckets
 #define LOAD_FACTOR_STR_HASH(h) \
 	(float)(h)->n_occupied / (h)->n_buckets
-#define CLEAR_INT(int_hash)
-#define CLEAR_STR(str_hash)
+#define CLEAR_INT(int_hash) kh_destroy(kh64, int_hash)
+#define CLEAR_STR(str_hash) kh_destroy(khstr, str_hash)
 
 #include "template.cc"
