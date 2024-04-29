@@ -11,7 +11,6 @@ struct str_hash {
 	}
 };
 
-typedef std::unordered_map<int64_t, int64_t> hash_t;
 typedef tsl::array_map<char, int64_t, str_hash<char>> str_hash_t;
 
 #include "hash_map_str_base.h"

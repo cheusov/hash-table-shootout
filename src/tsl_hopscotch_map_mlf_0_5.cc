@@ -8,9 +8,7 @@ typedef tsl::hopscotch_map<std::string, int64_t, std::hash<std::string>> str_has
 #include "hash_map_int_base.h"
 #include "hash_map_str_base.h"
 
-#undef SETUP
-#define SETUP \
-	hash_t int_hash; int_hash.max_load_factor(0.5f); \
-	str_hash_t str_hash; str_hash.max_load_factor(0.5f);
+#define PREPARE_INT(int_hash) int_hash.max_load_factor(0.5f)
+#define PREPARE_STR(str_hash) str_hash.max_load_factor(0.5f)
 
 #include "template.cc"
