@@ -76,7 +76,7 @@ static uint64_t get_user_time(void)
 		perror("getrusage(2) failed");
 		exit(1);
 	}
-	return r_usage.ru_utime.tv_sec * 1000000 + r_usage.ru_utime.tv_usec;
+	return (r_usage.ru_utime.tv_sec * 1000000uL + r_usage.ru_utime.tv_usec) * 1000uL;
 }
 
 std::string get_random_alphanum_string(

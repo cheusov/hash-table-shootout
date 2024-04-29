@@ -30,7 +30,7 @@ for line in lines:
     benchtype, nkeys, program, load_factor, nbytes, runtime = line.split(',')
     nkeys = int(nkeys)
     nbytes = float(nbytes) # bytes per (key,value) pair
-    runtime = float(runtime) * 1000.0 # nanoseconds per operation
+    runtime = float(runtime) # nanoseconds per operation
     load_factor = float(load_factor)
     all_programs.add(program)
 
