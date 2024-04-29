@@ -15,11 +15,11 @@ for line in open("apps.txt"):
     if line:
         programs.append(line)
 
-minkeys  =  2*100*1000
-maxkeys  = 30*100*1000
+minkeys  =  100
+maxkeys  = 30*1000*1000
 #interval =  2*100*1000
-step_percent =  30 # you may use this variable instead of "interval" for exponetial step
-best_out_of = 5
+step_percent =  50 # you may use this variable instead of "interval" for exponetial step
+best_out_of = 2
 
 ######################################################################
 outfile = open('output', 'w')
