@@ -1,5 +1,5 @@
 #define HASH_TYPE_STR str_hash_t
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 #define RESERVE_STR(str_hash, size) \
 	str_hash.reserve(size);
 #define LOAD_FACTOR_STR_HASH(str_hash) \

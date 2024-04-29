@@ -1,5 +1,5 @@
 #define HASH_TYPE_INT hash_t
-#define CREATE_INT(int_hash)
+#define CREATE_INT
 #define RESERVE_INT(int_hash, size) int_hash.reserve(size)
 #define LOAD_FACTOR_INT_HASH(int_hash) int_hash.load_factor()
 #define INSERT_INT(int_hash, key, value) int_hash.insert(hash_t::value_type(key, value))

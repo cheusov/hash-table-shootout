@@ -62,8 +62,8 @@ static kh_inline khint_t murmur_hash2(const char *key)
 #define HASH_TYPE_INT khash_t(kh64) *
 #define HASH_TYPE_STR khash_t(khstr) *
 
-#define CREATE_INT(int_hash) NULL
-#define CREATE_STR(str_hash) NULL
+#define CREATE_INT NULL
+#define CREATE_STR NULL
 
 #define PREPARE_INT(int_hash) int_hash = kh_init(kh64)
 #define PREPARE_STR(str_hash) str_hash = kh_init(khstr)

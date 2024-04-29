@@ -23,7 +23,7 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #define FIND_STR_EXISTING_COUNT(str_hash, key, count) if(str_hash.find(key)) { count++; }
 
 #undef CREATE_STR
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 
 #undef INSERT_STR
 #define INSERT_STR(str_hash, key, value) str_hash.insert(key, value);
@@ -48,7 +48,7 @@ typedef libcuckoo::cuckoohash_map<std::string, int64_t, std::hash<std::string>> 
 #define FIND_INT_EXISTING_COUNT(int_hash, key, count) if(int_hash.find(key)) { count++; }
 
 #undef CREATE_INT
-#define CREATE_INT(int_hash)
+#define CREATE_INT
 
 #undef INSERT_INT
 #define INSERT_INT(int_hash, key, value) int_hash.insert(key, value);

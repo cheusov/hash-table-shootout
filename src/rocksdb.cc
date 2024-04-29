@@ -12,7 +12,7 @@ static std::string kDBPath = "/tmp/str_rocksdb";
 #define HASH_TYPE_STR rocksdb::DB*
 
 #undef CREATE_STR
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 
 #define PREPARE_STR(str_hash)						\
 	static rocksdb::Options options;				\

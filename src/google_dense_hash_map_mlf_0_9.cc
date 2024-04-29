@@ -12,7 +12,7 @@ typedef google::dense_hash_map<std::string, int64_t, std::hash<std::string>> str
 #define HASH_TYPE_INT hash_t
 
 #undef CREATE_INT
-#define CREATE_INT(int_hash)
+#define CREATE_INT
 
 #define PREPARE_INT(int_hash)		\
 	int_hash.max_load_factor(0.9f); \
@@ -26,7 +26,7 @@ typedef google::dense_hash_map<std::string, int64_t, std::hash<std::string>> str
 #define HASH_TYPE_STR str_hash_t
 
 #undef CREATE_STR
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 
 #define PREPARE_STR(str_hash)		\
 	str_hash.max_load_factor(0.9f); \

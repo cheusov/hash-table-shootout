@@ -173,7 +173,7 @@ static bool process_integers()
 	bool ret = true;
 
 #ifdef HASH_TYPE_INT
-	std::vector<HASH_TYPE_INT> int_hashes { tests_count, CREATE_INT(0) };
+	std::vector<HASH_TYPE_INT> int_hashes { tests_count, CREATE_INT };
 
 #ifdef PREPARE_INT
 	for (auto& int_hash: int_hashes) {
@@ -396,7 +396,7 @@ static bool process_strings()
 	bool ret = true;
 
 #ifdef HASH_TYPE_STR
-	std::vector<HASH_TYPE_STR> str_hashes { tests_count, CREATE_STR(hash_str) };
+	std::vector<HASH_TYPE_STR> str_hashes { tests_count, CREATE_STR };
 
 #ifdef PREPARE_STR
 	for (auto& str_hash: str_hashes) {

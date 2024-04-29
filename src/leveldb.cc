@@ -9,7 +9,7 @@ static std::string kDBPath = "/tmp/str_leveldb";
 #undef HASH_TYPE_STR
 #define HASH_TYPE_STR leveldb::DB*
 
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 
 #define PREPARE_STR(str_hash)						\
 	static leveldb::Options options;				\

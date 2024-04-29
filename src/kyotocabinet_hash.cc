@@ -13,7 +13,7 @@ static std::string rem_kyotodb_hash_cmd = std::string("rm -rf ") + dbpath;
 #define HASH_TYPE_STR str_hash_t
 
 #undef CREATE_STR
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 
 #define PREPARE_STR(str_hash)											\
 	system(rem_kyotodb_hash_cmd.c_str());								\

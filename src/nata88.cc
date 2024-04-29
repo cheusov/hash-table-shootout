@@ -5,7 +5,7 @@
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
 
 #define HASH_TYPE_INT void *
-#define CREATE_INT(int_hash) NULL
+#define CREATE_INT NULL
 #define RESERVE_INT(int_hash, size)
 #define INSERT_INT(int_hash, key, value) \
 	*nata88ins(&int_hash, key, NULL) = value;

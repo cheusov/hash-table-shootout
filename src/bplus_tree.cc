@@ -5,7 +5,7 @@
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)(p)-(char*)NULL)))
 
 #define HASH_TYPE_INT BplusTree *
-#define CREATE_INT(int_hash) NULL
+#define CREATE_INT NULL
 #define PREPARE_INT(int_hash) int_hash = bplus_tree_new()
 #define RESERVE_INT(int_hash, size)
 #define INSERT_INT(int_hash, key, value)		\

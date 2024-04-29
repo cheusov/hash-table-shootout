@@ -3,7 +3,7 @@
 typedef PyObject * hash_t;
 
 #define HASH_TYPE_INT hash_t
-#define CREATE_INT(int_hash)
+#define CREATE_INT
 #define PREPARE_INT(int_hash)						\
 	Py_Initialize();								\
 	int_hash = PyDict_New();						\
@@ -53,7 +53,7 @@ typedef PyObject * hash_t;
 
 ////
 #define HASH_TYPE_STR hash_t
-#define CREATE_STR(str_hash)
+#define CREATE_STR
 #define PREPARE_STR(str_hash)						\
 	Py_Initialize();								\
 	str_hash = PyDict_New();						\
