@@ -69,9 +69,9 @@ static kh_inline khint_t murmur_hash2(const char *key)
 #define PREPARE_STR(str_hash) str_hash = kh_init(khstr)
 
 #define RESERVE_INT(int_hash, n) \
-	kh_resize(kh64, int_hash, (khint_t)(n / __ac_HASH_UPPER + 1));
+	kh_resize(kh64, int_hash, (khint_t)(n));
 #define RESERVE_STR(str_hash, n) \
-	kh_resize(khstr, str_hash, (khint_t)(n / __ac_HASH_UPPER + 1));
+	kh_resize(khstr, str_hash, (khint_t)(n));
 #define INSERT_INT(int_hash, key, value)								\
 	int r;																\
 	khint_t k = kh_put(kh64, int_hash, key, &r);						\
