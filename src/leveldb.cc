@@ -4,65 +4,82 @@
 #include <leveldb/db.h>
 #include <stdlib.h>
 
-static std::string kDBPath = "/tmp/str_leveldb";
+static const std::string kDBPathPrefix = "/tmp/str_leveldb";
 
-#undef HASH_TYPE_STR
-#define HASH_TYPE_STR leveldb::DB*
+struct str_hash_t {
+public:
+	static int instance_number;
+	leveldb::DB* db;
+
+private:
+	std::string kDBPath;
+	leveldb::Options options;
+	std::string rem_leveldb_cmd;
+
+public:
+	str_hash_t() {
+		kDBPath = kDBPathPrefix + std::to_string(instance_number++);
+		rem_leveldb_cmd = std::string("rm -rf ") + kDBPath;		\
+		options.create_if_missing = true;				\
+		db = NULL;
+	}
+
+	void initdb() {
+		system(rem_leveldb_cmd.c_str());										\
+		leveldb::Status status = leveldb::DB::Open(options, kDBPath, &db);	\
+		if (!status.ok()) {													\
+			std::cerr << "Open() failed\n";									\
+			exit(1);															\
+		}
+	}
+
+	void clear() {
+		delete db;
+		system(rem_leveldb_cmd.c_str());
+	}
+};
+
+int str_hash_t::instance_number = 0;
+
+#define HASH_TYPE_STR str_hash_t
 
 #define CREATE_STR
 
-#define PREPARE_STR(str_hash)						\
-	static leveldb::Options options;				\
-	options.create_if_missing = true;				\
-	std::string rem_leveldb_cmd = std::string("rm -rf ") + kDBPath;		\
-	system(rem_leveldb_cmd.c_str());										\
-	leveldb::Status status = leveldb::DB::Open(options, kDBPath, &str_hash);	\
-	if (!status.ok()) {													\
-		std::cerr << "Open() failed\n";									\
-		exit(1);															\
-	}
+#define PREPARE_STR(str_hash) str_hash.initdb()
 
-#undef RESERVE_STR
 #define RESERVE_STR(str_hash, size)
 
-#undef INSERT_STR
 #define INSERT_STR(str_hash, key, value) \
-	if (!str_hash->Put(leveldb::WriteOptions(), key, std::to_string(value)).ok()){ \
+	if (!str_hash.db->Put(leveldb::WriteOptions(), key, std::to_string(value)).ok()){ \
 		std::cerr << "Put() failed\n";									\
 		exit(1);														\
 	}
 
-#undef DELETE_STR
 #define DELETE_STR(str_hash, key) \
-	if (!str_hash->Delete(leveldb::WriteOptions(), key).ok()){	\
+	if (!str_hash.db->Delete(leveldb::WriteOptions(), key).ok()){	\
 		std::cerr << "Delete() failed\n";						\
 		exit(2);												\
 	}
 
-#undef FIND_STR_EXISTING
 #define FIND_STR_EXISTING(str_hash, key)						  \
-	if (!str_hash->Get(leveldb::ReadOptions(), key, &s_val).ok()){  \
+	if (!str_hash.db->Get(leveldb::ReadOptions(), key, &s_val).ok()){  \
 		std::cerr << "error 2\n";								  \
 		exit(3);												  \
 	}
 
-#undef FIND_STR_MISSING
 #define FIND_STR_MISSING(str_hash, key)							\
-	if (str_hash->Get(leveldb::ReadOptions(), key, &s_val).ok()){	\
+	if (str_hash.db->Get(leveldb::ReadOptions(), key, &s_val).ok()){	\
 		std::cerr << "error 4\n";									\
 		exit(4);													\
 	}
 
-#undef FIND_STR_EXISTING_COUNT
 #define FIND_STR_EXISTING_COUNT(str_hash, key, count)				   \
-	if (str_hash->Get(leveldb::ReadOptions(), key, &s_val).ok()){	   \
+	if (str_hash.db->Get(leveldb::ReadOptions(), key, &s_val).ok()){	   \
 		count++;												   \
 	}
 
-#undef LOAD_FACTOR_STR_HASH
 #define LOAD_FACTOR_STR_HASH(str_hash) 0.0f
 
-#undef CLEAR_STR
-#define CLEAR_STR(str_hash) delete str_hash; system(rem_leveldb_cmd.c_str());
+#define CLEAR_STR(str_hash) str_hash.clear()
 
 #include "template.cc"
