@@ -1,8 +1,11 @@
 ##################################################
 # User-settable variables
 
+CXXOPTS  ?= -O3 -g -DNDEBUG -march=native
+COPTS    ?= ${CXXOPTS}
+
 CXX      ?= clang++
-CXXFLAGS ?= -O3 -g -march=native -std=c++17 -DNDEBUG
+CXXFLAGS ?= -std=c++17 ${CXXOPTS}
 
 # LDFLAGS_MALLOC ?=
 # LDFLAGS_MALLOC ?= -ljemalloc # much better that glibc's malloc on some workloads
