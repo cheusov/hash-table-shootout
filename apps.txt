@@ -28,10 +28,10 @@ bplus_tree
 cuckoohash_map
 glib_tree
 glib_hash_table
-kyotocabinet_stash
-kyotocabinet_hash
-leveldb
-rocksdb
+# kyotocabinet_stash
+# kyotocabinet_hash
+# leveldb
+# rocksdb
 khash
 # nata88 # disabled because it is my own/private library
 # nina48 # disabled because it is my own/private library
