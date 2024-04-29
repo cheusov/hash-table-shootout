@@ -22,4 +22,4 @@
 	if(str_hash.find(key) != str_hash.end()) { \
 		count++; \
 	}
-#define CLEAR_STR(str_hash)
+#define CLEAR_STR(str_hash) str_hash.clear()

@@ -8,4 +8,4 @@
 #define FIND_INT_MISSING(int_hash, key) if(int_hash.find(key) != int_hash.end()) { printf("error"); exit(1); }
 #define FIND_INT_EXISTING_COUNT(int_hash, key, count) if(int_hash.find(key) != int_hash.end()) { count++; }
 #define CHECK_INT_ITERATOR_VALUE(int_hash, iterator, value) if(iterator.second != value) { printf("error"); exit(1); }
-#define CLEAR_INT(int_hash)
+#define CLEAR_INT(int_hash) int_hash.clear()
