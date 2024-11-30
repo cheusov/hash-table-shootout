@@ -60,6 +60,8 @@ CXXFLAGS_nata88                         ?=
 CXXFLAGS_nataF8                         ?= ${CXXFLAGS_nata88}
 CXXFLAGS_nina88                         ?=
 CXXFLAGS_nina48                         ?= ${CXXFLAGS_nina88}
+CXXFLAGS_marika44                       ?=
+CXXFLAGS_marika88                       ?= ${CXXFLAGS_marika44}
 CXXFLAGS_cuckoohash_map                 ?= -Ilibcuckoo -pthread
 CXXFLAGS_leveldb                        ?=
 CXXFLAGS_rocksdb                        ?=
@@ -87,6 +89,8 @@ LDFLAGS_nata88                          ?= -lnata
 LDFLAGS_nataF8                          ?= ${LDFLAGS_nata88}
 LDFLAGS_nina88                          ?= -lnina
 LDFLAGS_nina48                          ?= ${LDFLAGS_nina88}
+LDFLAGS_marika44                        ?= -lmarika
+LDFLAGS_marika88                        ?= ${LDFLAGS_marika44}
 LDFLAGS_cuckoohash_map                  ?= -pthread
 ifeq ($(filter kyotocabinet_stash,${APPS}), kyotocabinet_stash)
 CXXFLAGS_kyotocabinet_stash ?= $(shell pkg-config --cflags kyotocabinet)
