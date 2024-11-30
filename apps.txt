@@ -17,6 +17,8 @@ khash
 # nataF8 # disabled because it is my own/private library
 # nina48 # disabled because it is my own/private library
 # nina88 # disabled because it is my own/private library
+# marika44 # disabled because it is my own/private library
+# marika88 # disabled because it is my own/private library
 # python3_dict
 qt_qhash
 # rocksdb
