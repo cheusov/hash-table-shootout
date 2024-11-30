@@ -564,7 +564,7 @@
 <!-- REAL_BEGIN_INTEGERS -->
 <h2>Integers</h2>
 
-<p>For the integers tests, we use hash maps with int64_t as key and int64_t as value.</p>
+<p>For the integers tests, we use associative array with int64_t as key and int64_t as value.</p>
 
 <!-- BEGIN_INTEGERS -->
 
@@ -578,18 +578,19 @@
 <h3><a name="insert_random_shuffle_range">Random shuffle inserts: memory footprint and execution time (integers)</h3>
 
 <p>Before the test, we generate a vector with the values [0, nb_entries) and shuffle this vector. 
-Then for each value k in the vector, we insert the key-value pair (k, 1) in the hash map.</p>
+Then for each value k in the vector, we insert the key-value pair (k, 1) in the
+associative array.</p>
 
 <div class="chart" id="insert_random_shuffle_range_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_shuffle_range_memory_choices"></ul>
 
 <div class="chart" id="insert_random_shuffle_range_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_shuffle_range_runtime_choices"></ul>
 
 <div class="chart" id="insert_random_shuffle_range_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_shuffle_range_bopsnsec_choices"></ul>
 <!-- END_INSERT_RANDOM_SHUFFLE_RANGE -->
 
@@ -602,11 +603,11 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
   we shuffle this vector and insert keys again.</p>
 
 <div class="chart" id="reinsert_random_shuffle_range_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_random_shuffle_range_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_random_shuffle_range_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_random_shuffle_range_bopsnsec_choices"></ul>
 <!-- END_REINSERT_RANDOM_SHUFFLE_RANGE -->
 
@@ -618,11 +619,11 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_random_shuffle_range_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_shuffle_range_runtime_choices"></ul>
 
 <div class="chart" id="read_random_shuffle_range_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_shuffle_range_bopsnsec_choices"></ul>
 <!-- END_READ_RANDOM_SHUFFLE_RANGE -->
 
@@ -638,18 +639,18 @@ We then read each key-value pair in a different and random order than the one th
 <h3><a name="insert_random_full">Random full inserts: memory footprint and execution time (integers)</h3>
 
 <p>Before the test, we generate a vector of nb_entries size where each value is randomly taken from an uniform random number generator from all possible positive values an int64_t can hold. 
-Then for each value k in the vector, we insert the key-value pair (k, 1) in the hash map.</p>
+Then for each value k in the vector, we insert the key-value pair (k, 1) in the associative array.</p>
 
 <div class="chart" id="insert_random_full_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_memory_choices"></ul>
 
 <div class="chart" id="insert_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_runtime_choices"></ul>
 
 <div class="chart" id="insert_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_bopsnsec_choices"></ul>
 <!-- END_INSERT_RANDOM_FULL -->
 
@@ -660,15 +661,15 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <p>Before the test, we generate a vector of nb_entries size where each
   value is randomly taken from an uniform random number generator from
   all possible positive values an int64_t can hold and insert the
-  key-value pairs (k, 1) in the hash map.  Then we shuffle the vector
+  key-value pairs (k, 1) in the associative array.  Then we shuffle the vector
   and insert keys again.</p>
 
 <div class="chart" id="reinsert_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_random_full_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_random_full_bopsnsec_choices"></ul>
 <!-- END_REINSERT_RANDOM_FULL -->
 
@@ -676,19 +677,19 @@ Then for each value k in the vector, we insert the key-value pair (k, 1) in the 
 <!-- BEGIN_INSERT_RANDOM_FULL_RESERVE -->
 <h3><a name="insert_random_full_reserve">Random full inserts with reserve: execution time (integers)</h3>
 
-<p>Same as the random full inserts test but the reserve method of the hash map is called beforehand to avoid any rehash during the insertion. 
+<p>Same as the random full inserts test but the reserve method of the associative array is called beforehand to avoid any rehash during the insertion. 
 It provides a fair comparison even if the growth factor of each hash map is different.</p>
 
 <div class="chart" id="insert_random_full_reserve_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_reserve_memory_choices"></ul>
 
 <div class="chart" id="insert_random_full_reserve_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_reserve_runtime_choices"></ul>
 
 <div class="chart" id="insert_random_full_reserve_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_random_full_reserve_bopsnsec_choices"></ul>
 <!-- END_INSERT_RANDOM_FULL_RESERVE -->
 
@@ -699,11 +700,11 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_full_runtime_choices"></ul>
 
 <div class="chart" id="read_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_full_bopsnsec_choices"></ul>
 <!-- END_READ_RANDOM_FULL -->
 
@@ -712,14 +713,14 @@ We then read each key-value pair in a different and random order than the one th
 
 <p>Before the test, we insert nb_entries elements in the same way as in the random full inserts test. 
 We then generate another vector of nb_entries random elements different from the inserted elements and 
-we try to search for these unknown elements in the hash map.</p>
+we try to search for these unknown elements in the associative array.</p>
 
 <div class="chart" id="read_miss_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_random_full_runtime_choices"></ul>
 
 <div class="chart" id="read_miss_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_random_full_bopsnsec_choices"></ul>
 <!-- END_READ_MISS_RANDOM_FULL -->
 
@@ -730,11 +731,11 @@ we try to search for these unknown elements in the hash map.</p>
 We then delete each key one by one in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="delete_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_random_full_runtime_choices"></ul>
 
 <div class="chart" id="delete_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_random_full_bopsnsec_choices"></ul>
 <!-- END_DELETE_RANDOM_FULL -->
 
@@ -746,11 +747,11 @@ before deleting half of these values randomly. We then try to read all the origi
 different order which will lead to 50% hits and 50% misses.</p>
 
 <div class="chart" id="read_random_full_after_delete_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_full_after_delete_runtime_choices"></ul>
 
 <div class="chart" id="read_random_full_after_delete_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_random_full_after_delete_bopsnsec_choices"></ul>
 <!-- END_READ_RANDOM_FULL_AFTER_DELETE -->
 
@@ -758,14 +759,14 @@ different order which will lead to 50% hits and 50% misses.</p>
 <h3><a name="iteration_random_full">Random full iteration: execution time (integers)</h3>
 
 <p>Before the test, we insert nb_entries elements in the same way as in the random full inserts test. 
-We then use the hash map iterators to read all the key-value pairs.</p>
+We then use the associative array iterators to read all the key-value pairs.</p>
 
 <div class="chart" id="iteration_random_full_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="iteration_random_full_runtime_choices"></ul>
 
 <div class="chart" id="iteration_random_full_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="iteration_random_full_bopsnsec_choices"></ul>
 <!-- END_ITERATION_RANDOM_FULL -->
 
@@ -793,15 +794,15 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 <p>For each entry in the range [0, nb_entries), we generate a string as key and insert it with the value 1.</p>
 
 <div class="chart" id="insert_tiny_string_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_memory_choices"></ul>
 
 <div class="chart" id="insert_tiny_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_runtime_choices"></ul>
 
 <div class="chart" id="insert_tiny_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_bopsnsec_choices"></ul>
 <!-- END_INSERT_TINY_STRING -->
 
@@ -814,11 +815,11 @@ We then use the hash map iterators to read all the key-value pairs.</p>
   shuffle the vector of keys and insert them again</p>
 
 <div class="chart" id="reinsert_tiny_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_tiny_string_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_tiny_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_tiny_string_bopsnsec_choices"></ul>
 <!-- END_REINSERT_TINY_STRING -->
 
@@ -831,15 +832,15 @@ We then use the hash map iterators to read all the key-value pairs.</p>
 It provides a fair comparison even if the growth factor of each hash map is different.</p>
 
 <div class="chart" id="insert_tiny_string_reserve_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_reserve_memory_choices"></ul>
 
 <div class="chart" id="insert_tiny_string_reserve_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_reserve_runtime_choices"></ul>
 
 <div class="chart" id="insert_tiny_string_reserve_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_tiny_string_reserve_bopsnsec_choices"></ul>
 <!-- END_INSERT_TINY_STRING_RESERVE -->
 
@@ -851,11 +852,11 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_tiny_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_tiny_string_runtime_choices"></ul>
 
 <div class="chart" id="read_tiny_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_tiny_string_bopsnsec_choices"></ul>
 <!-- END_READ_TINY_STRING -->
 
@@ -868,11 +869,11 @@ We then generate nb_entries strings different from the inserted elements and
 we try to search for these unknown elements in the hash map.</p>
 
 <div class="chart" id="read_miss_tiny_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_tiny_string_runtime_choices"></ul>
 
 <div class="chart" id="read_miss_tiny_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_tiny_string_bopsnsec_choices"></ul>
 <!-- END_READ_MISS_TINY_STRING -->
 
@@ -884,11 +885,11 @@ we try to search for these unknown elements in the hash map.</p>
 We then delete each key one by one in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="delete_tiny_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_tiny_string_runtime_choices"></ul>
 
 <div class="chart" id="delete_tiny_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_tiny_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_TINY_STRING -->
 
@@ -900,11 +901,11 @@ deleting half of these values randomly. We then try to read all the original val
 different order which will lead to 50% hits and 50% misses.</p>
 
 <div class="chart" id="read_tiny_string_after_delete_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_tiny_string_after_delete_runtime_choices"></ul>
 
 <div class="chart" id="read_tiny_string_after_delete_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_tiny_string_after_delete_bopsnsec_choices"></ul>
 <!-- END_READ_TINY_STRING_AFTER_DELETE -->
 
@@ -926,15 +927,15 @@ different order which will lead to 50% hits and 50% misses.</p>
 <p>For each entry in the range [0, nb_entries), we generate a string as key and insert it with the value 1.</p>
 
 <div class="chart" id="insert_small_string_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_memory_choices"></ul>
 
 <div class="chart" id="insert_small_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_runtime_choices"></ul>
 
 <div class="chart" id="insert_small_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_bopsnsec_choices"></ul>
 <!-- END_INSERT_SMALL_STRING -->
 
@@ -947,11 +948,11 @@ different order which will lead to 50% hits and 50% misses.</p>
   shuffle the vector of keys and insert them again</p>
 
 <div class="chart" id="reinsert_small_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_small_string_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_small_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_small_string_bopsnsec_choices"></ul>
 <!-- END_REINSERT_SMALL_STRING -->
 
@@ -964,15 +965,15 @@ different order which will lead to 50% hits and 50% misses.</p>
 It provides a fair comparison even if the growth factor of each hash map is different.</p>
 
 <div class="chart" id="insert_small_string_reserve_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_reserve_memory_choices"></ul>
 
 <div class="chart" id="insert_small_string_reserve_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_reserve_runtime_choices"></ul>
 
 <div class="chart" id="insert_small_string_reserve_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_small_string_reserve_bopsnsec_choices"></ul>
 <!-- END_INSERT_SMALL_STRING_RESERVE -->
 
@@ -984,11 +985,11 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_small_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_small_string_runtime_choices"></ul>
 
 <div class="chart" id="read_small_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_small_string_bopsnsec_choices"></ul>
 <!-- END_READ_SMALL_STRING -->
 
@@ -1001,11 +1002,11 @@ We then generate nb_entries strings different from the inserted elements and
 we try to search for these unknown elements in the hash map.</p>
 
 <div class="chart" id="read_miss_small_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_small_string_runtime_choices"></ul>
 
 <div class="chart" id="read_miss_small_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_small_string_bopsnsec_choices"></ul>
 <!-- END_READ_MISS_SMALL_STRING -->
 
@@ -1017,11 +1018,11 @@ we try to search for these unknown elements in the hash map.</p>
 We then delete each key one by one in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="delete_small_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_small_string_runtime_choices"></ul>
 
 <div class="chart" id="delete_small_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_small_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_SMALL_STRING -->
 
@@ -1033,11 +1034,11 @@ deleting half of these values randomly. We then try to read all the original val
 different order which will lead to 50% hits and 50% misses.</p>
 
 <div class="chart" id="read_small_string_after_delete_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_small_string_after_delete_runtime_choices"></ul>
 
 <div class="chart" id="read_small_string_after_delete_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_small_string_after_delete_bopsnsec_choices"></ul>
 <!-- END_READ_SMALL_STRING_AFTER_DELETE -->
 
@@ -1059,15 +1060,15 @@ different order which will lead to 50% hits and 50% misses.</p>
 <p>For each entry in the range [0, nb_entries), we generate a string as key and insert it with the value 1.</p>
 
 <div class="chart" id="insert_string_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_memory_choices"></ul>
 
 <div class="chart" id="insert_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_runtime_choices"></ul>
 
 <div class="chart" id="insert_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_bopsnsec_choices"></ul>
 <!-- END_INSERT_STRING -->
 
@@ -1080,11 +1081,11 @@ different order which will lead to 50% hits and 50% misses.</p>
   shuffle the vector of keys and insert them again.</p>
 
 <div class="chart" id="reinsert_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_string_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_string_bopsnsec_choices"></ul>
 <!-- END_REINSERT_STRING -->
 
@@ -1096,15 +1097,15 @@ different order which will lead to 50% hits and 50% misses.</p>
 It provides a fair comparison even if the growth factor of each hash map is different.</p>
 
 <div class="chart" id="insert_string_reserve_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_reserve_memory_choices"></ul>
 
 <div class="chart" id="insert_string_reserve_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_reserve_runtime_choices"></ul>
 
 <div class="chart" id="insert_string_reserve_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_string_reserve_bopsnsec_choices"></ul>
 <!-- END_INSERT_STRING_RESERVE -->
 
@@ -1116,11 +1117,11 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_string_runtime_choices"></ul>
 
 <div class="chart" id="read_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_string_bopsnsec_choices"></ul>
 <!-- END_READ_STRING -->
 
@@ -1132,11 +1133,11 @@ We then generate nb_entries strings different from the inserted elements and
 we try to search for these unknown elements in the hash map.</p>
 
 <div class="chart" id="read_miss_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_string_runtime_choices"></ul>
 
 <div class="chart" id="read_miss_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_string_bopsnsec_choices"></ul>
 <!-- END_READ_MISS_STRING -->
 
@@ -1148,11 +1149,11 @@ we try to search for these unknown elements in the hash map.</p>
 We then delete each key one by one in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="delete_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_string_runtime_choices"></ul>
 
 <div class="chart" id="delete_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_STRING -->
 
@@ -1163,11 +1164,11 @@ We then delete each key one by one in a different and random order than the one 
 We then try to read all the original values in a different order which will lead to 50% hits and 50% misses.</p>
 
 <div class="chart" id="read_string_after_delete_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_string_after_delete_runtime_choices"></ul>
 
 <div class="chart" id="read_string_after_delete_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_string_after_delete_bopsnsec_choices"></ul>
 <!-- END_READ_STRING_AFTER_DELETE -->
 
@@ -1187,15 +1188,15 @@ We then try to read all the original values in a different order which will lead
 <p>For each entry in the range [0, nb_entries), we generate a string as key and insert it with the value 1.</p>
 
 <div class="chart" id="insert_huge_string_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_memory_choices"></ul>
 
 <div class="chart" id="insert_huge_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_runtime_choices"></ul>
 
 <div class="chart" id="insert_huge_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_bopsnsec_choices"></ul>
 <!-- END_INSERT_HUGE_STRING -->
 
@@ -1208,11 +1209,11 @@ We then try to read all the original values in a different order which will lead
   shuffle the vector of keys and insert them again</p>
 
 <div class="chart" id="reinsert_huge_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_huge_string_runtime_choices"></ul>
 
 <div class="chart" id="reinsert_huge_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="reinsert_huge_string_bopsnsec_choices"></ul>
 <!-- END_REINSERT_HUGE_STRING -->
 
@@ -1225,15 +1226,15 @@ We then try to read all the original values in a different order which will lead
 It provides a fair comparison even if the growth factor of each hash map is different.</p>
 
 <div class="chart" id="insert_huge_string_reserve_memory"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_reserve_memory_choices"></ul>
 
 <div class="chart" id="insert_huge_string_reserve_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_reserve_runtime_choices"></ul>
 
 <div class="chart" id="insert_huge_string_reserve_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="insert_huge_string_reserve_bopsnsec_choices"></ul>
 <!-- END_INSERT_HUGE_STRING_RESERVE -->
 
@@ -1245,11 +1246,11 @@ It provides a fair comparison even if the growth factor of each hash map is diff
 We then read each key-value pair in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="read_huge_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_huge_string_runtime_choices"></ul>
 
 <div class="chart" id="read_huge_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_huge_string_bopsnsec_choices"></ul>
 <!-- END_READ_HUGE_STRING -->
 
@@ -1262,11 +1263,11 @@ We then generate nb_entries strings different from the inserted elements and
 we try to search for these unknown elements in the hash map.</p>
 
 <div class="chart" id="read_miss_huge_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_huge_string_runtime_choices"></ul>
 
 <div class="chart" id="read_miss_huge_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_miss_huge_string_bopsnsec_choices"></ul>
 <!-- END_READ_MISS_HUGE_STRING -->
 
@@ -1278,11 +1279,11 @@ we try to search for these unknown elements in the hash map.</p>
 We then delete each key one by one in a different and random order than the one they were inserted.</p>
 
 <div class="chart" id="delete_huge_string_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_huge_string_runtime_choices"></ul>
 
 <div class="chart" id="delete_huge_string_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="delete_huge_string_bopsnsec_choices"></ul>
 <!-- END_DELETE_HUGE_STRING -->
 
@@ -1294,11 +1295,11 @@ deleting half of these values randomly. We then try to read all the original val
 different order which will lead to 50% hits and 50% misses.</p>
 
 <div class="chart" id="read_huge_string_after_delete_runtime"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_huge_string_after_delete_runtime_choices"></ul>
 
 <div class="chart" id="read_huge_string_after_delete_bopsnsec"></div>
-<div class="xaxis-title">number of entries in hash table</div>
+<div class="xaxis-title">number of entries in associative array</div>
 <ul class="choices" id="read_huge_string_after_delete_bopsnsec_choices"></ul>
 <!-- END_READ_HUGE_STRING_AFTER_DELETE -->
 
