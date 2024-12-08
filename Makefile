@@ -4,7 +4,7 @@
 CXXOPTS  ?= -O3 -g -DNDEBUG -march=native
 COPTS    ?= ${CXXOPTS}
 
-CXX      ?= clang++
+CXX      ?= c++
 CXXFLAGS ?= -std=c++17 ${CXXOPTS}
 
 # LDFLAGS_MALLOC ?=
