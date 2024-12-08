@@ -1,29 +1,11 @@
-#include <inttypes.h>
-#include <string>
-#include <marika.h>
-#include <assert.h>
+#define MARIKA_KEY_TYPE uint32_t
+#define MARIKA_VALUE_TYPE uint32_t
 
-#define __UNCONST(p) ((void *)((char*)NULL+((char*)p-(char*)NULL)))
+#define MARIKA_INS mar4U4Uins
+#define MARIKA_GET mar4U4Uget
+#define MARIKA_ITERATOR_INIT mar4U4Uiterator_init
+#define MARIKA_ITERATE mar4U4Uiterate
+#define MARIKA_ITERATOR_DESTROY mar4U4Uiterator_destroy
+#define MARIKA_FREE mar4U4Ufree
 
-#define HASH_TYPE_INT void *
-#define CREATE_INT NULL
-#define RESERVE_INT(int_hash, size)
-#define INSERT_INT(int_hash, key, value) \
-	*mar4U4Uins(&int_hash, key, NULL) = value;
-#define DELETE_INT(int_hash, key)
-//	mar4U4Udel(&int_hash, key, NULL); // return value is not checked because key is 32-bit in size
-#define FIND_INT_EXISTING(int_hash, key) \
-	mar4U4Uget(int_hash, key); // return value is not checked because key is 32-bit in size
-#define FIND_INT_MISSING(int_hash, key) \
-	mar4U4Uget(int_hash, key); // return value is not checked because key is 32-bit in size
-#define FIND_INT_EXISTING_COUNT(int_hash, key, count) \
-	mar4U4Uget(int_hash, key); // count is not incremented because key is 32-bit in size
-#define CHECK_INT_ITERATOR_VALUE(int_hash, iterator, value)
-#define ITERATE_INT(int_hash, it)				\
-	uint32_t key = 0;								  \
-	uint32_t *p_value = mar4U4Ufirst(int_hash, &key); \
-	for (; p_value != NULL; p_value = mar4U4Unext(int_hash, &key))
-#define LOAD_FACTOR_INT_HASH(int_hash) 0
-#define CLEAR_INT(int_hash) mar4U4Ufree(&int_hash)
-
-#include "template.cc"
+#include "marika_tmpl.h"
