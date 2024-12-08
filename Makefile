@@ -87,15 +87,18 @@ build/bplus_tree: ${OBJS_bplus_tree}
 ${OBJ_DIR}/%.o: bplus-tree/src/%.c
 	${CC} -std=c99 ${CFLAGS} ${CFLAGS_bplus_tree} -c -o $@ $<
 endif
+
+${BUILD_DIR}/absl_btree_map ${BUILD_DIR}/absl_node_hash_map ${BUILD_DIR}/absl_flat_hash_map: ${OBJ_DIR}/abseil.done
+
 #ifeq ($(filter absl,${APPS}), absl)
-abseil.done:
+${OBJ_DIR}/abseil.done:
 	set -e; export CXX="${CXX}" CXXFLAGS="${CXXFLAGS}"; \
     mkdir -p build/abseil-cpp; cd build/abseil-cpp; \
     cmake -DCMAKE_INSTALL_PREFIX=.. -DCMAKE_INSTALL_LIBDIR:PATH=lib \
        -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=17 ../../abseil-cpp; \
     cmake --build . --target all; \
     cmake --build . --target install; \
-	cd ../..; touch abseil.done folly/folly/folly-config.h
+	cd ../..; touch ${OBJ_DIR}/abseil.done folly/folly/folly-config.h
 CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
 LDFLAGS_absl_flat_hash_map  ?= -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_btree_map ?= -Ibuild/include
@@ -143,13 +146,10 @@ LDFLAGS_khash                           ?=
 
 EXECUTABLES = $(APPS:%=$(BUILD_DIR)/%)
 
-all: $(BUILD_DIR) $(OBJ_DIR) $(EXECUTABLES) abseil.done
-
-$(OBJ_DIR) $(BUILD_DIR): abseil.done
-	mkdir -p $@
+all: $(EXECUTABLES)
 
 clean:
-	rm -rf $(BUILD_DIR)/* $(OBJ_DIR) abseil.done
+	rm -rf $(BUILD_DIR)/* $(OBJ_DIR)/*
 
 $(BUILD_DIR)/% : src/%.cc ${OBJS_${notdir $@}} src/template.cc
 	$(CXX) $(CXXFLAGS) ${CXXFLAGS_${notdir $@}} -o $@ $< ${OBJS_${notdir $@}} ${LDFLAGS} ${LDFLAGS_${notdir $@}}
