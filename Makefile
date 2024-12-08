@@ -16,12 +16,14 @@ OBJ_DIR        ?= ./obj
 
 PYTHON3_PC     ?= python3 # pkg-config ID for python3 development files
 
+cwd !=	pwd
+
 ifndef APPS
 cmd := grep -v \\\# apps.txt
 APPS = ${shell ${cmd}}
 endif # APPS
 
-LDFLAGS ?= -lm
+LDFLAGS ?= -Lbuild/lib -Wl,-rpath,${cwd}/build/lib
 LDFLAGS += ${LDFLAGS_MALLOC}
 
 ifeq ($(filter glib_tree,${APPS}), glib_tree)
@@ -89,23 +91,25 @@ endif
 abseil.done:
 	set -e; export CXX="${CXX}" CXXFLAGS="${CXXFLAGS}"; \
     mkdir -p build/abseil-cpp; cd build/abseil-cpp; \
-    cmake -DCMAKE_INSTALL_PREFIX=.. -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=17 ../../abseil-cpp; \
+    cmake -DCMAKE_INSTALL_PREFIX=.. -DCMAKE_INSTALL_LIBDIR:PATH=lib \
+       -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=17 ../../abseil-cpp; \
     cmake --build . --target all; \
+    cmake --build . --target install; \
 	cd ../..; touch abseil.done folly/folly/folly-config.h
 CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
-LDFLAGS_absl_flat_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash -labsl_city -labsl_low_level_hash
+LDFLAGS_absl_flat_hash_map  ?= -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_btree_map ?= -Ibuild/include
-LDFLAGS_absl_btree_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
+LDFLAGS_absl_btree_map  ?= -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_node_hash_map ?= -Ibuild/include
-LDFLAGS_absl_node_hash_map  ?= -Lbuild/lib -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
+LDFLAGS_absl_node_hash_map  ?= -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash  -labsl_city -labsl_low_level_hash
 CXXFLAGS_folly_f14_fast_map ?= -Ifolly
-LDFLAGS_folly_f14_fast_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+LDFLAGS_folly_f14_fast_map  ?= folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
 CXXFLAGS_folly_f14_node_map ?= -Ifolly
-LDFLAGS_folly_f14_node_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+LDFLAGS_folly_f14_node_map  ?= folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
 CXXFLAGS_folly_f14_value_map ?= -Ifolly
-LDFLAGS_folly_f14_value_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+LDFLAGS_folly_f14_value_map  ?= folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
 CXXFLAGS_folly_f14_vector_map ?= -Ifolly
-LDFLAGS_folly_f14_vector_map  ?= -Lbuild/lib folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
+LDFLAGS_folly_f14_vector_map  ?= folly/folly/container/detail/F14Table.cpp folly/folly/lang/SafeAssert.cpp folly/folly/lang/ToAscii.cpp
 #endif
 
 LDFLAGS_judyL                           ?= -lJudy
@@ -145,7 +149,7 @@ $(OBJ_DIR) $(BUILD_DIR): abseil.done
 	mkdir -p $@
 
 clean:
-	rm -rf $(BUILD_DIR) $(OBJ_DIR) abseil.done
+	rm -rf $(BUILD_DIR)/* $(OBJ_DIR) abseil.done
 
 $(BUILD_DIR)/% : src/%.cc ${OBJS_${notdir $@}} src/template.cc
 	$(CXX) $(CXXFLAGS) ${CXXFLAGS_${notdir $@}} -o $@ $< ${OBJS_${notdir $@}} ${LDFLAGS} ${LDFLAGS_${notdir $@}}
