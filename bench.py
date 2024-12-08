@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys, os, subprocess, re
+import sys, os, subprocess, re, resource
 
 # samples of use:
 #  ./bench.py
@@ -20,8 +20,14 @@ maxkeys  = 30*1000*1000
 #interval =  2*100*1000
 step_percent =  50 # you may use this variable instead of "interval" for exponetial step
 best_out_of = 2
+time_limit = 1200 # RLIMIT_CPU, time limit for build/* tools, in seconds
+heap_limit = 24576 # RLIMIT_DATA, heap size limit for build/* tools, in megabytes
 
 ######################################################################
+resource.setrlimit(resource.RLIMIT_CPU, (time_limit, time_limit))
+heap_limit = heap_limit * 1024 * 1024
+resource.setrlimit(resource.RLIMIT_DATA, (heap_limit, heap_limit))
+
 outfile = open('output', 'w')
 
 apps_env = os.environ.get('APPS', None)
