@@ -13,11 +13,11 @@
 #define DELETE_INT(int_hash, key)
 //	mar8U8Udel(&int_hash, key, NULL); // return value is not checked because key is 32-bit in size
 #define FIND_INT_EXISTING(int_hash, key) \
-	mar8U8Uget(int_hash, key); // return value is not checked because key is 32-bit in size
+	if (!mar8U8Uget(int_hash, key)) { printf("error"); exit(1); }
 #define FIND_INT_MISSING(int_hash, key) \
-	mar8U8Uget(int_hash, key); // return value is not checked because key is 32-bit in size
+	if (mar8U8Uget(int_hash, key)) { printf("error"); exit(1); }
 #define FIND_INT_EXISTING_COUNT(int_hash, key, count) \
-	mar8U8Uget(int_hash, key); // count is not incremented because key is 32-bit in size
+	if (mar8U8Uget(int_hash, key)) { ++count; }
 #define CHECK_INT_ITERATOR_VALUE(int_hash, iterator, value)
 //#define ITERATE_INT(int_hash, it)				\
 //	uint64_t key = 0;								  \
