@@ -7,10 +7,10 @@ html_template = open('charts-template.html', 'r').read()
 charts_data = sys.stdin.read()
 
 repls = (
-    'insert_random_shuffle_range',
-    'reinsert_random_shuffle_range',
+    'insert_random_range',
+    'reinsert_random_range',
 
-    'read_random_shuffle_range',
+    'read_random_range',
     'insert_random_full',
     'reinsert_random_full',
     'insert_random_full_reserve',

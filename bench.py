@@ -35,9 +35,9 @@ if apps_env:
     programs = apps_env.strip().split()
 
 short_names = {
-    'random_shuffle_range': [
-        'insert_random_shuffle_range', 'reinsert_random_shuffle_range',
-        'read_random_shuffle_range'
+    'random_range': [
+        'insert_random_range', 'reinsert_random_range',
+        'read_random_range'
     ],
     'random_full': [
         'insert_random_full', 'reinsert_random_full',
@@ -86,7 +86,7 @@ if len(sys.argv) > 1:
     for x in sys.argv[1:]:
         benchtypes.extend(short_names.get(x, [x]))
 else:
-    benchtypes = short_names['random_shuffle_range'] + short_names['random_full'] \
+    benchtypes = short_names['random_range'] + short_names['random_full'] \
         + short_names['tiny_string'] + short_names['small_string'] + short_names['string'] \
         + short_names['huge_string']
 

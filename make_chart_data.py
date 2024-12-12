@@ -37,7 +37,7 @@ for line in lines:
     if runtime > 0 and nbytes > 0:
         by_benchtype.setdefault("%s_runtime" % benchtype, {}).setdefault(program, []).append([nkeys, runtime, load_factor])
         by_benchtype.setdefault("%s_bopsnsec" % benchtype, {}).setdefault(program, []).append([nkeys, runtime * nbytes, load_factor])
-        if benchtype in ('insert_random_shuffle_range',
+        if benchtype in ('insert_random_range',
                          'insert_random_full',
                          'insert_tiny_string',
                          'insert_small_string',

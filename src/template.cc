@@ -98,7 +98,7 @@ std::string get_random_alphanum_string(
 /**
  * Generate a vector [0, nb_ints) and shuffle it
  */
-static std::vector<std::int64_t> get_random_shuffle_range_ints(std::size_t nb_ints) {
+static std::vector<std::int64_t> get_random_range_ints(std::size_t nb_ints) {
 	std::vector<std::int64_t> random_shuffle_ints(nb_ints);
 	std::iota(random_shuffle_ints.begin(), random_shuffle_ints.end(), 0);
 	std::shuffle(random_shuffle_ints.begin(), random_shuffle_ints.end(), generator);
@@ -170,16 +170,16 @@ static std::int64_t value;
 
 static std::vector<std::int64_t> generate_integer_keys()
 {
-	if (test_type == "insert_random_shuffle_range" ||
-		test_type == "reinsert_random_shuffle_range" ||
-		test_type == "read_random_shuffle_range" ||
-		test_type == "read_miss_random_shuffle_range" ||
-		test_type == "insert_random_shuffle_range_reserve" ||
-		test_type == "read_random_shuffle_range_after_delete" ||
-		test_type == "iteration_random_shuffle_range" ||
-		test_type == "delete_random_shuffle_range")
+	if (test_type == "insert_random_range" ||
+		test_type == "reinsert_random_range" ||
+		test_type == "read_random_range" ||
+		test_type == "read_miss_random_range" ||
+		test_type == "insert_random_range_reserve" ||
+		test_type == "read_random_range_after_delete" ||
+		test_type == "iteration_random_range" ||
+		test_type == "delete_random_range")
 	{
-		return get_random_shuffle_range_ints(num_keys);
+		return get_random_range_ints(num_keys);
 	} else if (test_type == "insert_random_full" ||
 			  test_type == "reinsert_random_full" ||
 			  test_type == "read_random_full" ||
@@ -212,7 +212,7 @@ static bool process_integers()
 	if (keys.empty())
 		ret = true;
 
-	if (test_type == "insert_random_shuffle_range" ||
+	if (test_type == "insert_random_range" ||
 		test_type == "insert_random_full")
 	{
 		measurements m;
@@ -223,7 +223,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "insert_random_shuffle_range_reserve" ||
+	else if (test_type == "insert_random_range_reserve" ||
 			 test_type == "insert_random_full_reserve")
 	{
 		measurements m;
@@ -237,7 +237,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "reinsert_random_shuffle_range" ||
+	else if (test_type == "reinsert_random_range" ||
 			 test_type == "reinsert_random_full")
 	{
 		measurements m;
@@ -256,7 +256,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "read_random_shuffle_range" ||
+	else if (test_type == "read_random_range" ||
 			 test_type == "read_random_full")
 	{
 		measurements m;
@@ -277,11 +277,11 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "read_miss_random_shuffle_range" ||
+	else if (test_type == "read_miss_random_range" ||
 			 test_type == "read_miss_random_full")
 	{
 		std::vector<std::int64_t> keys_read;
-		if (test_type == "read_miss_random_shuffle_range"){
+		if (test_type == "read_miss_random_range"){
 			keys_read =
 				get_random_full_ints(num_keys, std::numeric_limits<std::int64_t>::min(), -3);
 		}else if (test_type == "read_miss_random_full"){
@@ -306,7 +306,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "read_random_shuffle_range_after_delete" ||
+	else if (test_type == "read_random_range_after_delete" ||
 			 test_type == "read_random_full_after_delete")
 	{
 		measurements m;
@@ -337,7 +337,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "iteration_random_shuffle_range" ||
+	else if (test_type == "iteration_random_range" ||
 			 test_type == "iteration_random_full")
 	{
 		measurements m;
@@ -356,7 +356,7 @@ static bool process_integers()
 		}
 	}
 
-	else if (test_type == "delete_random_shuffle_range" ||
+	else if (test_type == "delete_random_range" ||
 			 test_type == "delete_random_full")
 	{
 		measurements m;
@@ -640,14 +640,14 @@ usage: progname [OPTIONS] number_of_keys OPERATION\n\
 \n\
 where OPERATION is either of the following:\n\
 \n\
-  insert_random_{shuffle_range,full}\n\
-  reinsert_random_{shuffle_range,full}\n\
-  read_random_{shuffle_range,full}\n\
-  read_miss_random_{shuffle_range,full}\n\
-  insert_random_{shuffle_range,full}_reserve\n\
-  read_random_{shuffle_range,full}_after_delete\n\
-  iteration_random_{shuffle_range,full}\n\
-  delete_random_{shuffle_range,full}\n\
+  insert_random_{range,full}\n\
+  reinsert_random_{range,full}\n\
+  read_random_{range,full}\n\
+  read_miss_random_{range,full}\n\
+  insert_random_{range,full}_reserve\n\
+  read_random_{range,full}_after_delete\n\
+  iteration_random_{range,full}\n\
+  delete_random_{range,full}\n\
 \n\
   insert_{tiny,small,,huge}_string\n\
   reinsert_{tiny,small,,huge}_string\n\
