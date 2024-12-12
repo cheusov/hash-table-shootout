@@ -154,17 +154,35 @@
     
     function plot_all_charts(redraw_only = false) {
         plot_chart(chart_data['insert_random_range_runtime'], '#insert_random_range_runtime', '#insert_random_range_runtime_choices', runtime_settings, redraw_only);
-        plot_chart(chart_data['insert_random_range_memory'], '#insert_random_range_memory', '#insert_random_range_memory_choices', memory_settings, redraw_only);
         plot_chart(chart_data['insert_random_range_bopsnsec'], '#insert_random_range_bopsnsec', '#insert_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
         plot_chart(chart_data['reinsert_random_range_runtime'], '#reinsert_random_range_runtime', '#reinsert_random_range_runtime_choices', runtime_settings, redraw_only);
         plot_chart(chart_data['reinsert_random_range_bopsnsec'], '#reinsert_random_range_bopsnsec', '#reinsert_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
+        plot_chart(chart_data['insert_random_range_reserve_runtime'], '#insert_random_range_reserve_runtime', '#insert_random_range_reserve_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['insert_random_range_reserve_bopsnsec'], '#insert_random_range_reserve_bopsnsec', '#insert_random_range_reserve_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
         plot_chart(chart_data['read_random_range_runtime'], '#read_random_range_runtime', '#read_random_range_runtime_choices', runtime_settings, redraw_only);
         plot_chart(chart_data['read_random_range_bopsnsec'], '#read_random_range_bopsnsec', '#read_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
-	
+        plot_chart(chart_data['read_miss_random_range_runtime'], '#read_miss_random_range_runtime', '#read_miss_random_range_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['read_miss_random_range_bopsnsec'], '#read_miss_random_range_bopsnsec', '#read_miss_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
+        plot_chart(chart_data['read_random_range_after_delete_runtime'], '#read_random_range_after_delete_runtime', '#read_random_range_after_delete_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['read_random_range_after_delete_bopsnsec'], '#read_random_range_after_delete_bopsnsec', '#read_random_range_after_delete_bopsnsec_choices', bopsnsec_settings, redraw_only);
+	
+        plot_chart(chart_data['iteration_random_range_runtime'], '#iteration_random_range_runtime', '#iteration_random_range_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['iteration_random_range_bopsnsec'], '#iteration_random_range_bopsnsec', '#iteration_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['delete_random_range_runtime'], '#delete_random_range_runtime', '#delete_random_range_runtime_choices', runtime_settings, redraw_only);
+        plot_chart(chart_data['delete_random_range_bopsnsec'], '#delete_random_range_bopsnsec', '#delete_random_range_bopsnsec_choices', bopsnsec_settings, redraw_only);
+
+        plot_chart(chart_data['insert_random_range_memory'], '#insert_random_range_memory', '#insert_random_range_memory_choices', memory_settings, redraw_only);
+	
+        plot_chart(chart_data['insert_random_range_reserve_memory'], '#insert_random_range_reserve_memory', '#insert_random_range_reserve_memory_choices', memory_settings, redraw_only);
+
+
+	
         plot_chart(chart_data['insert_random_full_runtime'], '#insert_random_full_runtime', '#insert_random_full_runtime_choices', runtime_settings, redraw_only);
         plot_chart(chart_data['insert_random_full_bopsnsec'], '#insert_random_full_bopsnsec', '#insert_random_full_bopsnsec_choices', bopsnsec_settings, redraw_only);
 
@@ -380,22 +398,37 @@
 <div class="infobox">
   <p><b>Jump to:</b>
     <ul>
-<!-- REAL2_BEGIN_INTEGERS_RANGE -->
-      <li><a href="#integers_range">Range of integers
+<!-- REAL2_BEGIN_INTEGERS_RANDOM_RANGE -->
+      <li><a href="#integers_random_range">Range of random integers
 	  <ul>
-<!-- BEGIN2_INTEGERS_RANGE -->
+<!-- BEGIN2_INTEGERS_RANDOM_RANGE -->
 <!-- BEGIN2_INSERT_RANDOM_RANGE -->
 	    <li><a href="#insert_random_range">insert_random_range</a></li>
 <!-- END2_INSERT_RANDOM_RANGE -->
 <!-- BEGIN2_REINSERT_RANDOM_RANGE -->
 	    <li><a href="#reinsert_random_range">reinsert_random_range</a></li>
 <!-- END2_REINSERT_RANDOM_RANGE -->
+<!-- BEGIN2_INSERT_RANDOM_RANGE_RESERVE -->
+	    <li><a href="#insert_random_range_reserve">insert_random_range_reserve</a></li>
+<!-- END2_INSERT_RANDOM_RANGE_RESERVE -->
 <!-- BEGIN2_READ_RANDOM_RANGE -->
 	    <li><a href="#read_random_range">read_random_range</a></li>
 <!-- END2_READ_RANDOM_RANGE -->
+<!-- BEGIN2_READ_MISS_RANDOM_RANGE -->
+	    <li><a href="#read_miss_random_range">read_miss_random_range</a></li>
+<!-- END2_READ_MISS_RANDOM_RANGE -->
+<!-- BEGIN2_DELETE_RANDOM_RANGE -->
+	    <li><a href="#delete_random_range">delete_random_range</a></li>
+<!-- END2_DELETE_RANDOM_RANGE -->
+<!-- BEGIN2_READ_RANDOM_RANGE_AFTER_DELETE -->
+	    <li><a href="#read_random_range_after_delete">read_random_range_after_delete</a></li>
+<!-- END2_READ_RANDOM_RANGE_AFTER_DELETE -->
+<!-- BEGIN2_ITERATION_RANDOM_RANGE -->
+	    <li><a href="#iteration_random_range">iteration_random_range</a></li>
+<!-- END2_ITERATION_RANDOM_RANGE -->
 	  </ul>
       </li>
-<!-- END2_INTEGERS_RANGE -->
+<!-- END2_INTEGERS_RANDOM_RANGE -->
 
 
 
@@ -568,11 +601,11 @@
 
 <!-- BEGIN_INTEGERS -->
 
-<!-- REAL_BEGIN_INTEGERS_RANGE -->
+<!-- REAL_BEGIN_INTEGERS_RANDOM_RANGE -->
 
-<h2><a name="integers_range">Range of integers</h2>
+<h2><a name="integers_random_range">Range of integers</h2>
 
-<!-- BEGIN_INTEGERS_RANGE -->
+<!-- BEGIN_INTEGERS_RANDOM_RANGE -->
 
 <!-- BEGIN_INSERT_RANDOM_RANGE -->
 <h3><a name="insert_random_range">Random shuffle inserts: memory footprint and execution time (integers)</h3>
@@ -612,6 +645,25 @@ associative array.</p>
 <!-- END_REINSERT_RANDOM_RANGE -->
 
 
+<!-- BEGIN_INSERT_RANDOM_RANGE_RESERVE -->
+<h3><a name="insert_random_range_reserve">Random range inserts with reserve: execution time (integers)</h3>
+
+<p>Same as the random range inserts test but the reserve method of the associative array is called beforehand to avoid any rehash during the insertion. 
+It provides a fair comparison even if the growth factor of each hash map is different.</p>
+
+<div class="chart" id="insert_random_range_reserve_memory"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="insert_random_range_reserve_memory_choices"></ul>
+
+<div class="chart" id="insert_random_range_reserve_runtime"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="insert_random_range_reserve_runtime_choices"></ul>
+
+<div class="chart" id="insert_random_range_reserve_bopsnsec"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="insert_random_range_reserve_bopsnsec_choices"></ul>
+<!-- END_INSERT_RANDOM_RANGE_RESERVE -->
+
 <!-- BEGIN_READ_RANDOM_RANGE -->
 <h3><a name="read_random_range">Random shuffle reads: execution time (integers)</h3>
 
@@ -627,7 +679,69 @@ We then read each key-value pair in a different and random order than the one th
 <ul class="choices" id="read_random_range_bopsnsec_choices"></ul>
 <!-- END_READ_RANDOM_RANGE -->
 
-<!-- END_INTEGERS_RANGE -->
+<!-- BEGIN_READ_MISS_RANDOM_RANGE -->
+<h3><a name="read_miss_random_range">Random range reads misses: execution time (integers)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the random range inserts test. 
+We then generate another vector of nb_entries random elements different from the inserted elements and 
+we try to search for these unknown elements in the associative array.</p>
+
+<div class="chart" id="read_miss_random_range_runtime"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="read_miss_random_range_runtime_choices"></ul>
+
+<div class="chart" id="read_miss_random_range_bopsnsec"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="read_miss_random_range_bopsnsec_choices"></ul>
+<!-- END_READ_MISS_RANDOM_RANGE -->
+
+<!-- BEGIN_DELETE_RANDOM_RANGE -->
+<h3><a name="delete_random_range">Random range deletes: execution time (integers)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the random range insert test. 
+We then delete each key one by one in a different and random order than the one they were inserted.</p>
+
+<div class="chart" id="delete_random_range_runtime"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="delete_random_range_runtime_choices"></ul>
+
+<div class="chart" id="delete_random_range_bopsnsec"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="delete_random_range_bopsnsec_choices"></ul>
+<!-- END_DELETE_RANDOM_RANGE -->
+
+<!-- BEGIN_READ_RANDOM_RANGE_AFTER_DELETE -->
+<h3><a name="read_random_range_after_delete">Random range reads after deleting half: execution time (integers)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the random range inserts test 
+before deleting half of these values randomly. We then try to read all the original values in a 
+different order which will lead to 50% hits and 50% misses.</p>
+
+<div class="chart" id="read_random_range_after_delete_runtime"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="read_random_range_after_delete_runtime_choices"></ul>
+
+<div class="chart" id="read_random_range_after_delete_bopsnsec"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="read_random_range_after_delete_bopsnsec_choices"></ul>
+<!-- END_READ_RANDOM_RANGE_AFTER_DELETE -->
+
+<!-- BEGIN_ITERATION_RANDOM_RANGE -->
+<h3><a name="iteration_random_range">Random range iteration: execution time (integers)</h3>
+
+<p>Before the test, we insert nb_entries elements in the same way as in the random range inserts test. 
+We then use the associative array iterators to read all the key-value pairs.</p>
+
+<div class="chart" id="iteration_random_range_runtime"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="iteration_random_range_runtime_choices"></ul>
+
+<div class="chart" id="iteration_random_range_bopsnsec"></div>
+<div class="xaxis-title">number of entries in associative array</div>
+<ul class="choices" id="iteration_random_range_bopsnsec_choices"></ul>
+<!-- END_ITERATION_RANDOM_RANGE -->
+
+<!-- END_INTEGERS_RANDOM_RANGE -->
 
 <!-- REAL_BEGIN_INTEGERS_RANDOM_FULL -->
 

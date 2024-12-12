@@ -37,7 +37,10 @@ if apps_env:
 short_names = {
     'random_range': [
         'insert_random_range', 'reinsert_random_range',
-        'read_random_range'
+        'insert_random_range_reserve',
+        'read_random_range', 'read_miss_random_range',
+        'delete_random_range', 'read_random_range_after_delete',
+        'iteration_random_range'
     ],
     'random_full': [
         'insert_random_full', 'reinsert_random_full',

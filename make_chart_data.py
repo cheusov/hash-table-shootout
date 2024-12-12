@@ -43,6 +43,7 @@ for line in lines:
                          'insert_small_string',
                          'insert_string',
                          'insert_huge_string',
+                         'insert_random_range_reserve',
                          'insert_random_full_reserve',
                          'insert_tiny_string_reserve',
                          'insert_small_string_reserve',

@@ -9,8 +9,13 @@ charts_data = sys.stdin.read()
 repls = (
     'insert_random_range',
     'reinsert_random_range',
-
+    'insert_random_range_reserve',
     'read_random_range',
+    'read_miss_random_range',
+    'delete_random_range',
+    'read_random_range_after_delete',
+    'iteration_random_range',
+
     'insert_random_full',
     'reinsert_random_full',
     'insert_random_full_reserve',
@@ -62,7 +67,7 @@ for l in repls:
 
 html_template = re.sub('<!-- *-->', '', html_template)
 
-for s in ['INTEGERS_RANGE', 'INTEGERS_RANDOM_FULL', 'TINY_STRINGS',
+for s in ['INTEGERS_RANDOM_RANGE', 'INTEGERS_RANDOM_FULL', 'TINY_STRINGS',
           'SMALL_STRINGS', 'STRINGS', 'HUGE_STRINGS', 'INTEGERS']:
     html_template = re.sub('<!-- REAL_BEGIN_' + s + '(.|\\n)*BEGIN_' + s
                            + ' -->(\\s|\\n)*<!-- END_' + s + " -->", '', html_template)
