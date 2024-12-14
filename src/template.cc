@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 #include <array>
+#include <iomanip>
 #include <cassert>
 #include <getopt.h>
 
@@ -156,8 +157,9 @@ class measurements {
 		const std::size_t used_memory_bytes = (memory_usage_bytes_end > m_memory_usage_bytes_start)?
 			memory_usage_bytes_end - m_memory_usage_bytes_start:0;
 
-		std::cout << nb_seconds   / num_keys / tests_count << " " <<
-			used_memory_bytes  / num_keys / tests_count << " ";
+		std::cout << nb_seconds / num_keys / tests_count << " " <<
+			std::fixed << std::setprecision(2) <<
+			(float)used_memory_bytes / num_keys / tests_count << " ";
 	}
 
 private:
