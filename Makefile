@@ -98,7 +98,7 @@ ${OBJ_DIR}/abseil.done:
        -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=17 ../../abseil-cpp; \
     cmake --build . --target all; \
     cmake --build . --target install; \
-	cd ../..; touch ${OBJ_DIR}/abseil.done folly/folly/folly-config.h
+	cd ../..; touch ${OBJ_DIR}/abseil.done
 CXXFLAGS_absl_flat_hash_map ?= -Ibuild/include
 LDFLAGS_absl_flat_hash_map  ?= -labsl_flags_reflection -labsl_raw_hash_set -labsl_hash -labsl_city -labsl_low_level_hash
 CXXFLAGS_absl_btree_map ?= -Ibuild/include
