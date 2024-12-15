@@ -119,7 +119,7 @@ for nkeys in points:
                     words = output.strip().split()
 
                     runtime_seconds = float(words[0])
-                    memory_usage_bytes = int(words[1])
+                    memory_usage_bytes = float(words[1])
                     load_factor = float(words[2])
                 except KeyboardInterrupt as e:
                     sys.exit(130);
