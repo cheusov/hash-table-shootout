@@ -1,7 +1,7 @@
 ##################################################
 # User-settable variables
 
-CXXOPTS  ?= -O3 -g -DNDEBUG -march=native
+CXXOPTS  ?= -O3 -g -DNDEBUG
 COPTS    ?= ${CXXOPTS}
 
 CXX      ?= c++
