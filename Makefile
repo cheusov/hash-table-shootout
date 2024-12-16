@@ -92,7 +92,7 @@ ${BUILD_DIR}/absl_btree_map ${BUILD_DIR}/absl_node_hash_map ${BUILD_DIR}/absl_fl
 
 #ifeq ($(filter absl,${APPS}), absl)
 ${OBJ_DIR}/abseil.done:
-	set -e; export CXX="${CXX}" CXXFLAGS="${CXXFLAGS}"; \
+	set -e; export CXX="${CXX}" CPPFLAGS="${CPPFLAGS}" CXXFLAGS="${CXXFLAGS}"; \
     mkdir -p build/abseil-cpp; cd build/abseil-cpp; \
     cmake -DCMAKE_INSTALL_PREFIX=.. -DCMAKE_INSTALL_LIBDIR:PATH=lib \
        -DBUILD_SHARED_LIBS=OFF -DCMAKE_CXX_STANDARD=17 ../../abseil-cpp; \
@@ -152,4 +152,4 @@ clean:
 	rm -rf $(BUILD_DIR)/* $(OBJ_DIR)/*
 
 $(BUILD_DIR)/% : src/%.cc ${OBJS_${notdir $@}} src/template.cc
-	$(CXX) $(CXXFLAGS) ${CXXFLAGS_${notdir $@}} -o $@ $< ${OBJS_${notdir $@}} ${LDFLAGS} ${LDFLAGS_${notdir $@}}
+	$(CXX) ${CPPFLAGS} $(CXXFLAGS) ${CXXFLAGS_${notdir $@}} -o $@ $< ${OBJS_${notdir $@}} ${LDFLAGS} ${LDFLAGS_${notdir $@}}
