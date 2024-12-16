@@ -2,7 +2,9 @@
 
 #include <bplus_tree.h>
 
+#ifndef __UNCONST
 #define __UNCONST(p) ((void *)((char*)NULL+((char*)(p)-(char*)NULL)))
+#endif
 
 #define HASH_TYPE_INT BplusTree *
 #define CREATE_INT NULL
